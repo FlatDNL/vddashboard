@@ -83,12 +83,19 @@ export function RiskChartWidget() {
     if (status.includes('OFF')) return 'OFF'
     if (status.includes('Compra')) return 'COMPRA'
     if (status.includes('Venda')) return 'VENDA'
-    return '-'
+    return 'NEUTRO'
+  }
+
+  const getStatusFontClass = (status: string) => {
+    const short = formatShortStatus(status)
+    if (short === 'NEUTRO') return 'text-[11px] font-semibold opacity-90'
+    if (short === 'ON' || short === 'OFF') return 'text-base font-black tracking-wide'
+    return 'text-xs font-black tracking-wide'
   }
 
   return (
     <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col gap-4 w-full h-[450px]">
-      {/* 3 KPI Cards Integrados Limpos */}
+      {/* 3 KPI Cards Integrados com Tipografia Dinâmica */}
       {riskData ? (
         <div className="grid grid-cols-3 gap-2">
           {/* Global Risk */}
@@ -98,10 +105,10 @@ export function RiskChartWidget() {
               <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Global</span>
             </div>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.global.status)}`}>
+              <span className={`uppercase ${getStatusColor(riskData.global.status)} ${getStatusFontClass(riskData.global.status)}`}>
                 {formatShortStatus(riskData.global.status)}
               </span>
-              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.global.score)}`}>
+              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.global.score)}`}>
                 {riskData.global.score > 0 ? '+' : ''}{riskData.global.score}
               </span>
             </div>
@@ -114,10 +121,10 @@ export function RiskChartWidget() {
               <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Brasil</span>
             </div>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.brazil.status)}`}>
+              <span className={`uppercase ${getStatusColor(riskData.brazil.status)} ${getStatusFontClass(riskData.brazil.status)}`}>
                 {formatShortStatus(riskData.brazil.status)}
               </span>
-              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.brazil.score)}`}>
+              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.brazil.score)}`}>
                 {riskData.brazil.score > 0 ? '+' : ''}{riskData.brazil.score}
               </span>
             </div>
@@ -130,10 +137,10 @@ export function RiskChartWidget() {
               <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400">Pressão WDO</span>
             </div>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.wdo.action)}`}>
+              <span className={`uppercase ${getStatusColor(riskData.wdo.action)} ${getStatusFontClass(riskData.wdo.action)}`}>
                 {formatShortStatus(riskData.wdo.action)}
               </span>
-              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.wdo.score)}`}>
+              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.wdo.score)}`}>
                 {riskData.wdo.score > 0 ? '+' : ''}{riskData.wdo.score}
               </span>
             </div>
