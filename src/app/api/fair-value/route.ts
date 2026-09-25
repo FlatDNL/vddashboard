@@ -21,30 +21,35 @@ export async function GET() {
     const brl = data['BRL=X']
     const dxy = data['DX-Y.NYB']
     
-    // 1. Justo: Fechamento PTAX/Ajuste do dia anterior em pontos WDO
-    const justo = brl.prev * 1000
+    // 1. FECHAMENTO ANTERIOR (em pontos)
+    const fechamento = brl.prev * 1000
 
-    // 2. Viés Macro (% Variação combinada de DXY 40% + Emergentes 60%)
+    // 2. JUSTO = Fechamento + Carregamento Diário
+    const carryCost = 2.5
+    const justo = fechamento + carryCost
+
+    // 3. DX / MACRO (Variação % Global: DXY 40% + Emergentes 60%)
     const mxn = data['MXN=X']?.pct || 0
     const zar = data['ZAR=X']?.pct || 0
     const clp = data['CLP=X']?.pct || 0
     const emAvg = (mxn + zar + clp) / 3
-    const macroBias = (dxy.pct * 0.4) + (emAvg * 0.6)
+    const dxPct = (dxy.pct * 0.4) + (emAvg * 0.6)
 
-    // 3. Justíssimo (Dinâmico): Justo + Variação do Viés Macro ao vivo
-    // Se o mundo estiver caindo, o Justíssimo fica ABAIXO do Justo. Se estiver subindo, fica ACIMA.
-    const justissimo = justo + (justo * (macroBias / 100))
+    // 4. ABERTURA TEÓRICA / JUSTÍSSIMO = JUSTO * (1 + DX %)
+    // Fórmula cravada do print do Frajola: JUSTO * (1 + DX)
+    const justissimo = justo * (1 + (dxPct / 100))
 
-    // 4. Máxima (+34.5 pts) e Mínima (-36.0 pts) cravadas da planilha do Fraja
-    const maxima = justo + 34.5
-    const minima = justo - 36.0
+    // 5. MÁXIMA E MÍNIMA (Abertura + DELTA e Abertura - DELTA)
+    // Fórmula cravada do print do Frajola: MAX = ABERTURA + DELTA, MIN = ABERTURA - DELTA
+    const delta = 35.0 // Parâmetro de volatilidade / amplitude em pontos
+    const maxima = justissimo + delta
+    const minima = justissimo - delta
 
-    // Preço Spot Atual em pontos
     const atual = brl.price * 1000
 
     let status = 'NEUTRO'
-    if (macroBias > 0.1) status = 'COMPRA'
-    if (macroBias < -0.1) status = 'VENDA'
+    if (dxPct > 0.1) status = 'COMPRA'
+    if (dxPct < -0.1) status = 'VENDA'
 
     return NextResponse.json({
       timestamp: Date.now(),
