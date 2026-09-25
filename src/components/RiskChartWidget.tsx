@@ -67,8 +67,8 @@ export function RiskChartWidget() {
   }, [timeframe])
 
   const getStatusColor = (status: string) => {
-    if (status === 'Risk ON') return 'text-emerald-400'
-    if (status === 'Risk OFF') return 'text-red-400'
+    if (status.includes('ON') || status.includes('Compra')) return 'text-emerald-400'
+    if (status.includes('OFF') || status.includes('Venda')) return 'text-red-400'
     return 'text-yellow-400'
   }
 
@@ -78,58 +78,69 @@ export function RiskChartWidget() {
     return 'text-yellow-400'
   }
 
+  const formatShortStatus = (status: string) => {
+    if (status.includes('ON')) return 'ON'
+    if (status.includes('OFF')) return 'OFF'
+    if (status.includes('Compra')) return 'COMPRA'
+    if (status.includes('Venda')) return 'VENDA'
+    return '-'
+  }
+
   return (
     <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col gap-4 w-full h-[450px]">
-      {/* 3 KPI Cards Integrados no topo do mesmo Card */}
+      {/* 3 KPI Cards Integrados Limpos */}
       {riskData ? (
         <div className="grid grid-cols-3 gap-2">
           {/* Global Risk */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
             <div className="flex items-center gap-1 text-slate-400">
               <Globe size={13} />
               <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Global</span>
             </div>
-            <div className={`text-xs font-bold uppercase ${getStatusColor(riskData.global.status)}`}>
-              {riskData.global.status}
-            </div>
-            <div className="text-[9px] text-slate-500 font-mono">
-              SCORE: <span className={`font-bold ${getScoreColor(riskData.global.score)}`}>{riskData.global.score > 0 ? '+' : ''}{riskData.global.score}</span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.global.status)}`}>
+                {formatShortStatus(riskData.global.status)}
+              </span>
+              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.global.score)}`}>
+                {riskData.global.score > 0 ? '+' : ''}{riskData.global.score}
+              </span>
             </div>
           </div>
 
           {/* Brazil Risk */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
             <div className="flex items-center gap-1 text-slate-400">
               <MapPin size={13} />
               <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Brasil</span>
             </div>
-            <div className={`text-xs font-bold uppercase ${getStatusColor(riskData.brazil.status)}`}>
-              {riskData.brazil.status}
-            </div>
-            <div className="text-[9px] text-slate-500 font-mono">
-              SCORE: <span className={`font-bold ${getScoreColor(riskData.brazil.score)}`}>{riskData.brazil.score > 0 ? '+' : ''}{riskData.brazil.score}</span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.brazil.status)}`}>
+                {formatShortStatus(riskData.brazil.status)}
+              </span>
+              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.brazil.score)}`}>
+                {riskData.brazil.score > 0 ? '+' : ''}{riskData.brazil.score}
+              </span>
             </div>
           </div>
 
           {/* WDO Pressure */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
             <div className="flex items-center gap-1 text-slate-400">
               <Gauge size={13} className="text-blue-400" />
               <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400">Pressão WDO</span>
             </div>
-            <div className={`text-xs font-bold uppercase ${
-              riskData.wdo.action.includes('Compra') ? 'text-emerald-400' : 
-              riskData.wdo.action.includes('Venda') ? 'text-red-400' : 'text-yellow-400'
-            }`}>
-              {riskData.wdo.action}
-            </div>
-            <div className="text-[9px] text-slate-500 font-mono">
-              SCORE: <span className={`font-bold ${getScoreColor(riskData.wdo.score)}`}>{riskData.wdo.score > 0 ? '+' : ''}{riskData.wdo.score}</span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className={`text-sm font-extrabold uppercase ${getStatusColor(riskData.wdo.action)}`}>
+                {formatShortStatus(riskData.wdo.action)}
+              </span>
+              <span className={`text-lg font-mono font-bold ${getScoreColor(riskData.wdo.score)}`}>
+                {riskData.wdo.score > 0 ? '+' : ''}{riskData.wdo.score}
+              </span>
             </div>
           </div>
         </div>
       ) : (
-        <div className="h-14 bg-[#0b1120] rounded-xl border border-[#1e293b] animate-pulse flex items-center justify-center text-xs text-slate-500">
+        <div className="h-16 bg-[#0b1120] rounded-xl border border-[#1e293b] animate-pulse flex items-center justify-center text-xs text-slate-500">
           Carregando indicadores...
         </div>
       )}
