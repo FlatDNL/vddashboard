@@ -10,7 +10,7 @@ async function fetchHistoricalStats(symbol: string) {
   start.setDate(start.getDate() - 90) // ~64 dias úteis
 
   try {
-    const result = await yahooFinance.historical(symbol, { period1: start, period2: end })
+    const result = await yahooFinance.historical(symbol, { period1: start, period2: end }) as any[]
     if (result.length < 2) return { mean: 0, std: 1 }
 
     const returns: number[] = []

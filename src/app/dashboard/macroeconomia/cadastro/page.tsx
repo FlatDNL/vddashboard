@@ -37,7 +37,7 @@ export default function MacroeconomiaCadastroPage() {
 
   const [modalAtivo, setModalAtivo] = useState(false)
   const [grupoSelecionado, setGrupoSelecionado] = useState<string | null>(null)
-  const [novoAtivo, setNovoAtivo] = useState({ codigo: '', nome: '', fonte: 'yahoo' as const })
+  const [novoAtivo, setNovoAtivo] = useState({ codigo: '', nome: '', fonte: 'yahoo' as 'yahoo' | 'tradingview' })
 
   const [modalConfirm, setModalConfirm] = useState<{ isOpen: boolean; id: string; tipo: 'grupo' | 'ativo', grupoId?: string } | null>(null)
 
