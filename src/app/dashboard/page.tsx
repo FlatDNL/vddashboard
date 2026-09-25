@@ -1,6 +1,5 @@
 import { fetchInitialData } from '@/app/dashboard/macroeconomia/cadastro/actions'
 import { AssetQuote } from '@/components/AssetQuote'
-import { RiskEngineWidget } from '@/components/RiskEngineWidget'
 import { RiskChartWidget } from '@/components/RiskChartWidget'
 import { FairValueWidget } from '@/components/FairValueWidget'
 
@@ -11,19 +10,12 @@ export default async function DashboardPage() {
     <div className="flex gap-6 h-full">
       {/* Main Column (Clean Workspace) */}
       <div className="flex-1 flex flex-col gap-6 overflow-y-auto pb-10">
-        
-        
-        <div className="flex-1 bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex flex-col gap-4">
-          
-          
-          <div className="flex gap-4 flex-wrap mt-4">
-            <RiskEngineWidget />
-            <FairValueWidget />
-          </div>
+        <div className="grid grid-cols-2 gap-6 w-full items-start">
+          {/* Card 1: Indicadores de Risco + Gráfico (50% da largura) */}
+          <RiskChartWidget />
 
-          <div className="flex w-full mt-4">
-            <RiskChartWidget />
-          </div>
+          {/* Card 2: Preço Justo do Dólar (50% da largura) */}
+          <FairValueWidget />
         </div>
       </div>
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, Globe, MapPin, Gauge } from 'lucide-react'
 
 type DataPoint = {
   time: string
@@ -11,9 +11,13 @@ type DataPoint = {
   WDO: number
 }
 
+type RiskData = {
+  global: { score: number; status: string }
+  brazil: { score: number; status: string }
+  wdo: { score: number; action: string }
+}
+
 const TIMEFRAMES = [
-  { id: '5m', label: '5m' },
-  { id: '15m', label: '15m' },
   { id: '30m', label: '30m' },
   { id: '1h', label: '1h' },
   { id: '4h', label: '4h' },
@@ -22,6 +26,7 @@ const TIMEFRAMES = [
 
 export function RiskChartWidget() {
   const [history, setHistory] = useState<DataPoint[]>([])
+  const [riskData, setRiskData] = useState<RiskData | null>(null)
   const [timeframe, setTimeframe] = useState('30m')
 
   useEffect(() => {
@@ -40,22 +45,19 @@ export function RiskChartWidget() {
     }
 
     async function tickEngineAndLoad() {
-      // 1. Bate no /api/risk silenciosamente para forçar o motor a calcular o risco atual 
-      // e salvar no banco de dados (já que não temos um Cron Job rodando)
       try {
-        await fetch('/api/risk')
+        const res = await fetch('/api/risk')
+        if (res.ok && isMounted) {
+          const data = await res.json()
+          setRiskData(data)
+        }
       } catch (e) {
         // ignora
       }
-      
-      // 2. Carrega o histórico completo atualizado do banco de dados
       await loadHistory()
     }
 
-    // Busca o histórico inicial
     tickEngineAndLoad()
-    
-    // Configura o intervalo para bater na API a cada 1 minuto
     const interval = setInterval(tickEngineAndLoad, 60000)
     
     return () => {
@@ -64,21 +66,87 @@ export function RiskChartWidget() {
     }
   }, [timeframe])
 
+  const getStatusColor = (status: string) => {
+    if (status === 'Risk ON') return 'text-emerald-400'
+    if (status === 'Risk OFF') return 'text-red-400'
+    return 'text-yellow-400'
+  }
+
+  const getScoreColor = (score: number) => {
+    if (score >= 30) return 'text-emerald-400'
+    if (score <= -30) return 'text-red-400'
+    return 'text-yellow-400'
+  }
+
   return (
-    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex flex-col gap-5 w-full h-[400px]">
-      <div className="flex items-center justify-between">
+    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col gap-4 w-full h-[450px]">
+      {/* 3 KPI Cards Integrados no topo do mesmo Card */}
+      {riskData ? (
+        <div className="grid grid-cols-3 gap-2">
+          {/* Global Risk */}
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+            <div className="flex items-center gap-1 text-slate-400">
+              <Globe size={13} />
+              <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Global</span>
+            </div>
+            <div className={`text-xs font-bold uppercase ${getStatusColor(riskData.global.status)}`}>
+              {riskData.global.status}
+            </div>
+            <div className="text-[9px] text-slate-500 font-mono">
+              SCORE: <span className={`font-bold ${getScoreColor(riskData.global.score)}`}>{riskData.global.score > 0 ? '+' : ''}{riskData.global.score}</span>
+            </div>
+          </div>
+
+          {/* Brazil Risk */}
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+            <div className="flex items-center gap-1 text-slate-400">
+              <MapPin size={13} />
+              <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Brasil</span>
+            </div>
+            <div className={`text-xs font-bold uppercase ${getStatusColor(riskData.brazil.status)}`}>
+              {riskData.brazil.status}
+            </div>
+            <div className="text-[9px] text-slate-500 font-mono">
+              SCORE: <span className={`font-bold ${getScoreColor(riskData.brazil.score)}`}>{riskData.brazil.score > 0 ? '+' : ''}{riskData.brazil.score}</span>
+            </div>
+          </div>
+
+          {/* WDO Pressure */}
+          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-2.5 flex flex-col items-center justify-center gap-1 text-center">
+            <div className="flex items-center gap-1 text-slate-400">
+              <Gauge size={13} className="text-blue-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400">Pressão WDO</span>
+            </div>
+            <div className={`text-xs font-bold uppercase ${
+              riskData.wdo.action.includes('Compra') ? 'text-emerald-400' : 
+              riskData.wdo.action.includes('Venda') ? 'text-red-400' : 'text-yellow-400'
+            }`}>
+              {riskData.wdo.action}
+            </div>
+            <div className="text-[9px] text-slate-500 font-mono">
+              SCORE: <span className={`font-bold ${getScoreColor(riskData.wdo.score)}`}>{riskData.wdo.score > 0 ? '+' : ''}{riskData.wdo.score}</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="h-14 bg-[#0b1120] rounded-xl border border-[#1e293b] animate-pulse flex items-center justify-center text-xs text-slate-500">
+          Carregando indicadores...
+        </div>
+      )}
+
+      {/* Header do Gráfico + Seletor de Timeframe */}
+      <div className="flex items-center justify-between pt-1">
         <div className="flex items-center gap-2">
-          <TrendingUp size={18} className="text-purple-400" />
-          <h2 className="text-sm font-semibold text-slate-200">Evolução do Risco</h2>
+          <TrendingUp size={15} className="text-purple-400" />
+          <h2 className="text-xs font-semibold text-slate-200">Evolução do Risco</h2>
         </div>
         
-        {/* Timeframe Buttons */}
-        <div className="flex bg-[#0b1120] rounded-lg border border-[#1e293b] p-1">
+        <div className="flex bg-[#0b1120] rounded-lg border border-[#1e293b] p-0.5">
           {TIMEFRAMES.map((tf) => (
             <button
               key={tf.id}
               onClick={() => setTimeframe(tf.id)}
-              className={`px-3 py-1 text-[11px] font-medium rounded-md transition-colors ${
+              className={`px-2 py-0.5 text-[10px] font-medium rounded-md transition-colors ${
                 timeframe === tf.id 
                   ? 'bg-blue-500/20 text-blue-400' 
                   : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
@@ -90,6 +158,7 @@ export function RiskChartWidget() {
         </div>
       </div>
 
+      {/* Área do Gráfico */}
       <div className="flex-1 w-full min-h-0">
         {history.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
@@ -98,23 +167,23 @@ export function RiskChartWidget() {
               <XAxis 
                 dataKey="time" 
                 stroke="#64748b" 
-                fontSize={10} 
+                fontSize={9} 
                 tickLine={false} 
                 axisLine={false}
               />
               <YAxis 
                 stroke="#64748b" 
-                fontSize={10} 
+                fontSize={9} 
                 tickLine={false} 
                 axisLine={false}
                 domain={[-100, 100]}
                 ticks={[-100, -50, 0, 50, 100]}
               />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#0b1120', borderColor: '#1e293b', borderRadius: '8px', fontSize: '12px' }}
-                itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
+                contentStyle={{ backgroundColor: '#0b1120', borderColor: '#1e293b', borderRadius: '8px', fontSize: '11px' }}
+                itemStyle={{ fontSize: '11px', fontWeight: 'bold' }}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} iconType="circle" />
+              <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '4px' }} iconType="circle" />
               
               <Line 
                 type="monotone" 
@@ -143,9 +212,8 @@ export function RiskChartWidget() {
             </LineChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-full flex flex-col gap-2 items-center justify-center text-xs text-slate-500">
-            <div className="animate-pulse">Calculando amostragem histórica...</div>
-            {timeframe !== '1m' && <div className="text-[10px] text-slate-600">(Lembre-se: O banco de dados acabou de ser criado. Intervalos longos ainda estão vazios!)</div>}
+          <div className="h-full flex items-center justify-center text-xs text-slate-500 animate-pulse">
+            Carregando amostragem histórica...
           </div>
         )}
       </div>
