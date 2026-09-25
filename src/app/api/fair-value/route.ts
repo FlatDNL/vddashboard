@@ -4,39 +4,70 @@ import YahooFinance from 'yahoo-finance2'
 const yahooFinance = new YahooFinance()
 export const revalidate = 0
 
+async function fetchWDO() {
+  const TradingView = require('@mathieuc/tradingview');
+  const client = new TradingView.Client();
+  const chart = new client.Session.Chart();
+  
+  chart.setMarket('BMFBOVESPA:WDO1!', { timeframe: 'D', range: 5 });
+
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      client.end();
+      reject(new Error('TV timeout'));
+    }, 5000);
+
+    chart.onUpdate(() => {
+      if (!chart.periods || chart.periods.length < 2) return;
+      clearTimeout(timeout);
+      
+      const current = chart.periods[0];
+      const previousClose = chart.periods[1].close;
+      
+      client.end();
+      resolve({
+        atual: current.close,
+        justo: previousClose // O Ajuste/Fechamento do dia anterior da B3
+      });
+    });
+
+    chart.onError((err: any) => {
+      clearTimeout(timeout);
+      client.end();
+      reject(err);
+    });
+  });
+}
+
 export async function GET() {
   try {
-    const symbols = ['BRL=X', 'DX-Y.NYB', 'MXN=X', 'ZAR=X', 'CLP=X']
+    // 1. Busca os dados Macro do Yahoo Finance
+    const symbols = ['DX-Y.NYB', 'MXN=X', 'ZAR=X', 'CLP=X']
     const quotes = await yahooFinance.quote(symbols)
     
     const data: Record<string, any> = {}
     quotes.forEach(q => {
       data[q.symbol] = {
-        price: q.regularMarketPrice,
-        prev: q.regularMarketPreviousClose,
         pct: q.regularMarketChangePercent
       }
     })
 
-    const brl = data['BRL=X']
+    // 2. Busca o Fechamento real do WDO na B3 pelo TradingView
+    const wdo: any = await fetchWDO();
     
-    // 1. Justo: Baseado no fechamento anterior convertido para pontos WDO
-    // Ex: 5.1836 -> 5183.6
-    const justo = brl.prev * 1000
+    const justo = wdo.justo;
+    const atual = wdo.atual;
 
-    // 2. Justíssimo: Justo + Casado (Aproximadamente 2.5 pontos de juros diários)
-    const casado = 2.5 
+    // 3. Cálculos da Planilha (Frajola)
+    const casado = 2.5 // Juro diário embutido (aproximado)
     const justissimo = justo + casado
 
-    // 3. Máxima e Mínima: Desvio padrão de ~0.67% (Aprox 34.5 - 35 pontos)
-    const variacaoPontos = justo * 0.00665 // 0.665%
+    // Amplitude de 0.67% baseada no Justo
+    const variacaoPontos = justo * 0.00665
     const maxima = justo + variacaoPontos
     const minima = justo - variacaoPontos
 
-    // Preço atual do Spot em pontos (aproximação do WDO)
-    const atual = brl.price * 1000
-
-    // Calcula o viés macro (DXY e Emergentes) apenas para o status
+    // 4. Viés Macro
     const dxy = data['DX-Y.NYB']
     const mxn = data['MXN=X']?.pct || 0
     const zar = data['ZAR=X']?.pct || 0
