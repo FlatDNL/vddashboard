@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calculator, Target, ArrowUp, ArrowDown } from 'lucide-react'
+import { Calculator } from 'lucide-react'
 
 type PlanilhaData = {
   atual: number
@@ -54,7 +54,6 @@ export function FairValueWidget() {
   }
 
   const formatPts = (val: number) => {
-    // Format to 1 decimal place, matching B3 points like 5183.5
     return (Math.round(val * 2) / 2).toFixed(1).replace('.', ',')
   }
 
@@ -83,24 +82,28 @@ export function FairValueWidget() {
       </div>
 
       <div className="grid grid-cols-2 gap-y-4 gap-x-2 relative z-10 mb-4">
+        {/* Coluna 1 - Linha 1: JUSTO */}
+        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
+          <span className="text-[10px] text-slate-400 font-medium mb-1">JUSTO (Base)</span>
+          <span className="text-lg font-bold text-slate-300">{formatPts(data.justo)}</span>
+        </div>
+
+        {/* Coluna 2 - Linha 1: MÁXIMA */}
         <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
           <span className="text-[10px] text-red-400 font-medium mb-1">MÁXIMA (Resistência)</span>
           <span className="text-lg font-bold text-slate-200">{formatPts(data.maxima)}</span>
         </div>
-        
-        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-green-400 font-medium mb-1">MÍNIMA (Suporte)</span>
-          <span className="text-lg font-bold text-slate-200">{formatPts(data.minima)}</span>
-        </div>
 
+        {/* Coluna 1 - Linha 2: JUSTÍSSIMO */}
         <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
           <span className="text-[10px] text-blue-400 font-medium mb-1">JUSTÍSSIMO</span>
           <span className="text-lg font-bold text-white">{formatPts(data.justissimo)}</span>
         </div>
 
+        {/* Coluna 2 - Linha 2: MÍNIMA */}
         <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-slate-400 font-medium mb-1">JUSTO (Base)</span>
-          <span className="text-lg font-bold text-slate-300">{formatPts(data.justo)}</span>
+          <span className="text-[10px] text-green-400 font-medium mb-1">MÍNIMA (Suporte)</span>
+          <span className="text-lg font-bold text-slate-200">{formatPts(data.minima)}</span>
         </div>
       </div>
 
