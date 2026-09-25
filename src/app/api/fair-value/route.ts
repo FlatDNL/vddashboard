@@ -21,7 +21,7 @@ export async function GET() {
     const brl = data['BRL=X']
     const dxy = data['DX-Y.NYB']
     
-    // 1. JUSTO: PTAX / Fechamento do dia anterior em pontos WDO (Base Oficial)
+    // 1. JUSTO: Fechamento PTAX/Ajuste do dia anterior em pontos WDO
     const justo = brl.prev * 1000
 
     // 2. VIÉS MACRO (% Variação combinada de DXY 40% + Emergentes 60%)
@@ -31,11 +31,9 @@ export async function GET() {
     const emAvg = (mxn + zar + clp) / 3
     const dxPct = (dxy.pct * 0.4) + (emAvg * 0.6)
 
-    // 3. JUSTÍSSIMO: Justo + Variação do Viés Macro (ou +2.5 pts de Juros caso neutro)
-    let justissimo = justo + 2.5
-    if (Math.abs(dxPct) > 0.05) {
-      justissimo = justo + (justo * (dxPct / 100))
-    }
+    // 3. JUSTÍSSIMO (Dinâmico): Justo + Variação do Viés Macro Noturno/Ao Vivo
+    // Fórmula cravada das Lives: Justo + (Justo * % Variação Global)
+    const justissimo = justo + (justo * (dxPct / 100))
 
     // 4. MÁXIMA E MÍNIMA: Ancoradas DIRETAMENTE no JUSTO (+34.5 / -35.5)
     const maxima = justo + 34.5
