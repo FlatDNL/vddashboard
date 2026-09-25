@@ -1,4 +1,6 @@
-import yahooFinance from 'yahoo-finance2'
+import YahooFinance from 'yahoo-finance2'
+
+const yahooFinance = new YahooFinance()
 
 // Cache em memória para não consultar 90 dias de histórico toda vez
 const statsCache: Record<string, { mean: number; std: number; timestamp: number }> = {}
