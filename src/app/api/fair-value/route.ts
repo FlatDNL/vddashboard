@@ -19,35 +19,43 @@ export async function GET() {
     })
 
     const brl = data['BRL=X']
-    const dxy = data['DX-Y.NYB']
     
-    // Média da variação dos pares emergentes (%)
+    // 1. Justo: Baseado no fechamento anterior convertido para pontos WDO
+    // Ex: 5.1836 -> 5183.6
+    const justo = brl.prev * 1000
+
+    // 2. Justíssimo: Justo + Casado (Aproximadamente 2.5 pontos de juros diários)
+    const casado = 2.5 
+    const justissimo = justo + casado
+
+    // 3. Máxima e Mínima: Desvio padrão de ~0.67% (Aprox 34.5 - 35 pontos)
+    const variacaoPontos = justo * 0.00665 // 0.665%
+    const maxima = justo + variacaoPontos
+    const minima = justo - variacaoPontos
+
+    // Preço atual do Spot em pontos (aproximação do WDO)
+    const atual = brl.price * 1000
+
+    // Calcula o viés macro (DXY e Emergentes) apenas para o status
+    const dxy = data['DX-Y.NYB']
     const mxn = data['MXN=X']?.pct || 0
     const zar = data['ZAR=X']?.pct || 0
     const clp = data['CLP=X']?.pct || 0
     const emAvg = (mxn + zar + clp) / 3
-
-    // Preço Justíssimo: Peso 40% DXY (Macro Global) e 60% Cesta Emergente (Fluxo de Risco)
-    const fairPctChange = (dxy.pct * 0.4) + (emAvg * 0.6)
-    
-    const fairPrice = brl.prev * (1 + (fairPctChange / 100))
-    const currentPrice = brl.price
-    
-    const difference = currentPrice - fairPrice
-    const distortionPct = (difference / fairPrice) * 100
+    const macroBias = (dxy.pct * 0.4) + (emAvg * 0.6)
 
     let status = 'NEUTRO'
-    if (distortionPct > 0.15) status = 'CARO'
-    if (distortionPct < -0.15) status = 'BARATO'
+    if (macroBias > 0.1) status = 'COMPRA'
+    if (macroBias < -0.1) status = 'VENDA'
 
     return NextResponse.json({
       timestamp: Date.now(),
-      current: currentPrice,
-      fair: fairPrice,
-      prev: brl.prev,
-      distortion: difference,
-      distortionPct: distortionPct,
-      status: status,
+      atual,
+      justo,
+      justissimo,
+      maxima,
+      minima,
+      status,
       metrics: {
         dxyPct: dxy.pct,
         emPct: emAvg
