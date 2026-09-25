@@ -11,16 +11,26 @@ type DataPoint = {
   WDO: number
 }
 
+const TIMEFRAMES = [
+  { id: '1m', label: '1m' },
+  { id: '5m', label: '5m' },
+  { id: '15m', label: '15m' },
+  { id: '30m', label: '30m' },
+  { id: '1h', label: '1h' },
+  { id: '4h', label: '4h' },
+  { id: '1d', label: 'Diário' },
+]
+
 export function RiskChartWidget() {
   const [history, setHistory] = useState<DataPoint[]>([])
+  const [timeframe, setTimeframe] = useState('1m')
 
   useEffect(() => {
     let isMounted = true
 
-    
     async function loadHistory() {
       try {
-        const res = await fetch('/api/risk/history')
+        const res = await fetch(`/api/risk/history?tf=${timeframe}`)
         if (res.ok && isMounted) {
           const data = await res.json()
           setHistory(data)
@@ -31,6 +41,9 @@ export function RiskChartWidget() {
     }
 
     async function fetchRisk() {
+      // Quando em 1m, podemos adicionar pontos dinamicamente para o gráfico andar
+      if (timeframe !== '1m') return
+
       try {
         const res = await fetch('/api/risk')
         if (res.ok && isMounted) {
@@ -40,7 +53,6 @@ export function RiskChartWidget() {
           const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 
           setHistory(prev => {
-            // Evita duplicar o mesmo minuto se as requisições acontecerem rápido
             if (prev.length > 0 && prev[prev.length - 1].time === timeString) {
               return prev
             }
@@ -53,8 +65,8 @@ export function RiskChartWidget() {
             }
             
             const updated = [...prev, newPoint]
-            if (updated.length > 60) {
-              return updated.slice(updated.length - 60)
+            if (updated.length > 120) {
+              return updated.slice(updated.length - 120)
             }
             return updated
           })
@@ -64,31 +76,53 @@ export function RiskChartWidget() {
       }
     }
 
-    // Busca o histórico primeiro
+    // Busca o histórico inicial
     loadHistory().then(() => {
-      // E então busca o risco atual para garantir que temos o ponto mais recente
-      fetchRisk()
+      // Se for 1m, busca o ponto mais recente agora e continua a cada 1 minuto
+      if (timeframe === '1m') {
+        fetchRisk()
+      }
     })
-
     
-    // Atualiza a cada 1 minuto (60000 ms)
-    const interval = setInterval(fetchRisk, 60000)
+    let interval: NodeJS.Timeout | null = null
+    
+    // Configura os intervalos de atualização baseados no timeframe
+    if (timeframe === '1m') {
+      interval = setInterval(fetchRisk, 60000)
+    } else {
+      // Para tempos maiores, recarrega o histórico completo a cada minuto
+      interval = setInterval(loadHistory, 60000)
+    }
     
     return () => {
       isMounted = false
-      clearInterval(interval)
+      if (interval) clearInterval(interval)
     }
-  }, [])
+  }, [timeframe])
 
   return (
-    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex flex-col gap-5 w-full h-[350px]">
+    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex flex-col gap-5 w-full h-[400px]">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <TrendingUp size={18} className="text-purple-400" />
-          <h2 className="text-sm font-semibold text-slate-200">Evolução do Risco (Intraday)</h2>
+          <h2 className="text-sm font-semibold text-slate-200">Evolução do Risco</h2>
         </div>
-        <div className="text-[10px] text-slate-500 bg-[#0b1120] px-2 py-1 rounded border border-[#1e293b]">
-          Atualiza a cada 1 min
+        
+        {/* Timeframe Buttons */}
+        <div className="flex bg-[#0b1120] rounded-lg border border-[#1e293b] p-1">
+          {TIMEFRAMES.map((tf) => (
+            <button
+              key={tf.id}
+              onClick={() => setTimeframe(tf.id)}
+              className={`px-3 py-1 text-[11px] font-medium rounded-md transition-colors ${
+                timeframe === tf.id 
+                  ? 'bg-blue-500/20 text-blue-400' 
+                  : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
+              }`}
+            >
+              {tf.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -145,8 +179,9 @@ export function RiskChartWidget() {
             </LineChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-full flex items-center justify-center text-xs text-slate-500 animate-pulse">
-            Coletando dados para o gráfico...
+          <div className="h-full flex flex-col gap-2 items-center justify-center text-xs text-slate-500">
+            <div className="animate-pulse">Calculando amostragem histórica...</div>
+            {timeframe !== '1m' && <div className="text-[10px] text-slate-600">(Lembre-se: O banco de dados acabou de ser criado. Intervalos longos ainda estão vazios!)</div>}
           </div>
         )}
       </div>
