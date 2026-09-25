@@ -10,24 +10,24 @@ export const revalidate = 0 // Não fazer cache para o gráfico ao vivo
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const tf = searchParams.get('tf') || '1m'
+    const tf = searchParams.get('tf') || '30m'
 
     let interval_minutes = 1
-    let lookback_hours = 2
+    let lookback_minutes = 30
 
     switch (tf) {
-      case '1m': interval_minutes = 1; lookback_hours = 2; break; // Últimas 2 horas
-      case '5m': interval_minutes = 5; lookback_hours = 12; break; // Últimas 12 horas
-      case '15m': interval_minutes = 15; lookback_hours = 24; break; // Últimas 24 horas
-      case '30m': interval_minutes = 30; lookback_hours = 48; break; // Últimas 48 horas
-      case '1h': interval_minutes = 60; lookback_hours = 120; break; // Últimos 5 dias
-      case '4h': interval_minutes = 240; lookback_hours = 480; break; // Últimos 20 dias
-      case '1d': interval_minutes = 1440; lookback_hours = 2160; break; // Últimos 90 dias
+      case '1m': interval_minutes = 1; lookback_minutes = 2; break; // Mostra pelo menos 2 min para formar linha
+      case '5m': interval_minutes = 1; lookback_minutes = 5; break; 
+      case '15m': interval_minutes = 1; lookback_minutes = 15; break;
+      case '30m': interval_minutes = 1; lookback_minutes = 30; break;
+      case '1h': interval_minutes = 1; lookback_minutes = 60; break;
+      case '4h': interval_minutes = 1; lookback_minutes = 240; break;
+      case '1d': interval_minutes = 5; lookback_minutes = 1440; break;
     }
 
     const { data, error } = await supabase.rpc('get_risk_history_downsampled', {
       interval_minutes,
-      lookback_hours
+      lookback_minutes
     })
 
     if (error) {
@@ -38,14 +38,7 @@ export async function GET(request: Request) {
     // Formata para o formato esperado pelo gráfico
     const history = (data || []).map((row: any) => {
       const date = new Date(row.bucket_time)
-      let timeString = ''
-      
-      // Se for gráfico diário, mostra a data. Se não, mostra a hora.
-      if (tf === '1d') {
-        timeString = date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
-      } else {
-        timeString = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
-      }
+      const timeString = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 
       return {
         time: timeString,
