@@ -2,6 +2,7 @@ import { fetchInitialData } from '@/app/dashboard/macroeconomia/cadastro/actions
 import { AssetQuote } from '@/components/AssetQuote'
 import { RiskEngineWidget } from '@/components/RiskEngineWidget'
 import { RiskChartWidget } from '@/components/RiskChartWidget'
+import { FairValueWidget } from '@/components/FairValueWidget'
 
 export default async function DashboardPage() {
   const grupos: any = await fetchInitialData()
@@ -17,6 +18,7 @@ export default async function DashboardPage() {
           
           <div className="flex gap-4 flex-wrap mt-4">
             <RiskEngineWidget />
+            <FairValueWidget />
           </div>
 
           <div className="flex w-full mt-4">
