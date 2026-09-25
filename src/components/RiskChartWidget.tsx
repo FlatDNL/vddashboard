@@ -12,7 +12,6 @@ type DataPoint = {
 }
 
 const TIMEFRAMES = [
-  { id: '1m', label: '1m' },
   { id: '5m', label: '5m' },
   { id: '15m', label: '15m' },
   { id: '30m', label: '30m' },
@@ -23,7 +22,7 @@ const TIMEFRAMES = [
 
 export function RiskChartWidget() {
   const [history, setHistory] = useState<DataPoint[]>([])
-  const [timeframe, setTimeframe] = useState('1m')
+  const [timeframe, setTimeframe] = useState('30m')
 
   useEffect(() => {
     let isMounted = true
@@ -40,63 +39,28 @@ export function RiskChartWidget() {
       }
     }
 
-    async function fetchRisk() {
-      // Quando em 1m, podemos adicionar pontos dinamicamente para o gráfico andar
-      if (timeframe !== '1m') return
-
+    async function tickEngineAndLoad() {
+      // 1. Bate no /api/risk silenciosamente para forçar o motor a calcular o risco atual 
+      // e salvar no banco de dados (já que não temos um Cron Job rodando)
       try {
-        const res = await fetch('/api/risk')
-        if (res.ok && isMounted) {
-          const data = await res.json()
-          
-          const now = new Date()
-          const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
-
-          setHistory(prev => {
-            if (prev.length > 0 && prev[prev.length - 1].time === timeString) {
-              return prev
-            }
-            
-            const newPoint = {
-              time: timeString,
-              Global: data.global.score,
-              Brasil: data.brazil.score,
-              WDO: data.wdo.score
-            }
-            
-            const updated = [...prev, newPoint]
-            if (updated.length > 120) {
-              return updated.slice(updated.length - 120)
-            }
-            return updated
-          })
-        }
+        await fetch('/api/risk')
       } catch (e) {
-        console.error(e)
+        // ignora
       }
+      
+      // 2. Carrega o histórico completo atualizado do banco de dados
+      await loadHistory()
     }
 
     // Busca o histórico inicial
-    loadHistory().then(() => {
-      // Se for 1m, busca o ponto mais recente agora e continua a cada 1 minuto
-      if (timeframe === '1m') {
-        fetchRisk()
-      }
-    })
+    tickEngineAndLoad()
     
-    let interval: NodeJS.Timeout | null = null
-    
-    // Configura os intervalos de atualização baseados no timeframe
-    if (timeframe === '1m') {
-      interval = setInterval(fetchRisk, 60000)
-    } else {
-      // Para tempos maiores, recarrega o histórico completo a cada minuto
-      interval = setInterval(loadHistory, 60000)
-    }
+    // Configura o intervalo para bater na API a cada 1 minuto
+    const interval = setInterval(tickEngineAndLoad, 60000)
     
     return () => {
       isMounted = false
-      if (interval) clearInterval(interval)
+      clearInterval(interval)
     }
   }, [timeframe])
 
