@@ -48,7 +48,7 @@ export function FairValueWidget() {
   if (loading || !data) {
     return (
       <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex items-center justify-center h-[200px] animate-pulse">
-        <span className="text-slate-500 text-sm">Carregando Planilha Quant...</span>
+        <span className="text-slate-500 text-sm">Carregando Preço Justo...</span>
       </div>
     )
   }
@@ -67,12 +67,13 @@ export function FairValueWidget() {
         isCompra ? 'bg-green-500' : isVenda ? 'bg-red-500' : 'bg-slate-500'
       }`} />
 
-      <div className="flex justify-between items-start mb-5 relative z-10">
+      {/* Header com Título e Viés Macro Centralizado */}
+      <div className="flex flex-col items-center justify-center text-center mb-5 relative z-10 gap-2">
         <div className="flex items-center gap-2">
           <Calculator size={16} className="text-blue-400" />
-          <h2 className="text-sm font-semibold text-slate-200">Planilha Dólar (WDO)</h2>
+          <h2 className="text-sm font-semibold text-slate-200">Preço Justo do Dólar</h2>
         </div>
-        <span className={`text-[10px] px-2 py-1 rounded font-bold border ${
+        <span className={`text-[10px] px-2.5 py-1 rounded font-bold border ${
           isCompra ? 'bg-green-500/10 text-green-400 border-green-500/20' : 
           isVenda ? 'bg-red-500/10 text-red-400 border-red-500/20' : 
           'bg-slate-500/10 text-slate-400 border-slate-500/20'
@@ -81,7 +82,8 @@ export function FairValueWidget() {
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-y-4 gap-x-2 relative z-10 mb-4">
+      {/* Grid com os 4 Quadrados de Preços */}
+      <div className="grid grid-cols-2 gap-y-4 gap-x-2 relative z-10">
         {/* Coluna 1 - Linha 1: JUSTO */}
         <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
           <span className="text-[10px] text-slate-400 font-medium mb-1">JUSTO (Base)</span>
@@ -107,12 +109,6 @@ export function FairValueWidget() {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-[#1e293b] pt-3">
-        <div className="flex justify-between items-center text-xs">
-          <span className="text-slate-400">Preço Spot Estimado</span>
-          <span className="font-mono text-slate-200">{formatPts(data.atual)} pts</span>
-        </div>
-      </div>
     </div>
   )
 }
