@@ -58,7 +58,7 @@ export function RiskChartWidget() {
     }
 
     tickEngineAndLoad()
-    const interval = setInterval(tickEngineAndLoad, 60000)
+    const interval = setInterval(tickEngineAndLoad, 30000)
     
     return () => {
       isMounted = false
