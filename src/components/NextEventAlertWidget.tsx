@@ -166,7 +166,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
   if (compact) {
     if (!nextEvent || timeRemainingSec === null) {
       return (
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f172a] border border-[#1e293b] text-xs text-slate-400">
+        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0f172a] border border-[#1e293b] text-xs text-slate-400">
           <Bell size={13} className="text-blue-400" />
           <span className="text-[11px]">Sem eventos econômicos nas próximas horas</span>
         </div>
@@ -175,7 +175,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
 
     return (
       <div
-        className={`flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
+        className={`flex items-center gap-3 px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
           isRedAlert
             ? 'bg-red-950/90 border-red-500 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse font-bold'
             : isYellowAlert
@@ -189,13 +189,39 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           <Clock size={14} className="text-blue-400" />
         )}
 
+        {/* Bandeira + Título do Evento */}
         <div className="flex items-center gap-1.5">
           {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
-          <span className="font-semibold text-slate-100 text-[11px] truncate max-w-[200px] sm:max-w-[280px]">
+          <span className="font-bold text-slate-100 text-[11px] truncate max-w-[160px] lg:max-w-[240px]">
             {nextEvent.title}
           </span>
         </div>
 
+        {/* Nível de Impacto */}
+        <div className="hidden sm:flex items-center">
+          {nextEvent.impact === 'HIGH' ? (
+            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+              🔴 ALTO
+            </span>
+          ) : (
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
+              🟡 MÉDIO
+            </span>
+          )}
+        </div>
+
+        {/* Projeção & Anterior */}
+        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
+          <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
+          <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
+        </div>
+
+        {/* Horário da Notícia */}
+        <div className="hidden lg:flex items-center gap-1 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
+          <span>Horário: <strong className="text-slate-200">{nextEvent.time}</strong></span>
+        </div>
+
+        {/* Contagem Regressiva */}
         <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
           <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
             {isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
