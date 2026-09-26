@@ -182,7 +182,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
 
     return (
       <div
-        className={`flex items-center gap-3 px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
+        className={`flex items-center justify-between w-full px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
           isJustReleased
             ? 'bg-emerald-950/90 border-emerald-500 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.4)] animate-pulse font-bold'
             : isRedAlert
@@ -192,62 +192,89 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
             : 'bg-[#0f172a] border-[#1e293b] text-slate-200'
         }`}
       >
-        {isJustReleased ? (
-          <CheckCircle2 size={14} className="text-emerald-400 animate-bounce shrink-0" />
-        ) : isRedAlert || isYellowAlert ? (
-          <AlertTriangle size={14} className={`shrink-0 ${isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'}`} />
-        ) : (
-          <Clock size={14} className="text-blue-400 shrink-0" />
-        )}
-
-        {/* HORÁRIO DA NOTÍCIA (Antes da bandeira) */}
-        <div className="flex items-center gap-1 font-mono font-bold text-[11px] text-slate-200 bg-[#0b1120]/80 px-2 py-0.5 rounded border border-white/10 shadow-sm shrink-0">
-          <span>{nextEvent.time}</span>
-        </div>
-
-        {/* BANDEIRA + TÍTULO DO EVENTO */}
-        <div className="flex items-center gap-1.5 shrink-0">
-          {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
-          <span className="font-bold text-slate-100 text-[11px] truncate max-w-[150px] lg:max-w-[220px]">
-            {nextEvent.title}
-          </span>
-        </div>
-
-        {/* Nível de Impacto */}
-        <div className="hidden sm:flex items-center shrink-0">
-          {nextEvent.impact === 'HIGH' ? (
-            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
-              🔴 ALTO
-            </span>
+        {/* LADO ESQUERDO: Ícone + Horário + Bandeira + Título + Impacto */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          {isJustReleased ? (
+            <CheckCircle2 size={14} className="text-emerald-400 animate-bounce shrink-0" />
+          ) : isRedAlert || isYellowAlert ? (
+            <AlertTriangle size={14} className={`shrink-0 ${isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'}`} />
           ) : (
-            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
-              🟡 MÉDIO
-            </span>
+            <Clock size={14} className="text-blue-400 shrink-0" />
           )}
+
+          {/* Horário da Notícia */}
+          <div className="flex items-center gap-1 font-mono font-bold text-[11px] text-slate-200 bg-[#0b1120]/80 px-2 py-0.5 rounded border border-white/10 shadow-sm shrink-0">
+            <span>{nextEvent.time}</span>
+          </div>
+
+          {/* Bandeira + Título do Evento */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
+            <span className="font-bold text-slate-100 text-[11px] truncate max-w-[140px] xl:max-w-[220px]">
+              {nextEvent.title}
+            </span>
+          </div>
+
+          {/* Nível de Impacto */}
+          <div className="hidden sm:flex items-center shrink-0">
+            {nextEvent.impact === 'HIGH' ? (
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+                🔴 ALTO
+              </span>
+            ) : (
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                🟡 MÉDIO
+              </span>
+            )}
+          </div>
         </div>
 
-        {/* Se foi liberado há pouco, destaca o valor Atual publicado */}
-        {isJustReleased && nextEvent.actual !== '-' ? (
-          <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold shrink-0">
-            <span>Atual: {nextEvent.actual}</span>
-          </div>
-        ) : (
-          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2 shrink-0">
-            <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
-            <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
-          </div>
-        )}
+        {/* LADO DIREITO: Projeção + Anterior + Pressão + Tempo Restante (ALINHADO À DIREITA) */}
+        <div className="flex items-center gap-3 shrink-0 ml-auto">
+          {/* Se foi liberado há pouco, destaca o valor Atual publicado */}
+          {isJustReleased && nextEvent.actual !== '-' ? (
+            <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold shrink-0">
+              <span>Atual: {nextEvent.actual}</span>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center gap-2.5 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-3 shrink-0">
+              <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
+              <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
+            </div>
+          )}
 
-        {/* Contagem Regressiva ou Status de Liberação */}
-        <div className="flex items-center gap-1.5 pl-2 border-l border-white/10 shrink-0">
-          <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
-            {isJustReleased ? 'STATUS:' : isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
-          </span>
-          <span className={`font-mono font-bold text-xs ${
-            isJustReleased ? 'text-emerald-300' : isRedAlert ? 'text-red-300' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'
-          }`}>
-            {formatCountdown(timeRemainingSec)}
-          </span>
+          {/* Pressão Direcional WDO */}
+          {nextEvent.pressure?.direction && nextEvent.pressure.direction !== 'AGUARDANDO' && (
+            <div className="hidden xl:flex items-center border-l border-white/10 pl-3 shrink-0">
+              {nextEvent.pressure.direction === 'ALTA' && (
+                <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  📈 COMPRA (WDO)
+                </span>
+              )}
+              {nextEvent.pressure.direction === 'BAIXA' && (
+                <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+                  📉 VENDA (WDO)
+                </span>
+              )}
+              {nextEvent.pressure.direction === 'NEUTRO' && (
+                <span className="text-[9px] font-medium px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">
+                  ⚪ NEUTRO
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Contagem Regressiva ou Status */}
+          <div className="flex items-center gap-1.5 pl-3 border-l border-white/10 shrink-0">
+            <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+              {isJustReleased ? 'STATUS:' : isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
+            </span>
+            <span className={`font-mono font-bold text-xs ${
+              isJustReleased ? 'text-emerald-300' : isRedAlert ? 'text-red-300' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'
+            }`}>
+              {formatCountdown(timeRemainingSec)}
+            </span>
+          </div>
         </div>
       </div>
     )
