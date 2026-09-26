@@ -2,7 +2,6 @@ import { fetchInitialData } from '@/app/dashboard/macroeconomia/cadastro/actions
 import { AssetQuote } from '@/components/AssetQuote'
 import { RiskChartWidget } from '@/components/RiskChartWidget'
 import { FairValueWidget } from '@/components/FairValueWidget'
-import { NextEventAlertWidget } from '@/components/NextEventAlertWidget'
 
 export default async function DashboardPage() {
   const grupos: any = await fetchInitialData()
@@ -11,9 +10,6 @@ export default async function DashboardPage() {
     <div className="flex gap-6 h-full">
       {/* Main Column (Clean Workspace) */}
       <div className="flex-1 flex flex-col gap-6 overflow-y-auto pb-10">
-        {/* Banner de Alerta para a Próxima Notícia do Mercado */}
-        <NextEventAlertWidget />
-
         <div className="grid grid-cols-2 gap-6 w-full items-start">
           {/* Card 1: Indicadores de Risco + Gráfico (50% da largura) */}
           <RiskChartWidget />

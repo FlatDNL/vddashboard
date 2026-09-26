@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { Bell, Search, Moon } from 'lucide-react'
 import { UserMenu } from './UserMenu'
+import { NextEventAlertWidget } from './NextEventAlertWidget'
 
 export function Header() {
   const pathname = usePathname()
@@ -11,8 +12,11 @@ export function Header() {
   const hideSearch = pathname === '/dashboard/macroeconomia/cadastro' || pathname === '/dashboard'
 
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between px-8 bg-[#0b1120]">
-      <div className="flex flex-1">
+    <header className="flex h-16 shrink-0 items-center justify-between px-8 bg-[#0b1120] border-b border-[#1e293b]">
+      <div className="flex flex-1 items-center gap-4">
+        {/* Alerta de Próxima Notícia na Barra Principal */}
+        <NextEventAlertWidget compact={true} />
+
         {!hideSearch && (
           <div className="relative w-full max-w-lg">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">

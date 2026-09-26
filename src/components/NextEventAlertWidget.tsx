@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Clock, AlertTriangle, Bell, CheckCircle2 } from 'lucide-react'
+import { Clock, AlertTriangle, Bell } from 'lucide-react'
 
 type CalendarEvent = {
   id: string
@@ -64,7 +64,7 @@ function BRFlag() {
   )
 }
 
-export function NextEventAlertWidget() {
+export function NextEventAlertWidget({ compact = false }: { compact?: boolean }) {
   const [nextEvent, setNextEvent] = useState<CalendarEvent | null>(null)
   const [timeRemainingSec, setTimeRemainingSec] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
@@ -128,21 +128,16 @@ export function NextEventAlertWidget() {
   }, [nextEvent])
 
   if (loading) {
+    if (compact) {
+      return (
+        <div className="h-9 px-3 bg-[#0f172a] rounded-full border border-[#1e293b] animate-pulse flex items-center gap-2">
+          <span className="text-[11px] text-slate-500">Buscando notícias...</span>
+        </div>
+      )
+    }
     return (
       <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 w-full h-16 animate-pulse flex items-center justify-between">
         <span className="text-xs text-slate-500">Buscando próxima notícia do mercado...</span>
-      </div>
-    )
-  }
-
-  if (!nextEvent || timeRemainingSec === null) {
-    return (
-      <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] px-4 py-3 w-full flex items-center justify-between text-xs text-slate-400">
-        <div className="flex items-center gap-2">
-          <Bell size={16} className="text-blue-400" />
-          <span>Sem eventos econômicos agendados para as próximas horas</span>
-        </div>
-        <span className="text-[10px] text-slate-500 font-mono">Mercado Calmo</span>
       </div>
     )
   }
@@ -151,8 +146,8 @@ export function NextEventAlertWidget() {
   // <= 60s (1 min): VERMELHO
   // <= 300s (5 min): AMARELO
   // > 300s: PADRÃO (Escuro / Slate)
-  const isRedAlert = timeRemainingSec <= 60
-  const isYellowAlert = timeRemainingSec > 60 && timeRemainingSec <= 300
+  const isRedAlert = timeRemainingSec !== null && timeRemainingSec <= 60
+  const isYellowAlert = timeRemainingSec !== null && timeRemainingSec > 60 && timeRemainingSec <= 300
 
   // Formatador de tempo regressivo (MM:SS ou HH:MM:SS)
   const formatCountdown = (sec: number) => {
@@ -167,6 +162,65 @@ export function NextEventAlertWidget() {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
   }
 
+  // Modo COMPACTO (Para o Header / Barra Superior)
+  if (compact) {
+    if (!nextEvent || timeRemainingSec === null) {
+      return (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f172a] border border-[#1e293b] text-xs text-slate-400">
+          <Bell size={13} className="text-blue-400" />
+          <span className="text-[11px]">Sem eventos econômicos nas próximas horas</span>
+        </div>
+      )
+    }
+
+    return (
+      <div
+        className={`flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
+          isRedAlert
+            ? 'bg-red-950/90 border-red-500 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse font-bold'
+            : isYellowAlert
+            ? 'bg-amber-950/80 border-amber-500 text-amber-100 shadow-[0_0_15px_rgba(245,158,11,0.3)] font-semibold'
+            : 'bg-[#0f172a] border-[#1e293b] text-slate-200'
+        }`}
+      >
+        {isRedAlert || isYellowAlert ? (
+          <AlertTriangle size={14} className={isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'} />
+        ) : (
+          <Clock size={14} className="text-blue-400" />
+        )}
+
+        <div className="flex items-center gap-1.5">
+          {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
+          <span className="font-semibold text-slate-100 text-[11px] truncate max-w-[200px] sm:max-w-[280px]">
+            {nextEvent.title}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
+          <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+            {isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
+          </span>
+          <span className={`font-mono font-bold text-xs ${isRedAlert ? 'text-red-300' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'}`}>
+            {formatCountdown(timeRemainingSec)}
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  // Modo PADRÃO (Para Banners de Bloco)
+  if (!nextEvent || timeRemainingSec === null) {
+    return (
+      <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] px-4 py-3 w-full flex items-center justify-between text-xs text-slate-400">
+        <div className="flex items-center gap-2">
+          <Bell size={16} className="text-blue-400" />
+          <span>Sem eventos econômicos agendados para as próximas horas</span>
+        </div>
+        <span className="text-[10px] text-slate-500 font-mono">Mercado Calmo</span>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`rounded-xl border p-4 w-full flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500 relative overflow-hidden ${
@@ -177,7 +231,6 @@ export function NextEventAlertWidget() {
           : 'bg-[#0f172a] border-[#1e293b] text-slate-200'
       }`}
     >
-      {/* Lado Esquerdo: Tag de Status + Bandeira + Título do Evento */}
       <div className="flex items-center gap-3 w-full sm:w-auto">
         <div
           className={`p-2 rounded-lg shrink-0 ${
@@ -221,7 +274,6 @@ export function NextEventAlertWidget() {
         </div>
       </div>
 
-      {/* Lado Direito: Contagem Regressiva + Projeções */}
       <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-white/10 pt-2 sm:pt-0">
         <div className="text-left sm:text-right hidden md:block">
           <div className="text-[10px] text-slate-400 font-mono">Projeção: <span className="font-bold text-slate-200">{nextEvent.forecast}</span></div>
