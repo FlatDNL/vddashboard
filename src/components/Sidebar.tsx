@@ -15,11 +15,13 @@ import {
   ChevronRight,
   ChevronDown,
   Globe,
-  User
+  User,
+  Calendar
 } from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
+  { name: 'Calendário Econômico', href: '/dashboard/calendario', icon: Calendar },
   { name: 'Demo', href: '/dashboard/demo', icon: SlidersHorizontal },
   { 
     name: 'Macroeconomia', 
