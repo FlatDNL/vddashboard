@@ -2,6 +2,7 @@ import { fetchInitialData } from '@/app/dashboard/macroeconomia/cadastro/actions
 import { AssetQuote } from '@/components/AssetQuote'
 import { RiskChartWidget } from '@/components/RiskChartWidget'
 import { FairValueWidget } from '@/components/FairValueWidget'
+import { EconomicCalendarWidget } from '@/components/EconomicCalendarWidget'
 
 export default async function DashboardPage() {
   const grupos: any = await fetchInitialData()
@@ -17,6 +18,9 @@ export default async function DashboardPage() {
           {/* Card 2: Preço Justo do Dólar (50% da largura) */}
           <FairValueWidget />
         </div>
+
+        {/* Card 3: Tabela de Calendário Econômico na parte de baixo */}
+        <EconomicCalendarWidget />
       </div>
 
       {/* Right Sidebar Column */}
