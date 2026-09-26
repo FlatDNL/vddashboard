@@ -210,7 +210,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           {/* Bandeira + Título do Evento */}
           <div className="flex items-center gap-1.5 shrink-0">
             {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
-            <span className="font-bold text-slate-100 text-[11px] truncate max-w-[140px] xl:max-w-[220px]">
+            <span className="font-bold text-slate-100 text-[11px] truncate max-w-[130px] xl:max-w-[200px]">
               {nextEvent.title}
             </span>
           </div>
@@ -229,8 +229,21 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           </div>
         </div>
 
-        {/* LADO DIREITO: Projeção + Anterior + Pressão + Tempo Restante (ALINHADO À DIREITA) */}
+        {/* LADO DIREITO: Estudo de Pressão + Projeção + Anterior + Pressão + Tempo Restante (ALINHADO À DIREITA) */}
         <div className="flex items-center gap-3 shrink-0 ml-auto">
+          {/* Estudo de Pressão (Texto Explicativo) */}
+          {nextEvent.pressure?.explanation && (
+            <div 
+              className="hidden lg:flex items-center gap-1.5 border-l border-white/10 pl-3 shrink-0 cursor-help"
+              title={nextEvent.pressure.explanation}
+            >
+              <span className="text-[10px] text-slate-400 font-semibold">Estudo:</span>
+              <span className="text-[10px] font-medium text-slate-200 italic truncate max-w-[180px] 2xl:max-w-[300px]">
+                "{nextEvent.pressure.explanation}"
+              </span>
+            </div>
+          )}
+
           {/* Se foi liberado há pouco, destaca o valor Atual publicado */}
           {isJustReleased && nextEvent.actual !== '-' ? (
             <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold shrink-0">
@@ -243,7 +256,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
             </div>
           )}
 
-          {/* Pressão Direcional WDO */}
+          {/* Pressão Direcional WDO Badge */}
           {nextEvent.pressure?.direction && nextEvent.pressure.direction !== 'AGUARDANDO' && (
             <div className="hidden xl:flex items-center border-l border-white/10 pl-3 shrink-0">
               {nextEvent.pressure.direction === 'ALTA' && (
