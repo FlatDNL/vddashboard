@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Clock, AlertTriangle, Bell } from 'lucide-react'
+import { Clock, AlertTriangle, Bell, CheckCircle2 } from 'lucide-react'
 
 type CalendarEvent = {
   id: string
@@ -81,10 +81,10 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           
           const nowMs = Date.now()
           
-          // Encontra a próxima notícia não concluída (ou futura) de médio/alto impacto
+          // Mantém a notícia visível por até 2 minutos (120.000 ms) APÓS a divulgação
           const upcoming = events.filter((e) => {
             const eventMs = new Date(e.dateIso).getTime()
-            return eventMs > nowMs - 60000 // considera eventos futuros ou de até 1m atrás
+            return eventMs > nowMs - 120000 
           })
 
           if (upcoming.length > 0) {
@@ -101,7 +101,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
     }
 
     fetchNextEvent()
-    const interval = setInterval(fetchNextEvent, 30000)
+    const interval = setInterval(fetchNextEvent, 15000) // Atualiza a cada 15s para pegar resultado rápido
     return () => {
       isMounted = false
       clearInterval(interval)
@@ -143,15 +143,22 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
   }
 
   // Lógica de alerta por tempo:
+  // <= 0s e >= -120s: LIBERADO HÁ POUCO (VERDE EMERALD - MANTÉM POR 2 MINUTOS)
   // <= 60s (1 min): VERMELHO
   // <= 300s (5 min): AMARELO
   // > 300s: PADRÃO (Escuro / Slate)
-  const isRedAlert = timeRemainingSec !== null && timeRemainingSec <= 60
+  const isJustReleased = timeRemainingSec !== null && timeRemainingSec <= 0 && timeRemainingSec >= -120
+  const isRedAlert = timeRemainingSec !== null && timeRemainingSec > 0 && timeRemainingSec <= 60
   const isYellowAlert = timeRemainingSec !== null && timeRemainingSec > 60 && timeRemainingSec <= 300
 
   // Formatador de tempo regressivo (MM:SS ou HH:MM:SS)
   const formatCountdown = (sec: number) => {
-    if (sec <= 0) return 'ACONTECENDO AGORA!'
+    if (sec <= 0 && sec >= -120) {
+      const elapsed = Math.abs(sec)
+      return `LIBERADO (${elapsed}s atrás)`
+    }
+    if (sec < -120) return 'CONCLUÍDO'
+    
     const hours = Math.floor(sec / 3600)
     const minutes = Math.floor((sec % 3600) / 60)
     const seconds = sec % 60
@@ -176,14 +183,18 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
     return (
       <div
         className={`flex items-center gap-3 px-3.5 py-1.5 rounded-full border text-xs transition-all duration-500 shadow-sm ${
-          isRedAlert
+          isJustReleased
+            ? 'bg-emerald-950/90 border-emerald-500 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.4)] animate-pulse font-bold'
+            : isRedAlert
             ? 'bg-red-950/90 border-red-500 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse font-bold'
             : isYellowAlert
             ? 'bg-amber-950/80 border-amber-500 text-amber-100 shadow-[0_0_15px_rgba(245,158,11,0.3)] font-semibold'
             : 'bg-[#0f172a] border-[#1e293b] text-slate-200'
         }`}
       >
-        {isRedAlert || isYellowAlert ? (
+        {isJustReleased ? (
+          <CheckCircle2 size={14} className="text-emerald-400 animate-bounce" />
+        ) : isRedAlert || isYellowAlert ? (
           <AlertTriangle size={14} className={isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'} />
         ) : (
           <Clock size={14} className="text-blue-400" />
@@ -210,23 +221,31 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           )}
         </div>
 
-        {/* Projeção & Anterior */}
-        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
-          <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
-          <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
-        </div>
+        {/* Se foi liberado há pouco, destaca o valor Atual publicado */}
+        {isJustReleased && nextEvent.actual !== '-' ? (
+          <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold">
+            <span>Atual: {nextEvent.actual}</span>
+          </div>
+        ) : (
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
+            <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
+            <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
+          </div>
+        )}
 
         {/* Horário da Notícia */}
         <div className="hidden lg:flex items-center gap-1 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
           <span>Horário: <strong className="text-slate-200">{nextEvent.time}</strong></span>
         </div>
 
-        {/* Contagem Regressiva */}
+        {/* Contagem Regressiva ou Status de Liberação */}
         <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
           <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
-            {isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
+            {isJustReleased ? 'STATUS:' : isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
           </span>
-          <span className={`font-mono font-bold text-xs ${isRedAlert ? 'text-red-300' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'}`}>
+          <span className={`font-mono font-bold text-xs ${
+            isJustReleased ? 'text-emerald-300' : isRedAlert ? 'text-red-300' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'
+          }`}>
             {formatCountdown(timeRemainingSec)}
           </span>
         </div>
@@ -234,7 +253,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
     )
   }
 
-  // Modo PADRÃO (Para Banners de Bloco)
+  // Modo PADRÃO
   if (!nextEvent || timeRemainingSec === null) {
     return (
       <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] px-4 py-3 w-full flex items-center justify-between text-xs text-slate-400">
@@ -250,7 +269,9 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
   return (
     <div
       className={`rounded-xl border p-4 w-full flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500 relative overflow-hidden ${
-        isRedAlert
+        isJustReleased
+          ? 'bg-emerald-950/90 border-emerald-500 text-emerald-100 shadow-[0_0_25px_rgba(16,185,129,0.4)] animate-pulse'
+          : isRedAlert
           ? 'bg-red-950/90 border-red-500 text-red-100 shadow-[0_0_25px_rgba(239,68,68,0.4)] animate-pulse'
           : isYellowAlert
           ? 'bg-amber-950/80 border-amber-500 text-amber-100 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
@@ -260,28 +281,34 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
       <div className="flex items-center gap-3 w-full sm:w-auto">
         <div
           className={`p-2 rounded-lg shrink-0 ${
-            isRedAlert
+            isJustReleased
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              : isRedAlert
               ? 'bg-red-500/20 text-red-400 border border-red-500/30'
               : isYellowAlert
               ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
               : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
           }`}
         >
-          {isRedAlert || isYellowAlert ? <AlertTriangle size={18} /> : <Clock size={18} />}
+          {isJustReleased ? <CheckCircle2 size={18} /> : isRedAlert || isYellowAlert ? <AlertTriangle size={18} /> : <Clock size={18} />}
         </div>
 
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span
               className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider ${
-                isRedAlert
+                isJustReleased
+                  ? 'bg-emerald-500 text-black font-black'
+                  : isRedAlert
                   ? 'bg-red-500 text-white animate-bounce'
                   : isYellowAlert
                   ? 'bg-amber-500 text-black font-black'
                   : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
               }`}
             >
-              {isRedAlert
+              {isJustReleased
+                ? '✨ DADO LIBERADO!'
+                : isRedAlert
                 ? '⚠️ ATENÇÃO: EM 1 MINUTO!'
                 : isYellowAlert
                 ? '⚡ ALERTA: EM 5 MINUTOS!'
@@ -312,7 +339,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           </span>
           <span
             className={`text-lg sm:text-xl font-mono font-black tracking-wider ${
-              isRedAlert ? 'text-white' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'
+              isJustReleased ? 'text-emerald-300' : isRedAlert ? 'text-white' : isYellowAlert ? 'text-amber-300' : 'text-blue-400'
             }`}
           >
             {formatCountdown(timeRemainingSec)}
