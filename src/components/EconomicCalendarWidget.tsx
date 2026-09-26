@@ -186,7 +186,7 @@ export function EconomicCalendarWidget() {
           <thead>
             <tr className="border-b border-[#1e293b] text-slate-400 uppercase text-[10px] tracking-wider">
               <th className="py-3 px-3">Horário</th>
-              <th className="py-3 px-3">País</th>
+              <th className="py-3 px-3 text-center">País</th>
               <th className="py-3 px-3">Evento / Indicador</th>
               <th className="py-3 px-3">Impacto</th>
               <th className="py-3 px-3 text-center">Pressão (WDO)</th>
@@ -207,20 +207,13 @@ export function EconomicCalendarWidget() {
                   </div>
                 </td>
 
-                {/* País com Bandeira SVG */}
-                <td className="py-3 px-3 whitespace-nowrap">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0b1120] border border-[#1e293b] text-slate-200 shadow-sm">
-                    {e.country === 'US' ? (
-                      <>
-                        <USFlag />
-                        <span className="font-bold text-[11px] text-slate-200">EUA (USD)</span>
-                      </>
-                    ) : (
-                      <>
-                        <BRFlag />
-                        <span className="font-bold text-[11px] text-slate-200">Brasil (BRL)</span>
-                      </>
-                    )}
+                {/* País: Apenas Bandeira SVG compacta */}
+                <td className="py-3 px-3 whitespace-nowrap text-center">
+                  <div 
+                    className="inline-flex items-center justify-center p-1.5 rounded-lg bg-[#0b1120] border border-[#1e293b] shadow-sm cursor-help"
+                    title={e.country === 'US' ? 'Estados Unidos (USD)' : 'Brasil (BRL)'}
+                  >
+                    {e.country === 'US' ? <USFlag /> : <BRFlag />}
                   </div>
                 </td>
 
