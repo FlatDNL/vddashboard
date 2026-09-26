@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar as CalendarIcon, AlertCircle, Clock, CheckCircle2 } from 'lucide-react'
+import { Calendar as CalendarIcon, Clock, CheckCircle2 } from 'lucide-react'
 
 type CalendarEvent = {
   id: string
@@ -21,6 +21,49 @@ type CalendarResponse = {
   targetDate: string
   isUpcomingBusinessDay: boolean
   events: CalendarEvent[]
+}
+
+function USFlag() {
+  return (
+    <svg className="w-5 h-3.5 rounded-[2px] shadow-sm overflow-hidden inline-block shrink-0" viewBox="0 0 640 480">
+      <path fill="#bd3d44" d="M0 0h640v480H0z"/>
+      <path stroke="#fff" strokeWidth="37" d="M0 55.3h640M0 129h640M0 203h640M0 277h640M0 351h640M0 425h640"/>
+      <path fill="#192f5d" d="M0 0h285.7v258.5H0z"/>
+      <g fill="#fff">
+        <g id="s18">
+          <g id="s9">
+            <g id="s5">
+              <polygon id="s" points="0,-13 3.8,-3.9 12.3,-3.9 5.4,1.1 8,9.4 0,4.2 -8,9.4 -5.4,1.1 -12.3,-3.9 -3.8,-3.9"/>
+              <use href="#s" x="47.6"/>
+              <use href="#s" x="95.2"/>
+              <use href="#s" x="142.8"/>
+              <use href="#s" x="190.4"/>
+            </g>
+            <use href="#s5" y="43"/>
+          </g>
+          <use href="#s9" y="86"/>
+        </g>
+        <use href="#s18" y="86"/>
+        <polygon points="0,-13 3.8,-3.9 12.3,-3.9 5.4,1.1 8,9.4 0,4.2 -8,9.4 -5.4,1.1 -12.3,-3.9 -3.8,-3.9" y="215"/>
+        <use href="#s5" x="23.8" y="21.5"/>
+        <use href="#s5" x="23.8" y="64.5"/>
+        <use href="#s5" x="23.8" y="107.5"/>
+        <use href="#s5" x="23.8" y="150.5"/>
+        <use href="#s5" x="23.8" y="193.5"/>
+      </g>
+    </svg>
+  )
+}
+
+function BRFlag() {
+  return (
+    <svg className="w-5 h-3.5 rounded-[2px] shadow-sm overflow-hidden inline-block shrink-0" viewBox="0 0 720 504">
+      <rect width="720" height="504" fill="#009c3b"/>
+      <polygon points="360,36 684,252 360,468 36,252" fill="#ffdf00"/>
+      <circle cx="360" cy="252" r="126" fill="#002776"/>
+      <path d="M 234 252 A 150 150 0 0 1 486 230" fill="none" stroke="#ffffff" strokeWidth="12"/>
+    </svg>
+  )
 }
 
 export function EconomicCalendarWidget() {
@@ -159,11 +202,21 @@ export function EconomicCalendarWidget() {
                   </div>
                 </td>
 
-                {/* País */}
+                {/* País com Bandeira SVG em alta definição */}
                 <td className="py-3 px-3 whitespace-nowrap">
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#0b1120] border border-[#1e293b] font-medium text-slate-300">
-                    {e.country === 'US' ? '🇺🇸 USD' : '🇧🇷 BRL'}
-                  </span>
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0b1120] border border-[#1e293b] text-slate-200 shadow-sm">
+                    {e.country === 'US' ? (
+                      <>
+                        <USFlag />
+                        <span className="font-bold text-[11px] text-slate-200">EUA (USD)</span>
+                      </>
+                    ) : (
+                      <>
+                        <BRFlag />
+                        <span className="font-bold text-[11px] text-slate-200">Brasil (BRL)</span>
+                      </>
+                    )}
+                  </div>
                 </td>
 
                 {/* Evento */}
