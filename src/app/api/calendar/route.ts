@@ -52,17 +52,68 @@ export async function GET(request: Request) {
       }
     }
 
-    // Tradução e formatação de títulos comuns
+    // Tradutor completo para Português do Brasil (PT-BR)
     const translateTitle = (title: string) => {
-      if (title.includes('BCB Focus Market Readout')) return 'Boletim Focus (BCB)'
-      if (title.includes('Nonfarm Payrolls') || title.includes('Nonfarm')) return 'Payroll (Emprego EUA)'
-      if (title.includes('Fed Interest Rate Decision')) return 'Decisão de Juros Fed (EUA)'
-      if (title.includes('Interest Rate Decision') && title.includes('BR')) return 'Decisão de Juros Copom (Brasil)'
-      if (title.includes('Inflation Rate') || title.includes('CPI')) return title.includes('BR') ? 'IPCA (Inflação Brasil)' : 'CPI (Inflação EUA)'
-      if (title.includes('Unemployment Rate')) return 'Taxa de Desemprego'
-      if (title.includes('GDP Growth Rate') || title.includes('GDP')) return 'PIB (Produto Interno Bruto)'
-      if (title.includes('Speech')) return title.replace('Speech', 'Discurso')
-      return title
+      let t = title
+
+      // Termos e Indicadores consagrados do mercado
+      if (t.includes('BCB Focus Market Readout')) return 'Boletim Focus (BCB)'
+      if (t.includes('Nonfarm Payrolls') || t.includes('Nonfarm')) return 'Payroll (Emprego Não-Agrícola EUA)'
+      if (t.includes('Fed Interest Rate Decision')) return 'Decisão de Juros do Fed (EUA)'
+      if (t.includes('Interest Rate Decision') && t.includes('BR')) return 'Decisão de Juros Copom (Brasil)'
+      if (t.includes('Initial Jobless Claims')) return 'Pedidos de Auxílio-Desemprego'
+      if (t.includes('Continuing Jobless Claims')) return 'Pedidos Contínuos de Auxílio-Desemprego'
+      if (t.includes('Consumer Price Index') || t.includes('CPI')) {
+        return t.includes('BR') ? 'IPCA - Inflação ao Consumidor' : 'CPI - Inflação ao Consumidor EUA'
+      }
+      if (t.includes('Producer Price Index') || t.includes('PPI')) return 'PPI - Inflação ao Produtor'
+      if (t.includes('PCE Price Index') || t.includes('PCE')) return 'PCE - Inflação Consumo Pessoal'
+      if (t.includes('Unemployment Rate')) return 'Taxa de Desemprego'
+      if (t.includes('GDP Growth Rate') || t.includes('GDP')) return 'PIB - Produto Interno Bruto'
+      if (t.includes('Retail Sales')) return 'Vendas no Varejo'
+      if (t.includes('Industrial Production')) return 'Produção Industrial'
+      if (t.includes('Trade Balance')) return 'Balança Comercial'
+      if (t.includes('Current Account')) return 'Transações Correntes'
+      if (t.includes('Foreign Direct Investment')) return 'Investimento Direto no País'
+      if (t.includes('Manufacturing PMI')) return 'PMI Industrial'
+      if (t.includes('Services PMI')) return 'PMI de Serviços'
+      if (t.includes('S&P Global PMI')) return 'PMI S&P Global'
+      if (t.includes('ISM Manufacturing')) return 'PMI Industrial ISM'
+      if (t.includes('ISM Non-Manufacturing') || t.includes('ISM Services')) return 'PMI de Serviços ISM'
+      if (t.includes('Michigan Consumer Sentiment')) return 'Confiança do Consumidor Michigan'
+      if (t.includes('Consumer Confidence')) return 'Confiança do Consumidor'
+      if (t.includes('Building Permits')) return 'Alvarás de Construção'
+      if (t.includes('Housing Starts')) return 'Início de Construção de Casas'
+      if (t.includes('New Home Sales')) return 'Vendas de Casas Novas'
+      if (t.includes('Existing Home Sales')) return 'Vendas de Casas Usadas'
+      if (t.includes('Durable Goods Orders')) return 'Pedidos de Bens Duráveis'
+      if (t.includes('Factory Orders')) return 'Encomendas à Indústria'
+      if (t.includes('Fed Williams Speech') || t.includes('Fed Chair Powell Speech') || t.includes('Speech')) {
+        return t.replace('Speech', 'Discurso').replace('Fed Chair', 'Presidente do Fed')
+      }
+      if (t.includes('FOMC Minutes')) return 'Ata da Reunião do FOMC'
+      if (t.includes('Copom Minutes')) return 'Ata do Copom'
+      if (t.includes('3-Month Bill Auction')) return 'Leilão de Títulos (3 Meses)'
+      if (t.includes('6-Month Bill Auction')) return 'Leilão de Títulos (6 Meses)'
+      if (t.includes('10-Year Note Auction')) return 'Leilão de Títulos (10 Anos)'
+      if (t.includes('30-Year Bond Auction')) return 'Leilão de Títulos (30 Anos)'
+      if (t.includes('UN General Assembly')) return 'Assembleia Geral da ONU'
+
+      // Substituição sistemática de termos em inglês
+      return t
+        .replace(/MoM/g, 'm/m')
+        .replace(/YoY/g, 'a/a')
+        .replace(/QoQ/g, 't/t')
+        .replace(/Rate/g, 'Taxa')
+        .replace(/Index/g, 'Índice')
+        .replace(/Inflation/g, 'Inflação')
+        .replace(/Balance/g, 'Balanço')
+        .replace(/Price/g, 'Preço')
+        .replace(/Sales/g, 'Vendas')
+        .replace(/Orders/g, 'Pedidos')
+        .replace(/Mid-month/g, 'Prévia')
+        .replace(/Final/g, 'Final')
+        .replace(/Flash/g, 'Preliminar')
     }
 
     // Função quantitativa para calcular a Pressão Direcional no WDO (USD/BRL)
