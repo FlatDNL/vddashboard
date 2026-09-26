@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar as CalendarIcon, Clock, CheckCircle2 } from 'lucide-react'
+import { Calendar as CalendarIcon, Clock, CheckCircle2, TrendingUp, TrendingDown, Minus, Hourglass } from 'lucide-react'
 
 type CalendarEvent = {
   id: string
@@ -15,6 +15,10 @@ type CalendarEvent = {
   forecast: string
   previous: string
   isCompleted: boolean
+  pressure: {
+    direction: 'ALTA' | 'BAIXA' | 'NEUTRO' | 'AGUARDANDO'
+    explanation: string
+  }
 }
 
 type CalendarResponse = {
@@ -136,7 +140,7 @@ export function EconomicCalendarWidget() {
               )}
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Notícias e indicadores que movimentam o Dólar (USD/BRL)
+              Notícias, indicadores e Análise Direcional de Pressão no Dólar (WDO)
             </p>
           </div>
         </div>
@@ -185,6 +189,7 @@ export function EconomicCalendarWidget() {
               <th className="py-3 px-3">País</th>
               <th className="py-3 px-3">Evento / Indicador</th>
               <th className="py-3 px-3">Impacto</th>
+              <th className="py-3 px-3 text-center">Pressão (WDO)</th>
               <th className="py-3 px-3 text-right">Atual</th>
               <th className="py-3 px-3 text-right">Projeção</th>
               <th className="py-3 px-3 text-right">Anterior</th>
@@ -202,7 +207,7 @@ export function EconomicCalendarWidget() {
                   </div>
                 </td>
 
-                {/* País com Bandeira SVG em alta definição */}
+                {/* País com Bandeira SVG */}
                 <td className="py-3 px-3 whitespace-nowrap">
                   <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0b1120] border border-[#1e293b] text-slate-200 shadow-sm">
                     {e.country === 'US' ? (
@@ -245,6 +250,39 @@ export function EconomicCalendarWidget() {
                   )}
                 </td>
 
+                {/* Pressão WDO Direcional */}
+                <td className="py-3 px-3 text-center whitespace-nowrap">
+                  {e.pressure.direction === 'ALTA' && (
+                    <span 
+                      title={e.pressure.explanation}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-extrabold text-[11px] shadow-sm cursor-help"
+                    >
+                      <TrendingUp size={13} /> ALTA (WDO)
+                    </span>
+                  )}
+                  {e.pressure.direction === 'BAIXA' && (
+                    <span 
+                      title={e.pressure.explanation}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 font-extrabold text-[11px] shadow-sm cursor-help"
+                    >
+                      <TrendingDown size={13} /> BAIXA (WDO)
+                    </span>
+                  )}
+                  {e.pressure.direction === 'NEUTRO' && (
+                    <span 
+                      title={e.pressure.explanation}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-500/10 text-slate-400 border border-slate-500/20 font-medium text-[10px] cursor-help"
+                    >
+                      <Minus size={12} /> NEUTRO
+                    </span>
+                  )}
+                  {e.pressure.direction === 'AGUARDANDO' && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-blue-500/10 text-blue-400/70 border border-blue-500/20 text-[10px]">
+                      <Hourglass size={10} className="animate-spin" /> Aguardando
+                    </span>
+                  )}
+                </td>
+
                 {/* Atual */}
                 <td className="py-3 px-3 text-right font-mono font-bold text-slate-100 whitespace-nowrap">
                   {e.actual !== '-' ? (
@@ -281,7 +319,7 @@ export function EconomicCalendarWidget() {
 
             {filteredEvents.length === 0 && (
               <tr>
-                <td colSpan={8} className="py-8 text-center text-slate-500 text-xs italic">
+                <td colSpan={9} className="py-8 text-center text-slate-500 text-xs italic">
                   Nenhum evento econômico encontrado para este filtro de impacto.
                 </td>
               </tr>

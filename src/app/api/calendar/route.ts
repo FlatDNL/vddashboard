@@ -65,6 +65,52 @@ export async function GET(request: Request) {
       return title
     }
 
+    // Função quantitativa para calcular a Pressão Direcional no WDO (USD/BRL)
+    const calculatePressure = (e: any): { direction: 'ALTA' | 'BAIXA' | 'NEUTRO' | 'AGUARDANDO'; explanation: string } => {
+      if (e.actual === null || e.actual === undefined || e.forecast === null || e.forecast === undefined) {
+        return { direction: 'AGUARDANDO', explanation: 'Aguardando publicação do dado' }
+      }
+
+      const actual = Number(e.actual)
+      const forecast = Number(e.forecast)
+      const diff = actual - forecast
+
+      if (Math.abs(diff) < 0.0001) {
+        return { direction: 'NEUTRO', explanation: 'Resultado exatamente em linha com a projeção' }
+      }
+
+      const titleLower = (e.title || '').toLowerCase()
+      const isUnemploymentOrClaims = titleLower.includes('unemployment') || titleLower.includes('claims') || titleLower.includes('desemprego')
+
+      if (e.country === 'US') {
+        // Dados dos EUA:
+        // Economia/Inflação EUA acima do esperado -> Dólar fortalece globalmente -> USD/BRL sobe (ALTA / COMPRA)
+        // Desemprego EUA acima do esperado -> Economia fraca -> Dólar cai (BAIXA / VENDA)
+        if (isUnemploymentOrClaims) {
+          return diff > 0 
+            ? { direction: 'BAIXA', explanation: 'Desemprego maior nos EUA enfraquece o Dólar (Pressão de Venda)' }
+            : { direction: 'ALTA', explanation: 'Desemprego menor nos EUA fortalece o Dólar (Pressão de Compra)' }
+        } else {
+          return diff > 0 
+            ? { direction: 'ALTA', explanation: 'Dado dos EUA acima do esperado fortalece o Dólar (Pressão de Compra)' }
+            : { direction: 'BAIXA', explanation: 'Dado dos EUA abaixo do esperado enfraquece o Dólar (Pressão de Venda)' }
+        }
+      } else {
+        // Dados do BRASIL:
+        // Inflação/Juros BR acima do esperado -> Selic sobe -> Real ganha força -> USD/BRL cai (BAIXA / VENDA)
+        // Desemprego/Déficit BR acima do esperado -> Real enfraquece -> USD/BRL sobe (ALTA / COMPRA)
+        if (isUnemploymentOrClaims || titleLower.includes('deficit') || titleLower.includes('divida')) {
+          return diff > 0 
+            ? { direction: 'ALTA', explanation: 'Desemprego/Déficit maior no Brasil enfraquece o Real (Pressão de Alta no Dólar)' }
+            : { direction: 'BAIXA', explanation: 'Desemprego/Déficit menor no Brasil fortalece o Real (Pressão de Baixa no Dólar)' }
+        } else {
+          return diff > 0 
+            ? { direction: 'BAIXA', explanation: 'Dado de crescimento/inflação maior no Brasil fortalece o Real (Pressão de Baixa no Dólar)' }
+            : { direction: 'ALTA', explanation: 'Dado econômico menor no Brasil enfraquece o Real (Pressão de Alta no Dólar)' }
+        }
+      }
+    }
+
     const formattedEvents = events.map((e: any) => {
       const eventDate = new Date(e.date)
       const timeStr = eventDate.toLocaleTimeString('pt-BR', {
@@ -73,7 +119,6 @@ export async function GET(request: Request) {
         minute: '2-digit'
       })
 
-      // Importance: 1 (Alta 🔴), 0 (Média 🟡), -1 (Baixa ⚪)
       let impact: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW'
       if (e.importance === 1) impact = 'HIGH'
       else if (e.importance === 0) impact = 'MEDIUM'
@@ -84,12 +129,13 @@ export async function GET(request: Request) {
       }
 
       const isCompleted = e.actual !== null && e.actual !== undefined
+      const pressure = calculatePressure(e)
 
       return {
         id: e.id,
         time: timeStr,
         dateIso: e.date,
-        country: e.country, // 'US' ou 'BR'
+        country: e.country,
         currency: e.currency || (e.country === 'US' ? 'USD' : 'BRL'),
         title: translateTitle(e.title),
         originalTitle: e.title,
@@ -97,11 +143,11 @@ export async function GET(request: Request) {
         actual: formatVal(e.actual, e.unit),
         forecast: formatVal(e.forecast, e.unit),
         previous: formatVal(e.previous, e.unit),
-        isCompleted
+        isCompleted,
+        pressure
       }
     })
 
-    // Ordenar por horário
     formattedEvents.sort((a: any, b: any) => a.dateIso.localeCompare(b.dateIso))
 
     return NextResponse.json({
