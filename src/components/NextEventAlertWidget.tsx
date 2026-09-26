@@ -151,7 +151,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
   const isRedAlert = timeRemainingSec !== null && timeRemainingSec > 0 && timeRemainingSec <= 60
   const isYellowAlert = timeRemainingSec !== null && timeRemainingSec > 60 && timeRemainingSec <= 300
 
-  // Formatador de tempo regressivo (MM:SS ou HH:MM:SS)
+  // Formatador de tempo regressivo em formato estrito HH:mm:ss
   const formatCountdown = (sec: number) => {
     if (sec <= 0 && sec >= -120) {
       const elapsed = Math.abs(sec)
@@ -163,10 +163,11 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
     const minutes = Math.floor((sec % 3600) / 60)
     const seconds = sec % 60
 
-    if (hours > 0) {
-      return `${hours}h ${minutes.toString().padStart(2, '0')}m`
-    }
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+    const hh = hours.toString().padStart(2, '0')
+    const mm = minutes.toString().padStart(2, '0')
+    const ss = seconds.toString().padStart(2, '0')
+
+    return `${hh}:${mm}:${ss}`
   }
 
   // Modo COMPACTO (Para o Header / Barra Superior)
@@ -229,7 +230,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           </div>
         </div>
 
-        {/* LADO DIREITO: Estudo de Pressão + Projeção + Anterior + Pressão + Tempo Restante (ALINHADO À DIREITA) */}
+        {/* LADO DIREITO: Estudo de Pressão + Projeção + Anterior + Pressão + Tempo Restante em HH:mm:ss (ALINHADO À DIREITA) */}
         <div className="flex items-center gap-3 shrink-0 ml-auto">
           {/* Estudo de Pressão (Texto Explicativo) */}
           {nextEvent.pressure?.explanation && (
@@ -277,7 +278,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
             </div>
           )}
 
-          {/* Contagem Regressiva ou Status */}
+          {/* Contagem Regressiva no Formato Estrito HH:mm:ss */}
           <div className="flex items-center gap-1.5 pl-3 border-l border-white/10 shrink-0">
             <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
               {isJustReleased ? 'STATUS:' : isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
