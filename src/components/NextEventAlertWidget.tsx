@@ -193,23 +193,28 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
         }`}
       >
         {isJustReleased ? (
-          <CheckCircle2 size={14} className="text-emerald-400 animate-bounce" />
+          <CheckCircle2 size={14} className="text-emerald-400 animate-bounce shrink-0" />
         ) : isRedAlert || isYellowAlert ? (
-          <AlertTriangle size={14} className={isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'} />
+          <AlertTriangle size={14} className={`shrink-0 ${isRedAlert ? 'text-red-400 animate-bounce' : 'text-amber-400'}`} />
         ) : (
-          <Clock size={14} className="text-blue-400" />
+          <Clock size={14} className="text-blue-400 shrink-0" />
         )}
 
-        {/* Bandeira + Título do Evento */}
-        <div className="flex items-center gap-1.5">
+        {/* HORÁRIO DA NOTÍCIA (Antes da bandeira) */}
+        <div className="flex items-center gap-1 font-mono font-bold text-[11px] text-slate-200 bg-[#0b1120]/80 px-2 py-0.5 rounded border border-white/10 shadow-sm shrink-0">
+          <span>{nextEvent.time}</span>
+        </div>
+
+        {/* BANDEIRA + TÍTULO DO EVENTO */}
+        <div className="flex items-center gap-1.5 shrink-0">
           {nextEvent.country === 'US' ? <USFlag /> : <BRFlag />}
-          <span className="font-bold text-slate-100 text-[11px] truncate max-w-[160px] lg:max-w-[240px]">
+          <span className="font-bold text-slate-100 text-[11px] truncate max-w-[150px] lg:max-w-[220px]">
             {nextEvent.title}
           </span>
         </div>
 
         {/* Nível de Impacto */}
-        <div className="hidden sm:flex items-center">
+        <div className="hidden sm:flex items-center shrink-0">
           {nextEvent.impact === 'HIGH' ? (
             <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
               🔴 ALTO
@@ -223,23 +228,18 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
 
         {/* Se foi liberado há pouco, destaca o valor Atual publicado */}
         {isJustReleased && nextEvent.actual !== '-' ? (
-          <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold">
+          <div className="flex items-center gap-1 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded font-mono text-[11px] text-emerald-300 font-extrabold shrink-0">
             <span>Atual: {nextEvent.actual}</span>
           </div>
         ) : (
-          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2 shrink-0">
             <span>Proj: <strong className="text-slate-200">{nextEvent.forecast}</strong></span>
             <span>Prev: <strong className="text-slate-200">{nextEvent.previous}</strong></span>
           </div>
         )}
 
-        {/* Horário da Notícia */}
-        <div className="hidden lg:flex items-center gap-1 text-[10px] font-mono text-slate-400 border-l border-white/10 pl-2">
-          <span>Horário: <strong className="text-slate-200">{nextEvent.time}</strong></span>
-        </div>
-
         {/* Contagem Regressiva ou Status de Liberação */}
-        <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
+        <div className="flex items-center gap-1.5 pl-2 border-l border-white/10 shrink-0">
           <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
             {isJustReleased ? 'STATUS:' : isRedAlert ? '1 MIN!' : isYellowAlert ? '5 MIN!' : 'EM:'}
           </span>
@@ -322,7 +322,7 @@ export function NextEventAlertWidget({ compact = false }: { compact?: boolean })
           </div>
 
           <h3 className="text-sm font-bold mt-1 text-slate-100 flex items-center gap-2">
-            {nextEvent.title}
+            <span className="font-mono text-blue-400">[{nextEvent.time}]</span> {nextEvent.title}
           </h3>
         </div>
       </div>
