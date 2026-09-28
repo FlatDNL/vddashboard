@@ -41,6 +41,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // Barreira extra de segurança no Middleware: 
+  // Se estiver logado e tentar acessar o dashboard (ou subpáginas), verifica se está aprovado!
+  if (user && !isLoginPage && !isApiRoute) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_approved')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile?.is_approved) {
+      await supabase.auth.signOut()
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      url.searchParams.set('message', 'Seu cadastro está em análise pelo administrador. Aguarde a aprovação.')
+      return NextResponse.redirect(url)
+    }
+  }
+
   if (user && isLoginPage) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'

@@ -1,4 +1,4 @@
-import { login } from './actions'
+﻿import { login, signup } from './actions'
 import { Activity } from 'lucide-react'
 
 export default async function LoginPage({
@@ -43,7 +43,7 @@ export default async function LoginPage({
             </div>
             
             {/* Form */}
-            <form className="space-y-5" action={login}>
+            <form className="space-y-5">
               <div className="space-y-4">
                 <div className="group">
                   <label htmlFor="email" className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Email de Acesso</label>
@@ -82,15 +82,24 @@ export default async function LoginPage({
                 </div>
               )}
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-col gap-3">
                 <button
                   type="submit"
+                  formAction={login}
                   className="relative flex w-full justify-center overflow-hidden rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Autenticar <Activity size={16} />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 transition-opacity hover:opacity-100"></div>
+                </button>
+
+                <button
+                  type="submit"
+                  formAction={signup}
+                  className="w-full rounded-xl border border-slate-700 bg-transparent px-4 py-3.5 text-sm font-semibold text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
+                >
+                  Solicitar Acesso
                 </button>
               </div>
             </form>
@@ -104,3 +113,5 @@ export default async function LoginPage({
     </div>
   )
 }
+
+

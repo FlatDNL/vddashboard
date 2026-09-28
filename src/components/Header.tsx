@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { Moon } from 'lucide-react'
 import { NotificationBell } from './NotificationBell'
@@ -26,3 +26,5 @@ export function Header() {
     </header>
   )
 }
+
+

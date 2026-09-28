@@ -1,8 +1,10 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from 'react'
 import { ArrowUp, ArrowDown, Activity, RefreshCw } from 'lucide-react'
 import { useNotificationStore } from '@/store/notifications'
+import { useMarcacoesStore } from '@/store/marcacoes'
+import { fetchMarcacoes } from '@/app/dashboard/operacional/marcacoes/actions'
 
 type RulerPoint = {
   id: string
@@ -15,6 +17,7 @@ type RulerPoint = {
 export function OperationalRulerWidget() {
   const [currentPrice, setCurrentPrice] = useState<number>(0)
   const [points, setPoints] = useState<RulerPoint[]>([])
+  const { marcacoes } = useMarcacoesStore()
   const [loading, setLoading] = useState(true)
   const [wsConnected, setWsConnected] = useState(false)
   const [profitDdeConnected, setProfitDdeConnected] = useState(false)
@@ -30,6 +33,7 @@ export function OperationalRulerWidget() {
 
     async function fetchPoints() {
       try {
+        fetchMarcacoes().then(d => useMarcacoesStore.getState().setMarcacoes(d as any));
         const res = await fetch('/api/fair-value')
         if (res.ok && isMounted) {
           const data = await res.json()
@@ -161,7 +165,7 @@ export function OperationalRulerWidget() {
   }
 
   // Reavalia Suporte/Resistência baseado no preço atual e ordena do maior para o menor
-  const evaluatedPoints = points.map(p => ({
+  const evaluatedPoints = [...points, ...marcacoes.map(m => ({ id: m.id, label: m.descricao.toUpperCase(), value: m.preco, type: 'neutral' as const, strength: (m.importancia === 'Alta' ? 'Forte' : m.importancia === 'Média' ? 'Médio' : 'Equilíbrio') as any }))].map(p => ({
     ...p,
     // Se o preço está abaixo do ponto, o ponto é resistência (acima dele). Se o preço está acima, o ponto é suporte.
     type: currentPrice < p.value ? 'resistance' : 'support'
@@ -282,3 +286,6 @@ export function OperationalRulerWidget() {
     </div>
   )
 }
+
+
+

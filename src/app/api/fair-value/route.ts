@@ -101,6 +101,30 @@ export async function GET() {
     if (dxPct > 0.1) status = 'COMPRA'
     if (dxPct < -0.1) status = 'VENDA'
 
+    // TESTE 08:50
+    let justoTeste = justo;
+    let justissimoTeste = justissimo;
+    
+    const snap = await get0850Snapshot(yahooFinance);
+    if (snap && snap['BRL=X'] && snap['DX-Y.NYB']) {
+       justoTeste = snap['BRL=X'] * 1000;
+       
+       const mxn_s = snap['MXN=X'] || 1;
+       const zar_s = snap['ZAR=X'] || 1;
+       const clp_s = snap['CLP=X'] || 1;
+       const dxy_s = snap['DX-Y.NYB'];
+       
+       const pctMxn = ((data['MXN=X']?.price || mxn_s) - mxn_s) / mxn_s * 100;
+       const pctZar = ((data['ZAR=X']?.price || zar_s) - zar_s) / zar_s * 100;
+       const pctClp = ((data['CLP=X']?.price || clp_s) - clp_s) / clp_s * 100;
+       const pctDxy = ((data['DX-Y.NYB']?.price || dxy.price) - dxy_s) / dxy_s * 100;
+       
+       const emAvg_s = (pctMxn + pctZar + pctClp) / 3;
+       const dxPct_s = (pctDxy * 0.4) + (emAvg_s * 0.6);
+       
+       justissimoTeste = justoTeste + (justoTeste * (dxPct_s / 100));
+    }
+
     return NextResponse.json({
       timestamp: Date.now(),
       atual,
@@ -109,6 +133,8 @@ export async function GET() {
       maxima,
       minima,
       status,
+      justoTeste,
+      justissimoTeste,
       metrics: {
         dxyPct: dxy.pct,
         emPct: emAvg

@@ -1,28 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { 
-  Home, 
-  Settings,
-  Activity,
-  RefreshCw,
-  SlidersHorizontal,
-  Globe,
-  ChevronDown
-} from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Home, Activity, SlidersHorizontal, ChevronDown, Globe, RefreshCw, Settings, Mail } from 'lucide-react'
 
-const navigation = [
+type SubmenuItem = {
+  name: string
+  href: string
+  isPopup?: boolean
+}
+
+type NavigationItem = {
+  name: string
+  href?: string
+  icon: any
+  submenus?: SubmenuItem[]
+}
+
+const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Calendário Econômico', href: '/dashboard/calendario', icon: Activity },
   { name: 'Demo', href: '/dashboard/demo', icon: SlidersHorizontal },
+  { name: 'Mensagens', href: '/dashboard/mensagens', icon: Mail },
   { 
     name: 'Macroeconomia', 
     icon: Globe,
     submenus: [
       { name: 'Visão Geral', href: '/dashboard/macroeconomia' },
       { name: 'Cadastro de Ativo', href: '/dashboard/macroeconomia/cadastro' },
+    ]
+  },
+  { 
+    name: 'Operacional', 
+    icon: Activity,
+    submenus: [
+      { name: 'SuperDOM', href: '/superdom', isPopup: true },
+      { name: 'Marcações', href: '/dashboard/operacional/marcacoes' },
     ]
   },
   { name: 'Configurações', href: '/dashboard/configuracoes', icon: Settings },
@@ -32,7 +46,7 @@ export function Sidebar() {
   const [profitStatus, setProfitStatus] = useState<boolean>(false)
   const [profitDdeConnected, setProfitDdeConnected] = useState<boolean>(false)
   const [collapsed, setCollapsed] = useState(false)
-  const [expandedMenu, setExpandedMenu] = useState<string | null>('Macroeconomia')
+  const [expandedMenu, setExpandedMenu] = useState<string | null>('Operacional')
   const pathname = usePathname()
 
   useEffect(() => {
@@ -81,7 +95,7 @@ export function Sidebar() {
           {navigation.map((item) => {
             const hasSubmenu = !!item.submenus
             const isExpanded = expandedMenu === item.name
-            const isActive = !hasSubmenu && pathname === item.href
+            const isActive = !hasSubmenu && item.href && pathname === item.href
             const isSubmenuActive = hasSubmenu && item.submenus?.some(sub => pathname === sub.href)
 
             return (
@@ -114,7 +128,7 @@ export function Sidebar() {
                   </button>
                 ) : (
                   <Link
-                    href={item.href}
+                    href={item.href || '#'}
                     className={`group flex items-center rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
                       isActive
                         ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
@@ -137,6 +151,23 @@ export function Sidebar() {
                     <div className="absolute left-6 top-0 bottom-2 w-px bg-[#1e293b]"></div>
                     {item.submenus!.map((sub) => {
                       const isSubActive = pathname === sub.href
+
+                      if (sub.isPopup) {
+                        return (
+                          <button
+                            key={sub.name}
+                            onClick={(e) => {
+                              e.preventDefault()
+                              window.open(sub.href, 'superdomWindow', 'width=380,height=800,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes')
+                            }}
+                            className={`relative flex items-center w-full text-left rounded-xl py-2 pl-8 pr-4 text-xs font-medium transition-colors text-emerald-400 hover:text-emerald-300 hover:bg-[#1e293b]/50`}
+                          >
+                            <div className={`absolute left-2 w-2 h-px bg-[#1e293b]`}></div>
+                            {sub.name} ↗
+                          </button>
+                        )
+                      }
+
                       return (
                         <Link
                           key={sub.name}
