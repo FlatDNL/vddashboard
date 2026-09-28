@@ -1,27 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
   Home, 
   Settings,
-  LineChart,
-  BarChart2,
   Activity,
+  RefreshCw,
   SlidersHorizontal,
-  History,
-  ChevronLeft,
-  ChevronRight,
-  ChevronDown,
   Globe,
-  User,
-  Calendar
+  ChevronDown
 } from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
-  { name: 'Calendário Econômico', href: '/dashboard/calendario', icon: Calendar },
+  { name: 'Calendário Econômico', href: '/dashboard/calendario', icon: Activity },
   { name: 'Demo', href: '/dashboard/demo', icon: SlidersHorizontal },
   { 
     name: 'Macroeconomia', 
@@ -31,12 +25,31 @@ const navigation = [
       { name: 'Cadastro de Ativo', href: '/dashboard/macroeconomia/cadastro' },
     ]
   },
+  { name: 'Configurações', href: '/dashboard/configuracoes', icon: Settings },
 ]
 
 export function Sidebar() {
+  const [profitStatus, setProfitStatus] = useState<boolean>(false)
+  const [profitDdeConnected, setProfitDdeConnected] = useState<boolean>(false)
   const [collapsed, setCollapsed] = useState(false)
   const [expandedMenu, setExpandedMenu] = useState<string | null>('Macroeconomia')
   const pathname = usePathname()
+
+  useEffect(() => {
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/profit-bridge')
+        if (res.ok) {
+          const data = await res.json()
+          setProfitStatus(data.running)
+          setProfitDdeConnected(data.profitConnected || false)
+        }
+      } catch (e) {}
+    }
+    checkStatus()
+    const interval = setInterval(checkStatus, 2000)
+    return () => clearInterval(interval)
+  }, [])
 
   const toggleSubmenu = (name: string) => {
     if (collapsed) setCollapsed(false)
@@ -69,8 +82,6 @@ export function Sidebar() {
             const hasSubmenu = !!item.submenus
             const isExpanded = expandedMenu === item.name
             const isActive = !hasSubmenu && pathname === item.href
-            
-            // Verifica se algum submenu está ativo
             const isSubmenuActive = hasSubmenu && item.submenus?.some(sub => pathname === sub.href)
 
             return (
@@ -121,7 +132,6 @@ export function Sidebar() {
                   </Link>
                 )}
 
-                {/* Submenus */}
                 {hasSubmenu && isExpanded && !collapsed && (
                   <div className="flex flex-col gap-1 mt-1 pl-4 relative">
                     <div className="absolute left-6 top-0 bottom-2 w-px bg-[#1e293b]"></div>
@@ -153,19 +163,41 @@ export function Sidebar() {
       {/* Bottom info section */}
       <div className="p-4 mt-auto border-t border-[#1e293b]">
         {!collapsed ? (
-          <div className="rounded-xl bg-[#1e293b]/30 p-4 border border-[#1e293b]/50">
-             <div className="flex items-center gap-2 mb-2 text-blue-400">
-                <Activity size={14} />
-                <span className="text-[11px] font-medium uppercase tracking-wider">Servidor Ativo</span>
-             </div>
+          <div className="rounded-xl bg-[#1e293b]/30 p-4 border border-[#1e293b]/50 flex flex-col gap-2">
              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-slate-500">Ping local</span>
-                <span className="text-xs text-emerald-400 font-mono">12ms</span>
+                <div className="flex items-center gap-2 text-blue-400">
+                   <Activity size={14} />
+                   <span className="text-[11px] font-medium uppercase tracking-wider">Ponte Profit</span>
+                </div>
+                {profitStatus ? (
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                ) : (
+                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                )}
+             </div>
+             <div className="flex items-center justify-between my-0.5">
+                {profitStatus && profitDdeConnected ? (
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    PROFIT AO VIVO
+                  </span>
+                ) : profitStatus && !profitDdeConnected ? (
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
+                    ABRA O PROFIT PRO
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
+                    <RefreshCw size={10} className="animate-spin" />
+                    PONTE DESCONECTADA
+                  </span>
+                )}
+                <span className="text-xs text-emerald-400 font-mono">{profitStatus ? '12ms' : '0ms'}</span>
              </div>
           </div>
         ) : (
           <div className="flex justify-center">
-             <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+             <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
           </div>
         )}
       </div>
