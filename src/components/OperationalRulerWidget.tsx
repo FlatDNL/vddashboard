@@ -125,6 +125,11 @@ export function OperationalRulerWidget() {
   }))
   .sort((a, b) => b.value - a.value)
 
+  // Filtrar para mostrar apenas os 5 pontos mais próximos acima (resistências) e 5 abaixo (suportes)
+  const resistances = evaluatedPoints.filter(p => p.value > currentPrice).slice(-5)
+  const supports = evaluatedPoints.filter(p => p.value <= currentPrice).slice(0, 5)
+  const filteredPoints = [...resistances, ...supports]
+
   return (
     <div className="bg-[#0b1120] rounded-2xl border border-[#1e293b] flex flex-col h-full overflow-hidden min-h-[450px]">
       <div className="p-4 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
@@ -160,7 +165,7 @@ export function OperationalRulerWidget() {
             const elements = []
             let priceInserted = false
 
-            evaluatedPoints.forEach((point, idx) => {
+            filteredPoints.forEach((point, idx) => {
               if (!priceInserted && currentPrice >= point.value) {
                 elements.push(
                   <div key="current-price" className="relative flex items-center gap-4 my-3 group">
