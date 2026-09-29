@@ -66,9 +66,6 @@ export async function GET(req: Request) {
       maxima,
       minima,
       status,
-      // Retornamos os mesmos valores para a variável de teste pra não quebrar a UI
-      justoTeste: justo,
-      justissimoTeste: justissimo,
       metrics: {
         dxyPct: dxy?.pct || 0,
         emPct: emAvg
