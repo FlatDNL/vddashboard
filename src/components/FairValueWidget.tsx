@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Calculator } from 'lucide-react'
+import { useMarketParamsStore } from '@/store/marketParams'
 
 type PlanilhaData = {
   atual: number
@@ -21,13 +22,22 @@ type PlanilhaData = {
 export function FairValueWidget() {
   const [data, setData] = useState<PlanilhaData | null>(null)
   const [loading, setLoading] = useState(true)
+  const { manualFechamento, setManualParams, manualDxyPct } = useMarketParamsStore()
+  const [baseInput, setBaseInput] = useState('')
+
+  useEffect(() => {
+    if (manualFechamento) {
+      setBaseInput(manualFechamento.toString())
+    }
+  }, [manualFechamento])
 
   useEffect(() => {
     let isMounted = true
 
     async function fetchData() {
       try {
-        const res = await fetch('/api/fair-value')
+        const url = manualFechamento ? `/api/fair-value?base=${manualFechamento}` : '/api/fair-value'
+        const res = await fetch(url)
         if (res.ok && isMounted) {
           const json = await res.json()
           setData(json)
@@ -45,7 +55,17 @@ export function FairValueWidget() {
       isMounted = false
       clearInterval(interval)
     }
-  }, [])
+  }, [manualFechamento])
+
+  const handleSaveBase = () => {
+    if (baseInput) {
+      setManualParams(parseFloat(baseInput), manualDxyPct)
+      setLoading(true)
+    } else {
+      setManualParams(null, manualDxyPct)
+      setLoading(true)
+    }
+  }
 
   if (loading || !data) {
     return (
@@ -82,6 +102,23 @@ export function FairValueWidget() {
         }`}>
           VIÉS MACRO: {data.status}
         </span>
+
+        {/* Input Manual do Ajuste */}
+        <div className="flex items-center gap-2 mt-1">
+          <input 
+            type="number"
+            placeholder="Ajuste (ex: 5233)"
+            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-32 text-center outline-none focus:border-blue-500/50"
+            value={baseInput}
+            onChange={(e) => setBaseInput(e.target.value)}
+          />
+          <button 
+            onClick={handleSaveBase}
+            className="bg-blue-600/20 text-blue-400 hover:bg-blue-600/40 border border-blue-500/20 text-xs px-2 py-1 rounded transition-colors font-medium"
+          >
+            Salvar
+          </button>
+        </div>
       </div>
 
       {/* Grid com os 4 Quadrados de Preços */}
@@ -126,3 +163,4 @@ export function FairValueWidget() {
     </div>
   )
 }
+
