@@ -1,15 +1,18 @@
 'use client'
 
 import { useState, useEffect, useTransition } from 'react'
-import { Plus, Trash2, TrendingUp, Save, X, AlertTriangle, Loader2 } from 'lucide-react'
-import { AssetQuote } from '@/components/AssetQuote'
+import { Plus, Trash2, TrendingUp, Save, X, AlertTriangle, Loader2, Edit2 } from 'lucide-react'
 import { fetchInitialData, syncData } from './actions'
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
+import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable'
+import { SortableGrupo } from './SortableGrupo'
 
 type Ativo = {
   id: string
   codigo: string
   nome: string
   fonte: 'yahoo' | 'tradingview'
+  showOnDashboard?: boolean
 }
 
 type Grupo = {
@@ -39,13 +42,56 @@ export default function MacroeconomiaCadastroPage() {
   const [grupoSelecionado, setGrupoSelecionado] = useState<string | null>(null)
   const [novoAtivo, setNovoAtivo] = useState({ codigo: '', nome: '', fonte: 'yahoo' as 'yahoo' | 'tradingview' })
 
+  const [modalEditGrupo, setModalEditGrupo] = useState(false)
+  const [editandoGrupo, setEditandoGrupo] = useState<{ id: string; nome: string } | null>(null)
+
+  const [modalEditAtivo, setModalEditAtivo] = useState(false)
+  const [editandoAtivo, setEditandoAtivo] = useState<{ id: string; grupoId: string; nome: string } | null>(null)
+
   const [modalConfirm, setModalConfirm] = useState<{ isOpen: boolean; id: string; tipo: 'grupo' | 'ativo', grupoId?: string } | null>(null)
+
+  // Drag and Drop
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor)
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (!over) return
+
+    if (active.id !== over.id) {
+      const activeData = active.data.current
+      const overData = over.data.current
+
+      if (activeData?.type === 'grupo' && overData?.type === 'grupo') {
+        setGrupos((items) => {
+          const oldIndex = items.findIndex((i) => i.id === active.id)
+          const newIndex = items.findIndex((i) => i.id === over.id)
+          return arrayMove(items, oldIndex, newIndex)
+        })
+      } else if (activeData?.type === 'ativo' && overData?.type === 'ativo') {
+        if (activeData.grupoId === overData.grupoId) {
+          setGrupos((items) => {
+            return items.map((g) => {
+              if (g.id === activeData.grupoId) {
+                const oldIndex = g.ativos.findIndex((i) => i.id === active.id)
+                const newIndex = g.ativos.findIndex((i) => i.id === over.id)
+                return { ...g, ativos: arrayMove(g.ativos, oldIndex, newIndex) }
+              }
+              return g
+            })
+          })
+        }
+      }
+    }
+  }
 
   // Handlers
   const handleAdicionarGrupo = (e: React.FormEvent) => {
     e.preventDefault()
     if (novoGrupoNome.trim()) {
-      setGrupos([...grupos, { id: `temp_${Date.now()}`, nome: novoGrupoNome, ativos: [] }])
+      setGrupos([...grupos, { id: "temp_" + Date.now(), nome: novoGrupoNome, ativos: [] }])
       setModalGrupo(false)
       setNovoGrupoNome('')
     }
@@ -58,13 +104,49 @@ export default function MacroeconomiaCadastroPage() {
         if (g.id === grupoSelecionado) {
           return {
             ...g,
-            ativos: [...g.ativos, { id: `temp_${Date.now()}`, codigo: novoAtivo.codigo.toUpperCase(), nome: novoAtivo.nome, fonte: novoAtivo.fonte }]
+            ativos: [...g.ativos, { id: "temp_" + Date.now(), codigo: novoAtivo.codigo.toUpperCase(), nome: novoAtivo.nome, fonte: novoAtivo.fonte, showOnDashboard: true }]
           }
         }
         return g
       }))
       setModalAtivo(false)
       setNovoAtivo({ codigo: '', nome: '', fonte: 'yahoo' })
+    }
+  }
+
+  const handleEditarGrupo = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (editandoGrupo && editandoGrupo.nome.trim()) {
+      setGrupos(grupos.map(g => {
+        if (g.id === editandoGrupo.id) {
+          return { ...g, nome: editandoGrupo.nome }
+        }
+        return g
+      }))
+      setModalEditGrupo(false)
+      setEditandoGrupo(null)
+    }
+  }
+
+  const handleEditarAtivo = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (editandoAtivo && editandoAtivo.nome.trim()) {
+      setGrupos(grupos.map(g => {
+        if (g.id === editandoAtivo.grupoId) {
+          return {
+            ...g,
+            ativos: g.ativos.map(a => {
+              if (a.id === editandoAtivo.id) {
+                return { ...a, nome: editandoAtivo.nome }
+              }
+              return a
+            })
+          }
+        }
+        return g
+      }))
+      setModalEditAtivo(false)
+      setEditandoAtivo(null)
     }
   }
 
@@ -82,6 +164,23 @@ export default function MacroeconomiaCadastroPage() {
       }))
     }
     setModalConfirm(null)
+  }
+
+  const handleToggleVisibility = (id: string, grupoId: string) => {
+    setGrupos(grupos.map(g => {
+      if (g.id === grupoId) {
+        return {
+          ...g,
+          ativos: g.ativos.map(a => {
+            if (a.id === id) {
+              return { ...a, showOnDashboard: a.showOnDashboard === false ? true : false }
+            }
+            return a
+          })
+        }
+      }
+      return g
+    }))
   }
 
   return (
@@ -109,66 +208,24 @@ export default function MacroeconomiaCadastroPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          {grupos.map(grupo => (
-            <div key={grupo.id} className="rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-lg overflow-hidden flex flex-col">
-              <div className="flex items-center justify-between border-b border-[#1e293b] bg-[#131d33] px-5 py-4">
-                <h3 className="text-lg font-semibold text-slate-200">{grupo.nome}</h3>
-                <button 
-                  onClick={() => setModalConfirm({ isOpen: true, id: grupo.id, tipo: 'grupo' })}
-                  className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-md transition-colors"
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-              
-              <div className="flex-1 p-5">
-                {grupo.ativos.length === 0 ? (
-                  <p className="text-sm text-slate-500 text-center py-6">Nenhum ativo neste grupo.</p>
-                ) : (
-                  <div className="space-y-3">
-                    {grupo.ativos.map(ativo => (
-                      <div key={ativo.id} className="flex items-center justify-between rounded-xl border border-[#1e293b] bg-[#0b1120] p-3">
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-sm font-bold text-blue-400">{ativo.codigo}</span>
-                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${ativo.fonte === 'yahoo' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>
-                              {ativo.fonte === 'yahoo' ? 'Yahoo' : 'TradingView'}
-                            </span>
-                          </div>
-                          <span className="text-xs text-slate-400">{ativo.nome}</span>
-                        </div>
-                        
-                        <div className="flex items-center gap-4">
-                          <div className="flex flex-col items-end">
-                            <span className="text-xs text-slate-500 mb-0.5">Cotação Atual</span>
-                            <AssetQuote codigo={ativo.codigo} fonte={ativo.fonte} />
-                          </div>
-                          <button 
-                            onClick={() => setModalConfirm({ isOpen: true, id: ativo.id, tipo: 'ativo', grupoId: grupo.id })}
-                            className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
-              <div className="border-t border-[#1e293b] p-4 bg-[#0b1120]/50">
-                <button 
-                  onClick={() => { setGrupoSelecionado(grupo.id); setModalAtivo(true); }}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-blue-500/30 bg-blue-500/5 py-2.5 text-sm font-medium text-blue-400 hover:bg-blue-500/10 hover:border-blue-500/50 transition-colors"
-                >
-                  <Plus size={16} />
-                  <span>Adicionar Ativo</span>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <SortableContext items={grupos.map(g => g.id)} strategy={rectSortingStrategy}>
+              {grupos.map(grupo => (
+                <SortableGrupo 
+                  key={grupo.id}
+                  grupo={grupo}
+                  onEditGrupo={(g) => { setEditandoGrupo({ id: g.id, nome: g.nome }); setModalEditGrupo(true); }}
+                  onDeleteGrupo={(id) => setModalConfirm({ isOpen: true, id, tipo: 'grupo' })}
+                  onAddAtivo={(grupoId) => { setGrupoSelecionado(grupoId); setModalAtivo(true); }}
+                  onEditAtivo={(ativo) => { setEditandoAtivo(ativo); setModalEditAtivo(true); }}
+                  onDeleteAtivo={(id, grupoId) => setModalConfirm({ isOpen: true, id, tipo: 'ativo', grupoId })}
+                  onToggleVisibilityAtivo={handleToggleVisibility}
+                />
+              ))}
+            </SortableContext>
+          </div>
+        </DndContext>
       )}
       
       {grupos.length > 0 && (
@@ -272,6 +329,62 @@ export default function MacroeconomiaCadastroPage() {
               </div>
               <button type="submit" className="w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors mt-2">
                 Salvar Ativo
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Edit Grupo */}
+      {modalEditGrupo && editandoGrupo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between border-b border-[#1e293b] p-4">
+              <h3 className="font-semibold text-slate-200">Editar Grupo</h3>
+              <button onClick={() => { setModalEditGrupo(false); setEditandoGrupo(null); }} className="text-slate-500 hover:text-white"><X size={18}/></button>
+            </div>
+            <form onSubmit={handleEditarGrupo} className="p-5 space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Nome do Grupo</label>
+                <input 
+                  autoFocus
+                  required
+                  value={editandoGrupo.nome}
+                  onChange={e => setEditandoGrupo({ ...editandoGrupo, nome: e.target.value })}
+                  placeholder="Ex: Futuros, Ações BR..."
+                  className="w-full rounded-xl border border-[#1e293b] bg-[#0b1120] px-4 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <button type="submit" className="w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors">
+                Salvar Alterações
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Edit Ativo */}
+      {modalEditAtivo && editandoAtivo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between border-b border-[#1e293b] p-4">
+              <h3 className="font-semibold text-slate-200">Editar Nome do Ativo</h3>
+              <button onClick={() => { setModalEditAtivo(false); setEditandoAtivo(null); }} className="text-slate-500 hover:text-white"><X size={18}/></button>
+            </div>
+            <form onSubmit={handleEditarAtivo} className="p-5 space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Nome do Ativo</label>
+                <input 
+                  autoFocus
+                  required
+                  value={editandoAtivo.nome}
+                  onChange={e => setEditandoAtivo({ ...editandoAtivo, nome: e.target.value })}
+                  placeholder="Ex: Petrobras PN"
+                  className="w-full rounded-xl border border-[#1e293b] bg-[#0b1120] px-4 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <button type="submit" className="w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors mt-2">
+                Salvar Alterações
               </button>
             </form>
           </div>

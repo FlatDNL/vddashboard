@@ -27,7 +27,8 @@ const navigation: NavigationItem[] = [
     name: 'Macroeconomia', 
     icon: Globe,
     submenus: [
-      { name: 'Visão Geral', href: '/dashboard/macroeconomia' },
+      { name: 'Manchetes', href: '/dashboard/macroeconomia' },
+      { name: 'Painel de Ativos', href: '/dashboard/macroeconomia/painel' },
       { name: 'Cadastro de Ativo', href: '/dashboard/macroeconomia/cadastro' },
     ]
   },

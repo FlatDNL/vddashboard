@@ -28,23 +28,28 @@ export function RightSidebar({ grupos }: { grupos: any[] }) {
         <div className="flex-1 overflow-y-auto scrollbar-hide">
           {!collapsed ? (
             <div className="space-y-6 px-2">
-              {grupos.map((grupo: any) => (
-                <div key={grupo.id}>
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">{grupo.nome}</h3>
-                  <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-2">
-                    <div className="flex flex-col">
-                      {grupo.ativos.map((ativo: any) => (
-                        <div key={ativo.id} className="flex justify-between items-center py-1 px-2 hover:bg-[#1e293b]/30 rounded-md transition-colors">
-                          <AssetQuote codigo={ativo.codigo} fonte={ativo.fonte} nome={ativo.nome} layout="row" />
-                        </div>
-                      ))}
+              {grupos.map((grupo: any) => {
+                const ativosVisiveis = (grupo.ativos || []).filter((a: any) => a.showOnDashboard !== false)
+                if (ativosVisiveis.length === 0 && grupo.ativos.length > 0) return null // Hide group if all assets are hidden
+                
+                return (
+                  <div key={grupo.id}>
+                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">{grupo.nome}</h3>
+                    <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-2">
+                      <div className="flex flex-col">
+                        {ativosVisiveis.map((ativo: any) => (
+                          <div key={ativo.id} className="flex justify-between items-center py-1 px-2 hover:bg-[#1e293b]/30 rounded-md transition-colors">
+                            <AssetQuote codigo={ativo.codigo} fonte={ativo.fonte} nome={ativo.nome} layout="row" />
+                          </div>
+                        ))}
+                      </div>
+                      {ativosVisiveis.length === 0 && (
+                        <div className="py-2 px-2 text-xs text-slate-500 italic">Nenhum ativo selecionado para o dashboard</div>
+                      )}
                     </div>
-                    {grupo.ativos.length === 0 && (
-                      <div className="py-2 px-2 text-xs text-slate-500 italic">Nenhum ativo neste grupo</div>
-                    )}
                   </div>
-                </div>
-              ))}
+                )
+              })}
               {grupos.length === 0 && (
                 <p className="text-xs text-slate-500 italic text-center py-4">Nenhum ativo cadastrado.</p>
               )}

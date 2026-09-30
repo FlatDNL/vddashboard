@@ -7,9 +7,18 @@ import { createClient } from '@/utils/supabase/client'
 
 export function UserMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const [userName, setUserName] = useState('Carregando...')
   const menuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        setUserName(data.user.user_metadata?.full_name || data.user.email?.split('@')[0] || 'Usuário')
+      }
+    })
+  }, [])
 
   // Fechar ao clicar fora
   useEffect(() => {
@@ -28,6 +37,8 @@ export function UserMenu() {
     router.refresh()
   }
 
+  const encodedName = encodeURIComponent(userName)
+
   return (
     <div className="relative" ref={menuRef}>
       <div 
@@ -35,12 +46,12 @@ export function UserMenu() {
         onClick={() => setIsOpen(!isOpen)}
       >
         <img 
-          src="https://ui-avatars.com/api/?name=Daniel+Reis&background=1d4ed8&color=fff" 
-          alt="Daniel Reis" 
+          src={`https://ui-avatars.com/api/?name=${encodedName}&background=1d4ed8&color=fff`} 
+          alt={userName} 
           className="h-9 w-9 rounded-full object-cover ring-2 ring-[#1e293b] group-hover:ring-blue-500 transition-all"
         />
         <div className="flex flex-col hidden sm:flex">
-          <span className="text-sm font-semibold text-white leading-tight">Daniel Reis</span>
+          <span className="text-sm font-semibold text-white leading-tight">{userName}</span>
           <span className="text-[10px] text-slate-400">Trader • Premium</span>
         </div>
       </div>

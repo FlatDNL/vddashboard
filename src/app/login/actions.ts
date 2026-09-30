@@ -42,6 +42,11 @@ export async function signup(formData: FormData) {
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    options: {
+      data: {
+        full_name: formData.get('name') as string || 'Usuário',
+      }
+    }
   }
 
   const { error } = await supabase.auth.signUp(data)
@@ -56,5 +61,5 @@ export async function signup(formData: FormData) {
   // Precisamos deslogar ele imediatamente para forçar que ele aguarde aprovação!
   await supabase.auth.signOut()
 
-  redirect(`/login?message=${encodeURIComponent('Cadastro realizado com sucesso! Aguarde a aprovação do administrador para acessar.')}`)
+  redirect(`/login?message=${encodeURIComponent('Sua solicitação está aguardando aprovação do admin.')}`)
 }

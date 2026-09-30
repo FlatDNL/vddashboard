@@ -77,6 +77,7 @@ export function EconomicCalendarWidget() {
 
   useEffect(() => {
     let isMounted = true
+    let timeoutId: NodeJS.Timeout
 
     async function fetchCalendar() {
       try {
@@ -88,15 +89,18 @@ export function EconomicCalendarWidget() {
       } catch (e) {
         console.error(e)
       } finally {
-        if (isMounted) setLoading(false)
+        if (isMounted) {
+          setLoading(false)
+          timeoutId = setTimeout(fetchCalendar, 5000)
+        }
       }
     }
 
     fetchCalendar()
-    const interval = setInterval(fetchCalendar, 60000)
+    
     return () => {
       isMounted = false
-      clearInterval(interval)
+      clearTimeout(timeoutId)
     }
   }, [])
 

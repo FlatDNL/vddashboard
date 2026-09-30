@@ -1,4 +1,4 @@
-﻿import { login, signup } from './actions'
+import { login, signup } from './actions'
 import { Activity } from 'lucide-react'
 
 export default async function LoginPage({
@@ -45,6 +45,19 @@ export default async function LoginPage({
             {/* Form */}
             <form className="space-y-5">
               <div className="space-y-4">
+                <div className="group">
+                  <label htmlFor="name" className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Nome Completo (Para Cadastro)</label>
+                  <div className="relative">
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      className="block w-full rounded-xl border border-[#1e293b] bg-[#0f172a]/50 py-3 px-4 text-sm text-white placeholder-slate-600 transition-all focus:border-blue-500 focus:bg-[#0f172a] focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-inner group-hover:border-slate-700"
+                      placeholder="Seu Nome"
+                    />
+                  </div>
+                </div>
+
                 <div className="group">
                   <label htmlFor="email" className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Email de Acesso</label>
                   <div className="relative">

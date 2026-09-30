@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 
-export const revalidate = 60 // Revalida a cada 1 minuto
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+// Cache global em memória para traduções
+const translationCache: Record<string, string> = {}
 
 export async function GET(request: Request) {
   try {
@@ -27,7 +31,7 @@ export async function GET(request: Request) {
           'Origin': 'https://www.tradingview.com',
           'Referer': 'https://www.tradingview.com/'
         },
-        next: { revalidate: 60 }
+        cache: 'no-store'
       })
 
       if (!res.ok) return []
@@ -53,7 +57,7 @@ export async function GET(request: Request) {
     }
 
     // Tradutor completo para Português do Brasil (PT-BR)
-    const translateTitle = (title: string) => {
+    const translateTitle = async (title: string) => {
       let t = title
 
       // Termos e Indicadores consagrados do mercado
@@ -98,9 +102,39 @@ export async function GET(request: Request) {
       if (t.includes('10-Year Note Auction')) return 'Leilão de Títulos (10 Anos)'
       if (t.includes('30-Year Bond Auction')) return 'Leilão de Títulos (30 Anos)'
       if (t.includes('UN General Assembly')) return 'Assembleia Geral da ONU'
+      
+      // Novos indicadores
+      if (t.includes('MBA Mortgage Refinance Index')) return 'Índice de Refinanciamento Hipotecário (MBA)'
+      if (t.includes('MBA Purchase Index')) return 'Índice de Compras Hipotecárias (MBA)'
+      if (t.includes('MBA Mortgage Applications')) return 'Pedidos de Hipoteca (MBA)'
+      if (t.includes('MBA 30-Year Mortgage Rate')) return 'Taxa de Hipoteca 30 Anos (MBA)'
+      if (t.includes('MBA Mortgage Market Index')) return 'Índice do Mercado Hipotecário (MBA)'
+      if (t.includes('Nominal Budget Balance')) return 'Balanço Orçamentário Nominal'
+      if (t.includes('Primary Budget Balance')) return 'Balanço Orçamentário Primário'
 
-      // Substituição sistemática de termos em inglês
-      return t
+      // Se já está no cache (usando o título original), retorna
+      if (translationCache[title]) {
+        return translationCache[title]
+      }
+
+      // Tenta API externa com o termo ORIGINAL (em inglês limpo) para evitar que a IA se confunda com o "híbrido"
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q=${encodeURIComponent(title)}`
+        const res = await fetch(url)
+        if (res.ok) {
+          const json = await res.json()
+          if (json && json[0] && json[0][0] && json[0][0][0]) {
+            let translated = json[0][0][0]
+            translationCache[title] = translated
+            return translated
+          }
+        }
+      } catch (e) {
+        console.error('Translation error', e)
+      }
+
+      // Fallback em caso de Rate Limit do Google (Substituição sistemática de termos em inglês)
+      let semiTranslated = t
         .replace(/MoM/g, 'm/m')
         .replace(/YoY/g, 'a/a')
         .replace(/QoQ/g, 't/t')
@@ -114,20 +148,35 @@ export async function GET(request: Request) {
         .replace(/Mid-month/g, 'Prévia')
         .replace(/Final/g, 'Final')
         .replace(/Flash/g, 'Preliminar')
+        .replace(/Mortgage/g, 'Hipoteca')
+        .replace(/Budget/g, 'Orçamento')
+
+      return semiTranslated
     }
 
     // Função quantitativa para calcular a Pressão Direcional no WDO (USD/BRL)
     const calculatePressure = (e: any): { direction: 'ALTA' | 'BAIXA' | 'NEUTRO' | 'AGUARDANDO'; explanation: string } => {
-      if (e.actual === null || e.actual === undefined || e.forecast === null || e.forecast === undefined) {
+      if (e.actual === null || e.actual === undefined) {
         return { direction: 'AGUARDANDO', explanation: 'Aguardando publicação do dado' }
       }
 
+      let benchmark = e.forecast
+      let usingPrevious = false
+      if (benchmark === null || benchmark === undefined) {
+        benchmark = e.previous
+        usingPrevious = true
+      }
+
+      if (benchmark === null || benchmark === undefined) {
+        return { direction: 'NEUTRO', explanation: 'Resultado publicado, mas sem projeção ou valor anterior para base de cálculo' }
+      }
+
       const actual = Number(e.actual)
-      const forecast = Number(e.forecast)
-      const diff = actual - forecast
+      const benchmarkNum = Number(benchmark)
+      const diff = actual - benchmarkNum
 
       if (Math.abs(diff) < 0.0001) {
-        return { direction: 'NEUTRO', explanation: 'Resultado exatamente em linha com a projeção' }
+        return { direction: 'NEUTRO', explanation: `Resultado exatamente em linha com a ${usingPrevious ? 'leitura anterior' : 'projeção'}` }
       }
 
       const titleLower = (e.title || '').toLowerCase()
@@ -162,7 +211,7 @@ export async function GET(request: Request) {
       }
     }
 
-    const formattedEvents = events.map((e: any) => {
+    const formattedEvents = await Promise.all(events.map(async (e: any) => {
       const eventDate = new Date(e.date)
       const timeStr = eventDate.toLocaleTimeString('pt-BR', {
         timeZone: 'America/Sao_Paulo',
@@ -181,6 +230,7 @@ export async function GET(request: Request) {
 
       const isCompleted = e.actual !== null && e.actual !== undefined
       const pressure = calculatePressure(e)
+      const translatedTitle = await translateTitle(e.title)
 
       return {
         id: e.id,
@@ -188,7 +238,7 @@ export async function GET(request: Request) {
         dateIso: e.date,
         country: e.country,
         currency: e.currency || (e.country === 'US' ? 'USD' : 'BRL'),
-        title: translateTitle(e.title),
+        title: translatedTitle,
         originalTitle: e.title,
         impact,
         actual: formatVal(e.actual, e.unit),
@@ -197,7 +247,7 @@ export async function GET(request: Request) {
         isCompleted,
         pressure
       }
-    })
+    }))
 
     formattedEvents.sort((a: any, b: any) => a.dateIso.localeCompare(b.dateIso))
 
