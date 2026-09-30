@@ -29,10 +29,10 @@ export default function SuperDOMPage() {
           const minimaFinal = baseJusto - 35.5
           
           setSystemPoints([
-            { preco: maximaFinal, descricao: 'MÃXIMA ESTIMADA', importancia: 'Alta' },
+            { preco: maximaFinal, descricao: 'MÁXIMA ESTIMADA', importancia: 'Alta' },
             { preco: baseJusto, descricao: 'AJUSTE ANTERIOR (Base)', importancia: 'Média' },
-            { preco: justissimoFinal, descricao: 'JUSTÃSSIMO MACRO', importancia: 'Alta' },
-            { preco: minimaFinal, descricao: 'MÃNIMA ESTIMADA', importancia: 'Alta' }
+            { preco: justissimoFinal, descricao: 'JUSTÍSSIMO MACRO', importancia: 'Alta' },
+            { preco: minimaFinal, descricao: 'MÍNIMA ESTIMADA', importancia: 'Alta' }
           ])
       })
       .catch(e => console.error(e))
