@@ -86,8 +86,9 @@ export default function SuperDOMPage() {
             if (data.type === 'status') {
               setProfitConnected(data.profitConnected);
             }
-            if (data.type === 'market_data' && data.symbol === 'WDO$N') {
-              setCurrentPrice(data.last);
+            if (data.type === 'price') {
+              setCurrentPrice(data.price);
+              setProfitConnected(true);
             }
           } catch (e) {}
         };
@@ -194,13 +195,7 @@ export default function SuperDOMPage() {
       {/* Top Tag indicating Profit Status */}
       <div className="absolute top-1 left-2 z-20 flex gap-2">
         <span 
-          onClick={() => {
-            if (currentPrice > 0) {
-              const roundedCurrent = Math.round(currentPrice * 2) / 2;
-              setCenterPrice(roundedCurrent);
-              scrollToPrice(roundedCurrent, 'smooth');
-            }
-          }}
+          onClick={() => setAutoCenterTrigger(prev => prev + 1)}
           className={`px-2 py-0.5 rounded text-[10px] font-bold shadow-md cursor-pointer hover:brightness-110 active:scale-95 transition-transform ${
           wsConnected && profitConnected 
             ? 'bg-green-600/90 text-white border border-green-500' 
