@@ -31,7 +31,7 @@ server.Create(server_name)
 conversation = None
 
 connected = False
-current_ticker = "WDOV26"
+current_ticker = "WDOX26"
 server_type = ""
 
 def write_status_file():
@@ -127,6 +127,16 @@ def get_price(ticker):
         write_status_file()
         return None
 
+def get_config_ticker():
+    try:
+        if os.path.exists("profit_config.json"):
+            with open("profit_config.json", "r") as f:
+                data = json.load(f)
+                return data.get("profitTicker", "").strip().upper()
+    except:
+        pass
+    return None
+
 async def wdo_stream(websocket):
     global current_ticker, connected
     log_msg("\n🔗 Dashboard Web conectado ao nosso Bridge!")
@@ -134,9 +144,15 @@ async def wdo_stream(websocket):
     last_sent_price = 0
     last_status_sent = None
     
+    # Primeira leitura do ticker ao conectar
+    conf_ticker = get_config_ticker()
+    if conf_ticker and conf_ticker != current_ticker:
+        current_ticker = conf_ticker
+        log_msg(f"🔄 Ativo inicial configurado via arquivo para: {current_ticker}")
+    
     while True:
         try:
-            # 1. Processa comandos vindo do Dashboard em tempo real
+            # 1. Processa comandos vindo do Dashboard via WS (opcional, fallback)
             try:
                 msg = await asyncio.wait_for(websocket.recv(), timeout=0.05)
                 data = json.loads(msg)
@@ -144,12 +160,20 @@ async def wdo_stream(websocket):
                     new_ticker = data.get("ticker", "").strip().upper()
                     if new_ticker and new_ticker != current_ticker:
                         current_ticker = new_ticker
-                        log_msg(f"🔄 Ativo alterado via Dashboard para: {current_ticker}")
+                        log_msg(f"🔄 Ativo alterado via WS para: {current_ticker}")
                         last_sent_price = 0
             except asyncio.TimeoutError:
                 pass
             except Exception:
                 pass
+
+            # Lê o arquivo de configuração para ver se houve alteração na interface
+            disk_ticker = get_config_ticker()
+            if disk_ticker and disk_ticker != current_ticker:
+                current_ticker = disk_ticker
+                log_msg(f"🔄 Ativo sincronizado com o Dashboard (profit_config.json) para: {current_ticker}")
+                last_sent_price = 0
+                connected = False # Força reconexão com o novo ativo
 
             # 2. Tenta conectar ou manter a conexão com o Profit
             if not connected:

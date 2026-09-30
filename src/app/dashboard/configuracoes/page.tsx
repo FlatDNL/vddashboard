@@ -18,20 +18,20 @@ export default function ConfiguracoesPage() {
     if (ticker) setProfitTicker(ticker)
   }, [])
 
-  const handleSave = () => {
+  const handleSave = async () => {
     localStorage.setItem('gemini_api_key', geminiKey)
     localStorage.setItem('profit_ticker', profitTicker)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
 
     try {
-      const ws = new WebSocket('ws://localhost:8080')
-      ws.onopen = () => {
-        ws.send(JSON.stringify({ action: 'set_ticker', ticker: profitTicker }))
-        setTimeout(() => ws.close(), 500)
-      }
+      await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profitTicker, geminiKey })
+      })
     } catch (e) {
-      console.error('Falha ao enviar ticker para o bridge', e)
+      console.error('Falha ao salvar configurações no servidor', e)
     }
   }
 
