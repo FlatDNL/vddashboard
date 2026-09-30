@@ -162,23 +162,23 @@ export default function SuperDOMPage() {
     }
   }, [basePrice]);
 
-  // 6. CentralizaÃ§Ã£o automÃ¡tica a cada 10 segundos
-  const currentPriceRef = useRef(currentPrice);
-  useEffect(() => {
-    currentPriceRef.current = currentPrice;
-  }, [currentPrice]);
+  // 6. Centralização automática a cada 10 segundos usando trigger de estado para evitar closures obsoletas
+  const [autoCenterTrigger, setAutoCenterTrigger] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const p = currentPriceRef.current;
-      if (p > 0) {
-        const roundedCurrent = Math.round(p * 2) / 2;
-        setCenterPrice(roundedCurrent);
-        scrollToPrice(roundedCurrent, 'smooth');
-      }
+      setAutoCenterTrigger(prev => prev + 1);
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (autoCenterTrigger > 0 && currentPrice > 0) {
+      const roundedCurrent = Math.round(currentPrice * 2) / 2;
+      setCenterPrice(roundedCurrent);
+      scrollToPrice(roundedCurrent, 'smooth');
+    }
+  }, [autoCenterTrigger]);
 
   // Gera uma lista fixa de valores
   const ticks = [];
