@@ -71,7 +71,7 @@ export function OperationalRulerWidget() {
     let reconnectTimer: any
 
     const connectWs = () => {
-      ws = new WebSocket('ws://localhost:3002')
+      ws = new WebSocket('ws://localhost:8080')
       
       ws.onopen = () => setWsConnected(true)
       

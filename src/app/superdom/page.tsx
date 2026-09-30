@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { useMarcacoesStore } from '@/store/marcacoes'
@@ -68,7 +68,7 @@ export default function SuperDOMPage() {
     const connectWs = () => {
       if (isUnmounted) return;
       try {
-        ws = new WebSocket('ws://localhost:3002');
+        ws = new WebSocket('ws://localhost:8080');
 
         ws.onopen = () => {
           if (isUnmounted) return;
