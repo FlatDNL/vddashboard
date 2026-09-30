@@ -9,7 +9,7 @@ export default function SuperDOMPage() {
   const [currentPrice, setCurrentPrice] = useState<number>(0)
   const [ticker, setTicker] = useState('WDOV26')
   
-  // Pegando as marcaÃ§Ãµes do Zustand
+  // Pegando as marcações do Zustand
   const { marcacoes, setMarcacoes } = useMarcacoesStore()
   const { manualFechamento, manualDxyPct } = useMarketParamsStore()
   const [systemPoints, setSystemPoints] = useState<any[]>([])
@@ -48,7 +48,7 @@ export default function SuperDOMPage() {
     }
   })
 
-  // Controle de rolagem e centralizaÃ§Ã£o
+  // Controle de rolagem e centralização
   const [basePrice, setBasePrice] = useState<number>(0)
   const [centerPrice, setCenterPrice] = useState<number>(0)
   
@@ -59,7 +59,7 @@ export default function SuperDOMPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const rowRefs = useRef<{ [key: string]: HTMLDivElement }>({})
 
-  // ConexÃ£o com WebSocket para pegar a cotaÃ§Ã£o real
+  // Conexão com WebSocket para pegar a cotação real
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimer: NodeJS.Timeout;
@@ -117,7 +117,7 @@ export default function SuperDOMPage() {
     };
   }, []);
 
-  // 1. Inicializa a base do DOM no primeiro preÃ§o recebido
+  // 1. Inicializa a base do DOM no primeiro preço recebido
   useEffect(() => {
     if (currentPrice > 0 && basePrice === 0) {
       const rounded = Math.round(currentPrice * 2) / 2;
@@ -126,7 +126,7 @@ export default function SuperDOMPage() {
     }
   }, [currentPrice, basePrice]);
 
-  // 2. Se o preÃ§o se mover 8 ticks (4 pontos) longe do centro atual, centraliza de novo
+  // 2. Se o preço se mover 8 ticks (4 pontos) longe do centro atual, centraliza de novo
   useEffect(() => {
     if (basePrice === 0) return;
     const roundedCurrent = Math.round(currentPrice * 2) / 2;
@@ -137,7 +137,7 @@ export default function SuperDOMPage() {
     }
   }, [currentPrice, centerPrice, basePrice]);
 
-  // 3. FunÃ§Ã£o para rolar atÃ© um preÃ§o especÃ­fico
+  // 3. Função para rolar até um preço específico
   const scrollToPrice = (price: number, behavior: ScrollBehavior = 'smooth') => {
     const el = rowRefs.current[price.toFixed(2)];
     if (el && containerRef.current) {
@@ -205,10 +205,10 @@ export default function SuperDOMPage() {
       {/* Column Headers */}
       <div className="grid grid-cols-[100px_1fr] bg-[#1a1a1a] border-b border-[#333] text-[10px] text-gray-400 font-semibold sticky top-0 z-10 shadow-md">
         <div className="text-center py-1.5 border-r border-[#333]">
-          PreÃ§o
+          Preço
         </div>
         <div className="px-3 py-1.5">
-          DescriÃ§Ã£o
+          Descrição
         </div>
       </div>
 
@@ -245,7 +245,7 @@ export default function SuperDOMPage() {
                   {formatPrice(priceVal)}
                 </div>
 
-                {/* DescriÃ§Ã£o Column */}
+                {/* Descrição Column */}
                 <div className={`px-3 py-1 flex items-center justify-between transition-colors ${isCurrent ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]'}`}>
                   <span className={`text-sm font-bold tracking-wide ${descColorClass}`}>
                     {marcacao ? marcacao.descricao : ''}
