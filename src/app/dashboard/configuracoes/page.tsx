@@ -11,11 +11,23 @@ export default function ConfiguracoesPage() {
   const [testResult, setTestResult] = useState<{success: boolean, message: string} | null>(null)
 
   useEffect(() => {
+    // 1. Carrega do localStorage pra ser rápido
     const key = localStorage.getItem('gemini_api_key')
     if (key) setGeminiKey(key)
-    
     const ticker = localStorage.getItem('profit_ticker')
     if (ticker) setProfitTicker(ticker)
+
+    // 2. Busca do Supabase no background e sincroniza
+    fetch('/api/settings').then(res => res.json()).then(data => {
+      if (data.profitTicker) {
+        setProfitTicker(data.profitTicker)
+        localStorage.setItem('profit_ticker', data.profitTicker)
+      }
+      if (data.geminiKey) {
+        setGeminiKey(data.geminiKey)
+        localStorage.setItem('gemini_api_key', data.geminiKey)
+      }
+    }).catch(() => {})
   }, [])
 
   const handleSave = async () => {
