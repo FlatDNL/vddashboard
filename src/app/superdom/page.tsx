@@ -192,8 +192,16 @@ export default function SuperDOMPage() {
     <div className="flex flex-col h-screen w-full bg-[#0a0a0a] text-xs font-mono select-none overflow-hidden text-gray-300">
       
       {/* Top Tag indicating Profit Status */}
-      <div className="absolute top-1 left-2 z-20 flex gap-2 pointer-events-none">
-        <span className={`px-2 py-0.5 rounded text-[10px] font-bold shadow-md ${
+      <div className="absolute top-1 left-2 z-20 flex gap-2">
+        <span 
+          onClick={() => {
+            if (currentPrice > 0) {
+              const roundedCurrent = Math.round(currentPrice * 2) / 2;
+              setCenterPrice(roundedCurrent);
+              scrollToPrice(roundedCurrent, 'smooth');
+            }
+          }}
+          className={`px-2 py-0.5 rounded text-[10px] font-bold shadow-md cursor-pointer hover:brightness-110 active:scale-95 transition-transform ${
           wsConnected && profitConnected 
             ? 'bg-green-600/90 text-white border border-green-500' 
             : 'bg-red-600/90 text-white border border-red-500'
