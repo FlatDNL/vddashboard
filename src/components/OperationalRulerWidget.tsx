@@ -84,8 +84,8 @@ export function OperationalRulerWidget() {
       ws.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data)
-          if (data.type === 'market_data' && data.symbol === 'WDO$N') {
-            setCurrentPrice(data.last)
+          if (data.type === 'price') {
+            setCurrentPrice(data.price)
           } else if (data.type === 'status') {
             setProfitDdeConnected(data.profitConnected)
           }
