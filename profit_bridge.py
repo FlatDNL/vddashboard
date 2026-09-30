@@ -102,7 +102,8 @@ def get_price(ticker):
     if not connected or not conversation:
         return None
         
-    tickers_to_try = [f"{ticker}.ULT", f"{ticker}.Ult", f"{ticker}FUT.ULT", "WDOFUT.ULT", "WDO$.ULT", "WDO@.ULT"]
+    # Removemos os fallbacks genéricos (como WDOFUT) para forçar o erro caso o usuário digite um ativo que não existe.
+    tickers_to_try = [f"{ticker}.ULT", f"{ticker}.Ult", f"{ticker}FUT.ULT"]
     
     try:
         pythoncom.PumpWaitingMessages()

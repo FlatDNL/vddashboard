@@ -10542,3 +10542,192 @@
 2026-09-30 12:14:44 - 📈 Cotação capturada para WDOK26: 5204.5 -> Enviando à Régua!
 2026-09-30 12:14:44 - 📈 Cotação capturada para WDOK26: 5205.0 -> Enviando à Régua!
 2026-09-30 12:14:44 - ⚠️ Dashboard Web desconectado.
+2026-09-30 12:45:07 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-09-30 12:45:07 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-09-30 12:45:35 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-09-30 12:45:35 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-09-30 12:45:44 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 12:45:44 - 🔄 Ativo inicial configurado via arquivo para: WDOR26
+2026-09-30 12:45:45 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-09-30 12:45:45 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:45:48 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:45:49 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:45:50 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:45:57 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:45:57 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:45:57 - ⚠️ Dashboard Web desconectado.
+2026-09-30 12:45:58 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 12:45:58 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:45:59 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:45:59 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:02 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:02 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:03 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:05 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:06 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:10 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:10 - ⚠️ Dashboard Web desconectado.
+2026-09-30 12:46:11 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 12:46:11 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:13 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:14 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:16 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:18 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:19 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:20 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:20 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:21 - 📈 Cotação capturada para WDOR26: 5214.5 -> Enviando à Régua!
+2026-09-30 12:46:23 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:24 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:26 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:28 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:32 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:33 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:33 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:34 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:35 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:36 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:36 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:38 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:38 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:40 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:46 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:46 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:50 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 12:46:51 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:46:51 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 12:46:53 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:46:57 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 12:46:57 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:46:58 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 12:47:10 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 12:47:11 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 12:47:13 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:13 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 12:47:15 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:16 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:17 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:47:18 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:18 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:47:18 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:20 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:47:20 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:21 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:47:21 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:23 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:24 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:24 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:25 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:25 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:26 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:27 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:27 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:29 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:31 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:33 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:34 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:37 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:47:38 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:39 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:40 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:51 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:51 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:53 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:54 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:47:54 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:47:55 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:48:02 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:48:02 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:48:03 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:48:03 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:48:08 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 12:48:08 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:48:10 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:48:12 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 12:48:14 - 📈 Cotação capturada para WDOR26: 5211.5 -> Enviando à Régua!
+2026-09-30 12:48:16 - 📈 Cotação capturada para WDOR26: 5211.0 -> Enviando à Régua!
+2026-09-30 12:48:18 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:20 - 📈 Cotação capturada para WDOR26: 5211.0 -> Enviando à Régua!
+2026-09-30 12:48:20 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:21 - 📈 Cotação capturada para WDOR26: 5211.0 -> Enviando à Régua!
+2026-09-30 12:48:22 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:23 - 📈 Cotação capturada para WDOR26: 5211.0 -> Enviando à Régua!
+2026-09-30 12:48:23 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:27 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 12:48:30 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:31 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 12:48:34 - 📈 Cotação capturada para WDOR26: 5209.5 -> Enviando à Régua!
+2026-09-30 12:48:35 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 12:48:36 - 📈 Cotação capturada para WDOR26: 5209.5 -> Enviando à Régua!
+2026-09-30 12:48:36 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 12:48:38 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:39 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 12:48:40 - 📈 Cotação capturada para WDOR26: 5210.5 -> Enviando à Régua!
+2026-09-30 12:48:40 - 📈 Cotação capturada para WDOR26: 5210.0 -> Enviando à Régua!
+2026-09-30 13:01:31 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-09-30 13:01:31 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-09-30 13:01:32 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 13:01:32 - 🔄 Ativo inicial configurado via arquivo para: WDOR26
+2026-09-30 13:01:32 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-09-30 13:01:32 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:34 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:39 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:40 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:42 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:43 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:44 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:44 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:45 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:46 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:49 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:49 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:50 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:51 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 13:01:52 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:54 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:54 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:55 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:58 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:01:58 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:01:59 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:02:02 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:02:07 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:08 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:02:10 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:17 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:02:17 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:19 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:02:21 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:23 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 13:02:30 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:31 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 13:02:39 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:43 - 📈 Cotação capturada para WDOR26: 5212.0 -> Enviando à Régua!
+2026-09-30 13:02:43 - 📈 Cotação capturada para WDOR26: 5212.5 -> Enviando à Régua!
+2026-09-30 13:02:48 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:02:49 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:04 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 13:03:05 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:11 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 13:03:14 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:17 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:17 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:19 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:19 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:21 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:22 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:23 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:24 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:29 - 📈 Cotação capturada para WDOR26: 5214.0 -> Enviando à Régua!
+2026-09-30 13:03:30 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:39 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:39 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
+2026-09-30 13:03:42 - 📈 Cotação capturada para WDOR26: 5213.0 -> Enviando à Régua!
+2026-09-30 13:03:42 - 📈 Cotação capturada para WDOR26: 5213.5 -> Enviando à Régua!
