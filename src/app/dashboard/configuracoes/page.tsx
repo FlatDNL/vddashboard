@@ -23,6 +23,16 @@ export default function ConfiguracoesPage() {
     localStorage.setItem('profit_ticker', profitTicker)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
+
+    try {
+      const ws = new WebSocket('ws://localhost:8080')
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ action: 'set_ticker', ticker: profitTicker }))
+        setTimeout(() => ws.close(), 500)
+      }
+    } catch (e) {
+      console.error('Falha ao enviar ticker para o bridge', e)
+    }
   }
 
   const handleTest = async () => {

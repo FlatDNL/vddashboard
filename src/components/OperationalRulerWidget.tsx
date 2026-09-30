@@ -73,7 +73,13 @@ export function OperationalRulerWidget() {
     const connectWs = () => {
       ws = new WebSocket('ws://localhost:8080')
       
-      ws.onopen = () => setWsConnected(true)
+      ws.onopen = () => {
+        setWsConnected(true)
+        const savedTicker = localStorage.getItem('profit_ticker')
+        if (savedTicker) {
+          ws.send(JSON.stringify({ action: 'set_ticker', ticker: savedTicker }))
+        }
+      }
       
       ws.onmessage = (event) => {
         try {

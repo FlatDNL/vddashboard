@@ -73,6 +73,10 @@ export default function SuperDOMPage() {
         ws.onopen = () => {
           if (isUnmounted) return;
           setWsConnected(true);
+          const savedTicker = localStorage.getItem('profit_ticker')
+          if (savedTicker && ws) {
+            ws.send(JSON.stringify({ action: 'set_ticker', ticker: savedTicker }))
+          }
         };
 
         ws.onmessage = (event) => {

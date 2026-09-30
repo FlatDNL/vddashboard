@@ -8604,3 +8604,139 @@
 2026-09-30 11:40:02 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
 2026-09-30 11:40:18 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
 2026-09-30 11:40:18 - ⚠️ Dashboard Web desconectado.
+2026-09-30 11:40:18 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 11:40:18 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:24 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 11:40:24 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:30 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:40:30 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:40:31 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:31 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:32 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:32 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:34 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:34 - ⚠️ Dashboard Web desconectado.
+2026-09-30 11:40:34 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:36 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 11:40:36 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:44 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-09-30 11:40:44 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-09-30 11:40:45 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 11:40:45 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 11:40:45 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-09-30 11:40:45 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:45 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:56 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:56 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:40:57 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:40:57 - 📈 Cotação capturada para WDOV26: 5183.0 -> Enviando à Régua!
+2026-09-30 11:41:10 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:10 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:13 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:13 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:15 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:15 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:15 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:15 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:17 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:17 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:18 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:18 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:21 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:21 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:24 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:24 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:41:25 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:25 - 📈 Cotação capturada para WDOV26: 5182.5 -> Enviando à Régua!
+2026-09-30 11:41:35 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:41:35 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:41:44 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:41:44 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:41:45 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:41:46 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:04 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:04 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:04 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:04 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:06 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:06 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:11 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:11 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:13 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:13 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:19 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:19 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:42:21 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:21 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:42:23 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:42:23 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:42:33 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:42:33 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:42:34 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:42:34 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:42:46 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:42:46 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:43:02 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:02 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:07 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:43:07 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:43:10 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:10 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:12 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:12 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:12 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:12 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:14 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:43:14 - 📈 Cotação capturada para WDOV26: 5180.0 -> Enviando à Régua!
+2026-09-30 11:43:18 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:18 - 📈 Cotação capturada para WDOV26: 5180.5 -> Enviando à Régua!
+2026-09-30 11:43:19 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:19 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:23 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:43:23 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:43:29 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:29 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:37 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:43:37 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:43:45 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:45 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:43:45 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:43:45 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:06 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:06 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:07 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:07 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:07 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:08 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:16 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:16 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:17 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:18 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:18 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:18 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:23 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:23 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:24 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:24 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:25 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:25 - 📈 Cotação capturada para WDOV26: 5182.0 -> Enviando à Régua!
+2026-09-30 11:44:26 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:26 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:34 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:34 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:37 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:37 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:39 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:39 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:41 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:41 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:42 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:42 - 📈 Cotação capturada para WDOV26: 5181.0 -> Enviando à Régua!
+2026-09-30 11:44:43 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
+2026-09-30 11:44:43 - 📈 Cotação capturada para WDOV26: 5181.5 -> Enviando à Régua!
