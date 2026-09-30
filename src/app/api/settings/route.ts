@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     // Also save to local disk for the Python bridge to read instantly
     const configPath = path.join(process.cwd(), 'profit_config.json')
-    let existingConfig = {}
+    let existingConfig: Record<string, any> = {}
     if (fs.existsSync(configPath)) {
       try {
         existingConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'))
@@ -54,7 +54,7 @@ export async function GET() {
 
     // Try reading from disk as fallback
     const configPath = path.join(process.cwd(), 'profit_config.json')
-    let diskSettings = {}
+    let diskSettings: Record<string, any> = {}
     if (fs.existsSync(configPath)) {
       try {
         diskSettings = JSON.parse(fs.readFileSync(configPath, 'utf8'))
