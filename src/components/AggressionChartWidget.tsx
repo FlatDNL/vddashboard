@@ -55,10 +55,18 @@ export function AggressionChartWidget() {
           const unixTime = (Math.floor(new Date(r.timestamp).getTime() / 1000)) as UTCTimestamp
           
           if (groupDataMap.has(r.group_id)) {
-            groupDataMap.get(r.group_id)!.push({
-              time: unixTime,
-              value: r.cumulative_net_volume,
-            })
+            const groupData = groupDataMap.get(r.group_id)!
+            
+            // Se já existe um dado no mesmo segundo, atualiza o valor em vez de dar push
+            if (groupData.length > 0 && groupData[groupData.length - 1].time === unixTime) {
+              groupData[groupData.length - 1].value = r.cumulative_net_volume
+            } else {
+              groupData.push({
+                time: unixTime,
+                value: r.cumulative_net_volume,
+              })
+            }
+            
             currentSaldos[r.group_id] = r.cumulative_net_volume
           }
         })
