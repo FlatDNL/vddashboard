@@ -43,32 +43,30 @@ export function AggressionChartWidget() {
         const records: AggressionRecord[] = data.records
         let gapFound = false
 
-        const groupDataMap = new Map<string, { time: UTCTimestamp; value: number }[]>()
+        const rawGroupData = new Map<string, Map<UTCTimestamp, number>>()
         const currentSaldos: Record<string, number> = {}
 
         data.groups.forEach((g: PlayerGroup) => {
-          groupDataMap.set(g.id, [])
+          rawGroupData.set(g.id, new Map())
         })
 
         records.forEach((r) => {
           if (r.is_gap) gapFound = true
           const unixTime = (Math.floor(new Date(r.timestamp).getTime() / 1000)) as UTCTimestamp
           
-          if (groupDataMap.has(r.group_id)) {
-            const groupData = groupDataMap.get(r.group_id)!
-            
-            // Se já existe um dado no mesmo segundo, atualiza o valor em vez de dar push
-            if (groupData.length > 0 && groupData[groupData.length - 1].time === unixTime) {
-              groupData[groupData.length - 1].value = r.cumulative_net_volume
-            } else {
-              groupData.push({
-                time: unixTime,
-                value: r.cumulative_net_volume,
-              })
-            }
-            
+          if (rawGroupData.has(r.group_id)) {
+            rawGroupData.get(r.group_id)!.set(unixTime, r.cumulative_net_volume)
             currentSaldos[r.group_id] = r.cumulative_net_volume
           }
+        })
+
+        const groupDataMap = new Map<string, { time: UTCTimestamp; value: number }[]>()
+        
+        rawGroupData.forEach((timeMap, groupId) => {
+          const sortedData = Array.from(timeMap.entries())
+            .sort((a, b) => a[0] - b[0])
+            .map(([time, value]) => ({ time, value }))
+          groupDataMap.set(groupId, sortedData)
         })
 
         setLatestSaldos(currentSaldos)
