@@ -22,19 +22,28 @@ export function FairValueWidget() {
   const [loading, setLoading] = useState(true)
   const { manualFechamento, setManualParams, manualDxyPct } = useMarketParamsStore()
   const [baseInput, setBaseInput] = useState('')
+  const [dxyInput, setDxyInput] = useState('')
 
   useEffect(() => {
-    if (manualFechamento) {
+    if (manualFechamento !== null) {
       setBaseInput(manualFechamento.toString())
     }
-  }, [manualFechamento])
+    if (manualDxyPct !== null) {
+      setDxyInput(manualDxyPct.toString())
+    }
+  }, [manualFechamento, manualDxyPct])
 
   useEffect(() => {
     let isMounted = true
 
     async function fetchData() {
       try {
-        const url = manualFechamento ? `/api/fair-value?base=${manualFechamento}` : '/api/fair-value'
+        const params = new URLSearchParams()
+        if (manualFechamento !== null) params.set('base', manualFechamento.toString())
+        if (manualDxyPct !== null) params.set('dxy', manualDxyPct.toString())
+
+        const queryString = params.toString()
+        const url = queryString ? `/api/fair-value?${queryString}` : '/api/fair-value'
         const res = await fetch(url)
         if (res.ok && isMounted) {
           const json = await res.json()
@@ -53,16 +62,13 @@ export function FairValueWidget() {
       isMounted = false
       clearInterval(interval)
     }
-  }, [manualFechamento])
+  }, [manualFechamento, manualDxyPct])
 
   const handleSaveBase = () => {
-    if (baseInput) {
-      setManualParams(parseFloat(baseInput), manualDxyPct)
-      setLoading(true)
-    } else {
-      setManualParams(null, manualDxyPct)
-      setLoading(true)
-    }
+    const fechamentoVal = baseInput !== '' ? parseFloat(baseInput) : null
+    const dxyVal = dxyInput !== '' ? parseFloat(dxyInput) : null
+    setManualParams(fechamentoVal, dxyVal)
+    setLoading(true)
   }
 
   if (loading || !data) {
@@ -101,14 +107,22 @@ export function FairValueWidget() {
           VIÉS MACRO: {data.status}
         </span>
 
-        {/* Input Manual do Ajuste */}
-        <div className="flex items-center gap-2 mt-1">
+        {/* Inputs Manuais de Ajuste e DXY */}
+        <div className="flex items-center gap-1.5 mt-1 flex-wrap justify-center">
           <input 
             type="number"
-            placeholder="Ajuste (ex: 5233)"
-            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-32 text-center outline-none focus:border-blue-500/50"
+            placeholder="Ajuste (5226)"
+            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-28 text-center outline-none focus:border-blue-500/50"
             value={baseInput}
             onChange={(e) => setBaseInput(e.target.value)}
+          />
+          <input 
+            type="number"
+            step="0.01"
+            placeholder="DXY% (-0.41)"
+            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-24 text-center outline-none focus:border-blue-500/50"
+            value={dxyInput}
+            onChange={(e) => setDxyInput(e.target.value)}
           />
           <button 
             onClick={handleSaveBase}

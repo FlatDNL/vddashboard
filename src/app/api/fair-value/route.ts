@@ -11,7 +11,9 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const baseParam = searchParams.get('base')
+    const dxyParam = searchParams.get('dxy')
     const baseAjuste = baseParam ? parseFloat(baseParam) : null
+    const manualDxy = dxyParam !== null && dxyParam !== '' ? parseFloat(dxyParam) : null
 
     const symbols = ['BRL=X', 'DX-Y.NYB', 'MXN=X', 'ZAR=X', 'CLP=X']
     const quotes = await yahooFinance.quote(symbols)
@@ -30,21 +32,18 @@ export async function GET(req: Request) {
     const brl = data['BRL=X']
     const dxy = data['DX-Y.NYB']
     
-    // 1. Fechamento do dia anterior (Referência)
-    // Se o usuário passou um baseAjuste (ex: 5233), usa ele. Senão, faz o fallback pro BRL=X
-    const fechamentoAnterior = baseAjuste || ((brl?.prev || brl?.price || 5.400) * 1000)
+    // 1. Base Inicial (Fechamento/Ajuste do Dólar)
+    const fechamentoAnterior = (brl?.prev || brl?.price || 5.400) * 1000
+    const justo = baseAjuste || fechamentoAnterior
 
-    // O "Preço Justo" passa a ser o Fechamento (base da projeção)
-    const justo = fechamentoAnterior
+    // 2. Dólar Projetado (Preço Justíssimo de Abertura)
+    // Fórmula do Frajola: Base * (1 + (Δ% DXY / 100))
+    const dxyPctUsado = manualDxy !== null ? manualDxy : (dxy?.pct || 0)
+    const justissimo = justo * (1 + (dxyPctUsado / 100))
 
-    // 2. Preço Projetado (Preço Justíssimo)
-    // Fórmula do Frajola: Fechamento * (1 + (Variação DXY / 100))
-    const justissimo = justo * (1 + ((dxy?.pct || 0) / 100))
-
-    // 3. Faixa da Madrugada (Máxima e Mínima)
-    // Ajustado para offsets exatos baseados na B3 (+35 e -36)
-    const maxima = justo + 35
-    const minima = justo - 36
+    // 3. Faixa da Madrugada (Máxima e Mínima Estimadas)
+    const maxima = justo + 34.5
+    const minima = justo - 35.5
 
     const atual = (brl?.price || 5.400) * 1000
 
@@ -61,6 +60,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       timestamp: Date.now(),
       atual,
+      fechamentoAnterior,
       justo,
       justissimo,
       maxima,

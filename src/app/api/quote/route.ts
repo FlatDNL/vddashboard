@@ -1,5 +1,31 @@
 import { NextResponse } from 'next/server'
 import YahooFinance from 'yahoo-finance2'
+import dns from 'dns'
+
+// Configurar fallback de DNS público (Google/Cloudflare) para garantir resolução de data.tradingview.com
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1'])
+  const origLookup = dns.lookup
+  const customLookup = (host: string, options: any, callback: any) => {
+    if (typeof options === 'function') {
+      callback = options
+      options = {}
+    }
+    dns.resolve4(host, (err, addrs) => {
+      if (!err && addrs && addrs.length > 0) {
+        if (options && options.all) {
+          return callback(null, addrs.map(a => ({ address: a, family: 4 })))
+        }
+        return callback(null, addrs[0], 4)
+      }
+      origLookup(host, options, callback)
+    })
+  }
+  Object.assign(customLookup, origLookup)
+  ;(dns as any).lookup = customLookup
+} catch (e) {
+  console.error('DNS Patch Error:', e)
+}
 
 const yahooFinance = new YahooFinance()
 

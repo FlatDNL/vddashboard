@@ -7,21 +7,17 @@ import fs from 'fs'
 function checkPort(port: number, host: string): Promise<boolean> {
   return new Promise((resolve) => {
     try {
-      const socket = new net.Socket()
-      socket.setTimeout(800)
-      socket.on('connect', () => {
-        socket.destroy()
-        resolve(true)
-      })
-      socket.on('timeout', () => {
-        socket.destroy()
-        resolve(false)
-      })
-      socket.on('error', () => {
-        socket.destroy()
-        resolve(false)
-      })
-      socket.connect(port, host)
+      const statusPath = path.join(process.cwd(), 'profit_status.json')
+      if (fs.existsSync(statusPath)) {
+        const fileData = fs.readFileSync(statusPath, 'utf8')
+        const json = JSON.parse(fileData)
+        // Se o arquivo foi atualizado nos últimos 5 segundos
+        if (Date.now() / 1000 - json.updatedAt < 5) {
+          resolve(true)
+          return
+        }
+      }
+      resolve(false)
     } catch (e) {
       resolve(false)
     }

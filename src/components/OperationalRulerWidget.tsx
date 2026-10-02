@@ -41,8 +41,8 @@ export function OperationalRulerWidget() {
           const dxyVar = manualDxyPct !== null ? manualDxyPct : data.metrics.dxyPct
 
           const justissimoFinal = baseJusto * (1 + (dxyVar / 100))
-          const maximaFinal = baseJusto + 35
-          const minimaFinal = baseJusto - 36
+          const maximaFinal = baseJusto + 34.5
+          const minimaFinal = baseJusto - 35.5
 
           const newPoints: RulerPoint[] = [
             { id: 'max', label: 'MÁXIMA ESTIMADA', value: maximaFinal, type: 'resistance', strength: 'Forte' },

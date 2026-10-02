@@ -12690,3 +12690,473 @@
 2026-09-30 13:33:31 - 📈 Cotação capturada para WDOX26: 5211.0 -> Enviando à Régua!
 2026-09-30 13:33:39 - 📈 Cotação capturada para WDOX26: 5211.5 -> Enviando à Régua!
 2026-09-30 13:33:39 - ⚠️ Dashboard Web desconectado.
+2026-09-30 16:02:52 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-09-30 16:02:52 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-09-30 16:02:54 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 16:02:54 - 🔄 Ativo alterado via WS para: WDOK26
+2026-09-30 16:02:54 - 🔄 Ativo sincronizado com o Dashboard (profit_config.json) para: WDOX26
+2026-09-30 16:03:17 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-09-30 16:03:17 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:19 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:20 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:22 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:26 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:27 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:29 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:29 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:30 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:30 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:30 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:32 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:32 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:33 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:33 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:44 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:44 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:45 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:03:45 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:51 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:54 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:55 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:56 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-09-30 16:03:56 - 🔄 Ativo alterado via WS para: WDOK26
+2026-09-30 16:03:56 - 🔄 Ativo sincronizado com o Dashboard (profit_config.json) para: WDOX26
+2026-09-30 16:03:56 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-09-30 16:03:56 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:56 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:03:59 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:03:59 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:04:02 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:02 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:05 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:04:05 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:04:07 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:07 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:13 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:13 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:14 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:14 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:16 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:17 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:18 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:18 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:19 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:19 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:20 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:20 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:21 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:21 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:22 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:22 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:23 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:23 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:25 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:25 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:25 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:25 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:27 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:27 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:28 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:29 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:30 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:30 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:30 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:30 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:33 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:33 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:36 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:04:36 - 📈 Cotação capturada para WDOX26: 5198.5 -> Enviando à Régua!
+2026-09-30 16:04:37 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:37 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:37 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:04:42 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:42 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:45 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:45 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:46 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:46 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:47 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:47 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:50 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:50 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:04:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:52 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:52 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:53 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:53 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:53 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:53 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:55 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:55 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:56 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:57 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:58 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:58 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:04:59 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:04:59 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:05:02 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:02 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:02 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:02 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:03 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:03 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:04 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:04 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:05 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:05 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:06 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:05:06 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:05:07 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:07 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:09 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:09 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:11 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:11 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:11 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:11 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:12 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:12 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:14 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:14 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:15 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:15 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:15 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:16 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:19 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:19 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:22 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:22 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:24 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:24 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:24 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:24 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:24 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:25 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:26 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:26 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:28 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:28 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:29 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:05:29 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:05:32 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:32 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:36 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:05:36 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:37 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:05:37 - 📈 Cotação capturada para WDOX26: 5199.0 -> Enviando à Régua!
+2026-09-30 16:05:38 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:38 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:41 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:41 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:44 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:44 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:45 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:46 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:48 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:48 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:53 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:53 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:05:54 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:05:54 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:01 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:01 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:04 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:04 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:04 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:06:04 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:06:05 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:05 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:06 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:06:06 - 📈 Cotação capturada para WDOX26: 5199.5 -> Enviando à Régua!
+2026-09-30 16:06:07 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:07 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:08 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:08 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:08 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:09 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:10 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:10 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:11 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:11 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:12 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:12 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:14 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:14 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:16 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:16 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:16 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:16 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:23 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:23 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:24 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:24 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:25 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:25 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:26 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:26 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:26 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:26 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:35 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:35 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:35 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:35 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:38 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:38 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:39 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:39 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:39 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:39 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:44 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:44 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:45 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:45 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:48 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:48 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:48 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:48 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:49 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:49 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:51 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:51 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:06:54 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:54 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:55 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:55 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:57 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:57 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:58 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:58 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:06:58 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:06:59 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:00 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:00 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:02 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:02 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:02 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:02 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:03 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:03 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:04 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:04 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:04 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:05 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:05 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:06 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:06 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:06 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:14 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:14 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:17 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:17 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:21 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:21 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:27 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:27 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:27 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:27 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:28 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:30 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:30 - 📈 Cotação capturada para WDOX26: 5201.5 -> Enviando à Régua!
+2026-09-30 16:07:30 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:30 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:38 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:38 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:40 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:40 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:41 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:41 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:42 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:42 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:45 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:45 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:47 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:47 - 📈 Cotação capturada para WDOX26: 5201.0 -> Enviando à Régua!
+2026-09-30 16:07:50 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:50 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:52 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:53 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:53 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:53 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:53 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:54 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:54 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:55 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:55 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:07:58 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:07:58 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:08:00 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:08:00 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:08:02 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:08:02 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:08:09 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:08:09 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:08:10 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:08:10 - 📈 Cotação capturada para WDOX26: 5200.5 -> Enviando à Régua!
+2026-09-30 16:08:13 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-09-30 16:08:13 - 📈 Cotação capturada para WDOX26: 5200.0 -> Enviando à Régua!
+2026-10-02 07:36:20 - 🚀 Iniciando Bridge de Cotações Profit/Tryd...
+2026-10-02 07:36:20 - 📡 Aguardando o Painel Dashboard conectar na porta 8080...
+
+2026-10-02 07:36:21 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-10-02 07:36:47 - ✅ Conectado com sucesso ao DDE do ProfitChart!
+2026-10-02 07:36:47 - 📈 Cotação capturada para WDOX26: 5261.0 -> Enviando à Régua!
+2026-10-02 08:07:17 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-10-02 08:07:17 - 📈 Cotação capturada para WDOX26: 5261.0 -> Enviando à Régua!
+2026-10-02 08:07:30 - 
+🔗 Dashboard Web conectado ao nosso Bridge!
+2026-10-02 08:07:30 - 📈 Cotação capturada para WDOX26: 5261.0 -> Enviando à Régua!
+2026-10-02 08:15:31 - ✅ Supabase Python Client Inicializado!
+2026-10-02 08:15:31 - 🚀 Iniciando Motor Integrado Profit + Coletor de Saldo de Agressão...
+2026-10-02 08:15:31 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:15:32 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:15:49 - ✅ Supabase Python Client Inicializado!
+2026-10-02 08:15:49 - 🚀 Iniciando Motor Integrado Profit + Coletor de Saldo de Agressão...
+2026-10-02 08:15:49 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:15:50 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:17:19 - ✅ Supabase Python Client Inicializado!
+2026-10-02 08:17:19 - 🚀 Iniciando Motor Integrado Profit + Coletor de Saldo de Agressão...
+2026-10-02 08:17:19 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:17:20 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:17:21 - 
+🔗 Dashboard Web conectado ao nosso Bridge Python!
+2026-10-02 08:17:21 - ✅ Conectado ao DDE do ProfitChart!
+2026-10-02 08:17:21 - 📈 Cotação WDOX26: 5261.0
+2026-10-02 08:18:32 - ✅ Supabase Python Client Inicializado!
+2026-10-02 08:18:32 - 🚀 Iniciando Motor Integrado Profit + Coletor de Saldo de Agressão...
+2026-10-02 08:18:32 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:18:33 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:18:34 - 
+🔗 Dashboard Web conectado ao nosso Bridge Python!
+2026-10-02 08:18:34 - ✅ Conectado ao DDE do ProfitChart!
+2026-10-02 08:18:34 - 📈 Cotação WDOX26: 5261.0
+2026-10-02 08:19:03 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:19:34 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:20:05 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:20:36 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:21:07 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:21:38 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:22:09 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:22:40 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:23:11 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:23:41 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:24:12 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:27:29 - ✅ Supabase Client Inicializado!
+2026-10-02 08:27:29 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-02 08:27:29 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:27:29 - ✅ Conectado com sucesso ao Excel RTD (Planilha: Pasta1)!
+2026-10-02 08:27:30 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:27:35 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:28:01 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:28:31 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:29:02 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:29:32 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:30:03 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:30:33 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:31:04 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:31:35 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:32:06 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:32:36 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:33:06 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:33:37 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:34:08 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:34:38 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:35:09 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:35:39 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:36:10 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:36:41 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:37:11 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:37:42 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:38:05 - ✅ Supabase Client Inicializado!
+2026-10-02 08:38:05 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-02 08:38:05 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:38:05 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx)!
+2026-10-02 08:38:06 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:38:06 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:38:06 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:38:37 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:39:07 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:39:38 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:40:08 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:40:39 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:41:10 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:41:41 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:42:11 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:42:42 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:43:12 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:43:43 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:44:14 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:44:45 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:45:16 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:45:38 - ✅ Supabase Client Inicializado!
+2026-10-02 08:45:38 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-02 08:45:38 - 📡 Porta WebSocket: 8080
+
+2026-10-02 08:45:38 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx)!
+2026-10-02 08:45:39 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:45:42 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:45:42 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:46:10 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:46:41 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:47:11 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:47:42 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:48:13 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:48:44 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:49:15 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:49:45 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:50:16 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:50:47 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:51:17 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:51:48 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:52:18 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:52:49 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:53:19 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:53:49 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:54:14 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:54:14 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:54:14 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:54:14 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:54:20 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:54:37 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:54:37 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:54:51 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:55:02 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:55:02 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:55:20 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:55:20 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:55:21 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:55:51 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:56:22 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:56:35 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-02 08:56:35 - 📈 Cotação RTD WDOX26: 5261.0
+2026-10-02 08:56:53 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:57:23 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4
+2026-10-02 08:57:54 - 📋 Grupos carregados: 2 | Mapeamento Corretoras: 4

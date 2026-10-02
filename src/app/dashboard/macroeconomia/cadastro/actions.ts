@@ -8,6 +8,7 @@ type Ativo = {
   codigo: string
   nome: string
   fonte: 'yahoo' | 'tradingview'
+  showOnDashboard?: boolean
 }
 
 type Grupo = {
@@ -75,13 +76,15 @@ export async function syncData(gruposParaSalvar: Grupo[]) {
           grupo_id: grupoId,
           codigo: ativo.codigo,
           nome: ativo.nome,
-          fonte: ativo.fonte
+          fonte: ativo.fonte,
+          show_on_dashboard: ativo.showOnDashboard !== false
         })
       } else {
         await supabase.from('ativos').update({
           codigo: ativo.codigo,
           nome: ativo.nome,
-          fonte: ativo.fonte
+          fonte: ativo.fonte,
+          show_on_dashboard: ativo.showOnDashboard !== false
         }).eq('id', ativo.id)
       }
     }
@@ -101,7 +104,7 @@ export async function fetchInitialData() {
     .select(`
       id, 
       nome, 
-      ativos (id, codigo, nome, fonte)
+      ativos (id, codigo, nome, fonte, show_on_dashboard)
     `)
     .order('created_at', { ascending: true })
 
@@ -110,5 +113,17 @@ export async function fetchInitialData() {
     return []
   }
 
-  return grupos || []
+  // Map the database snake_case to frontend camelCase
+  const mappedGrupos = (grupos || []).map(grupo => ({
+    ...grupo,
+    ativos: grupo.ativos.map((ativo: any) => ({
+      id: ativo.id,
+      codigo: ativo.codigo,
+      nome: ativo.nome,
+      fonte: ativo.fonte,
+      showOnDashboard: ativo.show_on_dashboard
+    }))
+  }))
+
+  return mappedGrupos
 }

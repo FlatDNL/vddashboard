@@ -37,6 +37,7 @@ const navigation: NavigationItem[] = [
     icon: Activity,
     submenus: [
       { name: 'SuperDOM', href: '/superdom', isPopup: true },
+      { name: 'Grupos de Players', href: '/dashboard/operacional/grupos-players' },
       { name: 'Marcações', href: '/dashboard/operacional/marcacoes' },
     ]
   },

@@ -74,7 +74,7 @@ function PanelAssetRow({ ativo }: { ativo: any }) {
 export function PanelGrid({ grupos }: { grupos: any[] }) {
   return (
     <div className="flex-1 overflow-y-auto scrollbar-hide pb-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 items-start">
+      <div className="grid grid-cols-3 gap-4 items-start">
         {grupos.map((grupo) => (
           <div key={grupo.id} className="bg-[#0b1120] border border-[#1e293b] rounded-lg overflow-hidden flex flex-col shadow-lg">
             <div className="bg-[#0f172a] border-b border-[#1e293b] px-3 py-2 flex items-center justify-between">
@@ -92,13 +92,16 @@ export function PanelGrid({ grupos }: { grupos: any[] }) {
               </div>
               
               <div className="flex flex-col">
-                {grupo.ativos.length > 0 ? (
-                  grupo.ativos.map((ativo: any) => (
-                    <PanelAssetRow key={ativo.id} ativo={ativo} />
-                  ))
-                ) : (
-                  <div className="py-4 text-center text-xs text-slate-500 italic">Nenhum ativo cadastrado</div>
-                )}
+                {(() => {
+                  const ativosVisiveis = grupo.ativos.filter((ativo: any) => ativo.showOnDashboard !== false)
+                  return ativosVisiveis.length > 0 ? (
+                    ativosVisiveis.map((ativo: any) => (
+                      <PanelAssetRow key={ativo.id} ativo={ativo} />
+                    ))
+                  ) : (
+                    <div className="py-4 text-center text-xs text-slate-500 italic">Nenhum ativo para exibir</div>
+                  )
+                })()}
               </div>
             </div>
           </div>
