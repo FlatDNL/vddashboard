@@ -23,7 +23,7 @@ export function AggressionChartWidget() {
   const chartRef = useRef<IChartApi | null>(null)
   const seriesMapRef = useRef<Map<string, ISeriesApi<'Line'>>>(new Map())
 
-  const [asset, setAsset] = useState('WDOFUT')
+  const [asset, setAsset] = useState('WDOX26')
   const [groups, setGroups] = useState<PlayerGroup[]>([])
   const [latestSaldos, setLatestSaldos] = useState<Record<string, number>>({})
   const [hasGap, setHasGap] = useState(false)
@@ -168,7 +168,7 @@ export function AggressionChartWidget() {
         <div className="flex items-center gap-2">
           {/* Seletor do Ativo */}
           <div className="flex items-center bg-[#1e293b] rounded-xl p-1 border border-slate-700">
-            {['WDOFUT', 'WING26', 'PETR4'].map((item) => (
+            {['WDOX26', 'WDOFUT', 'WING26', 'PETR4'].map((item) => (
               <button
                 key={item}
                 onClick={() => setAsset(item)}

@@ -161,13 +161,39 @@ def process_rtd_times_and_trades():
             if len(processed_trade_keys) > 10000:
                 processed_trade_keys = set(list(processed_trade_keys)[-5000:])
 
+            # Dicionário de fallback caso o usuário deixe os nomes em vez dos códigos no Profit
+            FALLBACK_BROKERS = {
+                "UBS": 16, "IDEAL": 73, "AGORA": 74, "NOVA FUTURA": 120, "GENIAL": 120, 
+                "XP": 3, "BTG": 8, "BRADESCO": 72, "ITAU": 114, "SANTANDER": 27, 
+                "SANTANDER INSTITUCIONAL": 27, "SAFRA": 90, "GUIDE": 177, "ATIVA": 147,
+                "JP MORGAN": 49, "MORGAN": 49, "CREDIT": 108, "C6": 115, "TULLETT": 126,
+                "NECTON": 109, "MERRIL": 17, "BGC LIQUIDEZ": 85, "CLEAR": 3, "RICO": 3
+            }
+
             try:
-                comp_id = int(comprador) if comprador else None
-                vend_id = int(vendedor) if vendedor else None
-                volume = int(qtd) if qtd else 0
+                # Se vier texto (ex: "UBS"), tenta buscar no fallback. Senão, tenta converter para int.
+                c_str = str(comprador).upper().strip() if comprador else ""
+                v_str = str(vendedor).upper().strip() if vendedor else ""
+                
+                comp_id = FALLBACK_BROKERS.get(c_str)
+                if comp_id is None and comprador:
+                    comp_id = int(float(comprador))
+                    
+                vend_id = FALLBACK_BROKERS.get(v_str)
+                if vend_id is None and vendedor:
+                    vend_id = int(float(vendedor))
+                    
+                volume = int(float(qtd)) if qtd else 0
                 agressor_str = str(agressor).upper().strip()
-            except (ValueError, TypeError):
+            except (ValueError, TypeError) as e:
+                # Log the first parsing error to help debug
+                if len(processed_trade_keys) < 10:
+                    log_msg(f"⚠️ Erro ao converter linha: {hora}, {comprador}, {valor}, {qtd}, {vendedor}, {agressor} | Erro: {e}")
                 continue
+
+            # Log para debug - se a linha passou do try
+            if len(processed_trade_keys) < 5:
+                log_msg(f"✅ Trade processado: {hora}, comp={comp_id}, vend={vend_id}, vol={volume}, agr={agressor_str}")
 
             if volume <= 0:
                 continue
@@ -183,7 +209,7 @@ def process_rtd_times_and_trades():
                 cumulative_group_saldos[g_id] = cumulative_group_saldos.get(g_id, 0) - volume
 
     except Exception as e:
-        pass
+        log_msg(f"⚠️ Erro crítico no loop process_rtd_times_and_trades: {e}")
 
 def get_config_ticker():
     try:
@@ -291,7 +317,11 @@ async def wdo_stream(websocket):
 
             price = read_rtd_price()
             if price is not None and price != last_sent_price:
-                log_msg(f"📈 Cotação RTD {current_ticker}: {price}")
+                global last_logged_price
+                if 'last_logged_price' not in globals() or last_logged_price != price:
+                    log_msg(f"📈 Cotação RTD {current_ticker}: {price}")
+                    last_logged_price = price
+                    
                 await websocket.send(json.dumps({
                     "type": "price",
                     "profitConnected": True,
