@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { Moon } from 'lucide-react'
 import { NotificationBell } from './NotificationBell'
@@ -7,7 +7,7 @@ import { NextEventAlertWidget } from './NextEventAlertWidget'
 
 export function Header() {
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between px-8 bg-[#0b1120] border-b border-[#1e293b]">
+    <header className="flex h-12 shrink-0 items-center justify-between px-4 bg-[#0b1120] border-b border-[#1e293b]">
       <div className="flex flex-1 items-center gap-4">
         {/* Alerta de Próxima Notícia na Barra Principal */}
         <NextEventAlertWidget compact={true} />

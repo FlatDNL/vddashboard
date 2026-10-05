@@ -83,7 +83,9 @@ export async function GET() {
             running: true,
             profitConnected: json.profitConnected,
             platform: json.platform,
-            asset: json.asset
+            asset: json.asset,
+            fechamentoAnterior: json.fechamentoAnterior,
+            ajusteAnterior: json.ajusteAnterior
           })
         }
       }

@@ -60,6 +60,7 @@ broker_mapping = {}  # { broker_id (int): group_id (str) }
 player_groups = {}   # { group_id (str): {"name": str, "color": str} }
 cumulative_group_saldos = {} # { group_id (str): net_volume (int) }
 processed_trade_keys = set() # Evitar duplicidade de trades lidos da planilha RTD
+last_trade_dt_iso = None
 
 def load_groups_and_mappings():
     global broker_mapping, player_groups, cumulative_group_saldos
@@ -75,20 +76,22 @@ def load_groups_and_mappings():
 
         res_m = supabase_client.table("broker_group_mapping").select("*").execute()
         if res_m.data:
-            broker_mapping = {m["broker_id"]: m["group_id"] for m in res_m.data}
+            broker_mapping = {str(m.get("broker_name", "")).upper().strip(): m["group_id"] for m in res_m.data if m.get("broker_name")}
             
         log_msg(f"📋 Grupos carregados: {len(player_groups)} | Mapeamento Corretoras: {len(broker_mapping)}")
     except Exception as e:
         log_msg(f"⚠️ Erro ao carregar grupos do Supabase: {e}")
 
-def write_status_file():
+def write_status_file(fechamento=None, ajuste=None):
     try:
         status_data = {
             "running": True,
             "profitConnected": connected,
             "platform": "RTD_EXCEL",
             "asset": current_ticker,
-            "updatedAt": time.time()
+            "updatedAt": time.time(),
+            "fechamentoAnterior": fechamento,
+            "ajusteAnterior": ajuste
         }
         with open("profit_status.json", "w") as f:
             json.dump(status_data, f)
@@ -115,23 +118,55 @@ def connect_excel_rtd():
         write_status_file()
         return False
 
-def read_rtd_price():
-    """Lê o último preço da planilha RTD (Célula C1)"""
+def read_rtd_market_data():
+    """Lê o último preço (C1), Fechamento Anterior (E1) e Ajuste Anterior (G1) da planilha RTD"""
     global sheet
     if not sheet:
-        return None
+        return None, None, None
     try:
-        # Lê o preço da Célula C1 (Linha 1, Coluna 3)
-        val = sheet.Cells(1, 3).Value
-        if val is not None:
-            return float(val)
+        # Preço (C1 - Linha 1, Coluna 3)
+        price_val = sheet.Cells(1, 3).Value
+        # Fechamento Anterior (E1 - Linha 1, Coluna 5)
+        fech_val = sheet.Cells(1, 5).Value
+        # Ajuste Anterior (G1 - Linha 1, Coluna 7)
+        ajuste_val = sheet.Cells(1, 7).Value
+        
+        price = float(price_val) if price_val is not None else None
+        fech = float(fech_val) if fech_val is not None else None
+        ajuste = float(ajuste_val) if ajuste_val is not None else None
+        
+        return price, fech, ajuste
     except Exception:
+        pass
+    return None, None, None
+
+def parse_profit_time(hora_val):
+    try:
+        from datetime import datetime, time, timezone, timedelta
+        # Obtém a data local atual
+        now_date = datetime.now().date()
+        # Define o fuso horário de Brasília (UTC-3)
+        brt_tz = timezone(timedelta(hours=-3))
+        
+        if isinstance(hora_val, float) or isinstance(hora_val, int):
+            h = int(hora_val * 24)
+            m = int((hora_val * 24 - h) * 60)
+            s = int(((hora_val * 24 - h) * 60 - m) * 60)
+            return datetime.combine(now_date, time(h, m, s)).replace(tzinfo=brt_tz).isoformat()
+        elif isinstance(hora_val, str):
+            hora_val = hora_val.strip()
+            if len(hora_val) >= 8:
+                t = datetime.strptime(hora_val[:8], "%H:%M:%S").time()
+                return datetime.combine(now_date, t).replace(tzinfo=brt_tz).isoformat()
+        else:
+            return datetime.combine(now_date, time(hora_val.hour, hora_val.minute, hora_val.second)).replace(tzinfo=brt_tz).isoformat()
+    except:
         pass
     return None
 
 def process_rtd_times_and_trades():
     """Lê as 500 linhas da planilha RTD e atualiza o saldo de agressão agrupado"""
-    global sheet, processed_trade_keys, cumulative_group_saldos, broker_mapping
+    global sheet, processed_trade_keys, cumulative_group_saldos, broker_mapping, last_trade_dt_iso
     if not sheet:
         return
 
@@ -141,6 +176,7 @@ def process_rtd_times_and_trades():
         if not data_range:
             return
 
+        snapshot_counts = {}
         for row in data_range:
             # Índices baseados na imagem: 
             # A(0)=Data, B(1)=Compradora, C(2)=Valor, D(3)=Quantidade, E(4)=Vendedora, F(5)=Agressor
@@ -150,8 +186,15 @@ def process_rtd_times_and_trades():
             if not hora or not qtd or not agressor:
                 continue
 
-            # Criar chave única para o negócio (Hora + Valor + Qtd + Comprador + Vendedor)
-            trade_key = f"{hora}_{valor}_{qtd}_{comprador}_{vendedor}"
+            parsed_iso = parse_profit_time(hora)
+            if parsed_iso:
+                if not last_trade_dt_iso or parsed_iso > last_trade_dt_iso:
+                    last_trade_dt_iso = parsed_iso
+
+            # Criar chave única para o negócio suportando múltiplos trades idênticos
+            base_key = f"{hora}_{valor}_{qtd}_{comprador}_{vendedor}_{agressor}"
+            snapshot_counts[base_key] = snapshot_counts.get(base_key, 0) + 1
+            trade_key = f"{base_key}_{snapshot_counts[base_key]}"
 
             if trade_key in processed_trade_keys:
                 continue
@@ -161,51 +204,30 @@ def process_rtd_times_and_trades():
             if len(processed_trade_keys) > 10000:
                 processed_trade_keys = set(list(processed_trade_keys)[-5000:])
 
-            # Dicionário de fallback caso o usuário deixe os nomes em vez dos códigos no Profit
-            FALLBACK_BROKERS = {
-                "UBS": 16, "IDEAL": 73, "AGORA": 74, "NOVA FUTURA": 120, "GENIAL": 120, 
-                "XP": 3, "BTG": 8, "BRADESCO": 72, "ITAU": 114, "SANTANDER": 27, 
-                "SANTANDER INSTITUCIONAL": 27, "SAFRA": 90, "GUIDE": 177, "ATIVA": 147,
-                "JP MORGAN": 49, "MORGAN": 49, "CREDIT": 108, "C6": 115, "TULLETT": 126,
-                "NECTON": 109, "MERRIL": 17, "BGC LIQUIDEZ": 85, "CLEAR": 3, "RICO": 3
-            }
-
             try:
-                # Se vier texto (ex: "UBS"), tenta buscar no fallback. Senão, tenta converter para int.
                 c_str = str(comprador).upper().strip() if comprador else ""
                 v_str = str(vendedor).upper().strip() if vendedor else ""
-                
-                comp_id = FALLBACK_BROKERS.get(c_str)
-                if comp_id is None and comprador:
-                    comp_id = int(float(comprador))
-                    
-                vend_id = FALLBACK_BROKERS.get(v_str)
-                if vend_id is None and vendedor:
-                    vend_id = int(float(vendedor))
-                    
                 volume = int(float(qtd)) if qtd else 0
                 agressor_str = str(agressor).upper().strip()
             except (ValueError, TypeError) as e:
-                # Log the first parsing error to help debug
                 if len(processed_trade_keys) < 10:
                     log_msg(f"⚠️ Erro ao converter linha: {hora}, {comprador}, {valor}, {qtd}, {vendedor}, {agressor} | Erro: {e}")
                 continue
 
-            # Log para debug - se a linha passou do try
             if len(processed_trade_keys) < 5:
-                log_msg(f"✅ Trade processado: {hora}, comp={comp_id}, vend={vend_id}, vol={volume}, agr={agressor_str}")
+                log_msg(f"✅ Trade processado: {hora}, comp={c_str}, vend={v_str}, vol={volume}, agr={agressor_str}")
 
             if volume <= 0:
                 continue
 
             # Computar agressão de Compra
-            if "COMP" in agressor_str and comp_id in broker_mapping:
-                g_id = broker_mapping[comp_id]
+            if ("COMP" in agressor_str or agressor_str == "C") and c_str in broker_mapping:
+                g_id = broker_mapping[c_str]
                 cumulative_group_saldos[g_id] = cumulative_group_saldos.get(g_id, 0) + volume
 
             # Computar agressão de Venda
-            elif "VEND" in agressor_str and vend_id in broker_mapping:
-                g_id = broker_mapping[vend_id]
+            elif ("VEND" in agressor_str or agressor_str == "V") and v_str in broker_mapping:
+                g_id = broker_mapping[v_str]
                 cumulative_group_saldos[g_id] = cumulative_group_saldos.get(g_id, 0) - volume
 
     except Exception as e:
@@ -222,10 +244,11 @@ def get_config_ticker():
     return None
 
 async def flush_aggression_to_supabase(asset, is_gap=False):
-    if not supabase_client or not player_groups:
+    global last_trade_dt_iso
+    if not supabase_client or not player_groups or not last_trade_dt_iso:
         return
 
-    now_iso = datetime.now(timezone.utc).isoformat()
+    now_iso = last_trade_dt_iso
     rows_to_insert = []
 
     for group_id, group in player_groups.items():
@@ -253,7 +276,7 @@ async def aggression_loop():
         try:
             await asyncio.sleep(0.5)
 
-            if time.time() - last_reload > 30:
+            if time.time() - last_reload > 5:
                 load_groups_and_mappings()
                 last_reload = time.time()
 
@@ -287,6 +310,12 @@ async def wdo_stream(websocket):
                     if new_ticker and new_ticker != current_ticker:
                         current_ticker = new_ticker
                         last_sent_price = 0
+                elif data.get("action") == "reset_aggression":
+                    global cumulative_group_saldos, last_trade_dt_iso
+                    cumulative_group_saldos.clear()
+                    # NÃO limpa as processed_trade_keys, senão o script re-lê as últimas 500 linhas instantaneamente e reconstrói o saldo.
+                    last_trade_dt_iso = None
+                    log_msg("♻️ Comando de RESET recebido: Memória de saldo limpa.")
             except asyncio.TimeoutError:
                 pass
             except Exception:
@@ -300,7 +329,8 @@ async def wdo_stream(websocket):
             if not connected:
                 connect_excel_rtd()
 
-            write_status_file()
+            price, fech, ajuste = read_rtd_market_data()
+            write_status_file(fech, ajuste)
 
             if connected != last_status_sent:
                 await websocket.send(json.dumps({
@@ -315,11 +345,10 @@ async def wdo_stream(websocket):
                 await asyncio.sleep(2)
                 continue
 
-            price = read_rtd_price()
             if price is not None and price != last_sent_price:
                 global last_logged_price
                 if 'last_logged_price' not in globals() or last_logged_price != price:
-                    log_msg(f"📈 Cotação RTD {current_ticker}: {price}")
+                    log_msg(f"📈 Cotação RTD {current_ticker}: {price} | Fech: {fech} | Aj: {ajuste}")
                     last_logged_price = price
                     
                 await websocket.send(json.dumps({
@@ -327,6 +356,8 @@ async def wdo_stream(websocket):
                     "profitConnected": True,
                     "asset": current_ticker,
                     "price": price,
+                    "fechamento": fech,
+                    "ajuste": ajuste,
                     "timestamp": time.time()
                 }))
                 last_sent_price = price

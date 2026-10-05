@@ -27,7 +27,7 @@ const TIMEFRAMES = [
 export function RiskChartWidget() {
   const [history, setHistory] = useState<DataPoint[]>([])
   const [riskData, setRiskData] = useState<RiskData | null>(null)
-  const [timeframe, setTimeframe] = useState('30m')
+  const [timeframe, setTimeframe] = useState('1d')
 
   useEffect(() => {
     let isMounted = true
@@ -88,59 +88,66 @@ export function RiskChartWidget() {
 
   const getStatusFontClass = (status: string) => {
     const short = formatShortStatus(status)
-    if (short === 'NEUTRO') return 'text-[11px] font-semibold opacity-90'
-    if (short === 'ON' || short === 'OFF') return 'text-base font-black tracking-wide'
-    return 'text-xs font-black tracking-wide'
+    if (short === 'NEUTRO') return 'text-[9px] font-semibold opacity-90'
+    if (short === 'ON' || short === 'OFF') return 'text-xs font-black tracking-wide'
+    return 'text-[10px] font-black tracking-wide'
+  }
+
+  const getCardBgClass = (status: string) => {
+    const short = formatShortStatus(status)
+    if (short === 'ON' || short === 'COMPRA') return 'bg-emerald-500/10 border-emerald-500/30'
+    if (short === 'OFF' || short === 'VENDA') return 'bg-red-500/10 border-red-500/30'
+    return 'bg-yellow-500/10 border-yellow-500/30'
   }
 
   return (
-    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col gap-4 w-full h-[450px]">
+    <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-3 flex flex-col gap-2 w-full h-[280px]">
       {/* 3 KPI Cards Integrados com Tipografia Dinâmica */}
       {riskData ? (
         <div className="grid grid-cols-3 gap-2">
           {/* Global Risk */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
-            <div className="flex items-center gap-1 text-slate-400">
-              <Globe size={13} />
-              <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Global</span>
+          <div className={`${getCardBgClass(riskData.global.status)} rounded-lg border py-1.5 px-2 flex flex-col items-center justify-center text-center transition-colors`}>
+            <div className="flex items-center gap-1 text-slate-400 mb-0.5">
+              <Globe size={11} />
+              <span className="text-[9px] font-bold uppercase tracking-wider">Global</span>
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-baseline gap-1.5">
               <span className={`uppercase ${getStatusColor(riskData.global.status)} ${getStatusFontClass(riskData.global.status)}`}>
                 {formatShortStatus(riskData.global.status)}
               </span>
-              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.global.score)}`}>
+              <span className={`text-base font-mono font-black leading-none ${getScoreColor(riskData.global.score)}`}>
                 {riskData.global.score > 0 ? '+' : ''}{riskData.global.score}
               </span>
             </div>
           </div>
 
           {/* Brazil Risk */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
-            <div className="flex items-center gap-1 text-slate-400">
-              <MapPin size={13} />
-              <span className="text-[10px] font-semibold uppercase tracking-wider">Risk Brasil</span>
+          <div className={`${getCardBgClass(riskData.brazil.status)} rounded-lg border py-1.5 px-2 flex flex-col items-center justify-center text-center transition-colors`}>
+            <div className="flex items-center gap-1 text-slate-400 mb-0.5">
+              <MapPin size={11} />
+              <span className="text-[9px] font-bold uppercase tracking-wider">Brasil</span>
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-baseline gap-1.5">
               <span className={`uppercase ${getStatusColor(riskData.brazil.status)} ${getStatusFontClass(riskData.brazil.status)}`}>
                 {formatShortStatus(riskData.brazil.status)}
               </span>
-              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.brazil.score)}`}>
+              <span className={`text-base font-mono font-black leading-none ${getScoreColor(riskData.brazil.score)}`}>
                 {riskData.brazil.score > 0 ? '+' : ''}{riskData.brazil.score}
               </span>
             </div>
           </div>
 
           {/* WDO Pressure */}
-          <div className="bg-[#0b1120] rounded-xl border border-[#1e293b] p-3 flex flex-col items-center justify-center gap-1.5 text-center">
-            <div className="flex items-center gap-1 text-slate-400">
-              <Gauge size={13} className="text-blue-400" />
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400">Pressão WDO</span>
+          <div className={`${getCardBgClass(riskData.wdo.action)} rounded-lg border py-1.5 px-2 flex flex-col items-center justify-center text-center transition-colors`}>
+            <div className="flex items-center gap-1 text-slate-400 mb-0.5">
+              <Gauge size={11} className="text-blue-400" />
+              <span className="text-[9px] font-bold uppercase tracking-wider text-blue-400">Pressão</span>
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-baseline gap-1.5">
               <span className={`uppercase ${getStatusColor(riskData.wdo.action)} ${getStatusFontClass(riskData.wdo.action)}`}>
                 {formatShortStatus(riskData.wdo.action)}
               </span>
-              <span className={`text-xl font-mono font-black ${getScoreColor(riskData.wdo.score)}`}>
+              <span className={`text-base font-mono font-black leading-none ${getScoreColor(riskData.wdo.score)}`}>
                 {riskData.wdo.score > 0 ? '+' : ''}{riskData.wdo.score}
               </span>
             </div>
@@ -188,6 +195,7 @@ export function RiskChartWidget() {
                 fontSize={9} 
                 tickLine={false} 
                 axisLine={false}
+                tickFormatter={(time) => time.slice(0, 5)}
               />
               <YAxis 
                 stroke="#64748b" 

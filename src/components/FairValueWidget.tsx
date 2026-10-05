@@ -20,18 +20,8 @@ type PlanilhaData = {
 export function FairValueWidget() {
   const [data, setData] = useState<PlanilhaData | null>(null)
   const [loading, setLoading] = useState(true)
-  const { manualFechamento, setManualParams, manualDxyPct } = useMarketParamsStore()
-  const [baseInput, setBaseInput] = useState('')
-  const [dxyInput, setDxyInput] = useState('')
-
-  useEffect(() => {
-    if (manualFechamento !== null) {
-      setBaseInput(manualFechamento.toString())
-    }
-    if (manualDxyPct !== null) {
-      setDxyInput(manualDxyPct.toString())
-    }
-  }, [manualFechamento, manualDxyPct])
+  const { manualFechamento, setManualParams, manualDxyPct, lastUpdated } = useMarketParamsStore()
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     let isMounted = true
@@ -64,16 +54,32 @@ export function FairValueWidget() {
     }
   }, [manualFechamento, manualDxyPct])
 
-  const handleSaveBase = () => {
-    const fechamentoVal = baseInput !== '' ? parseFloat(baseInput) : null
-    const dxyVal = dxyInput !== '' ? parseFloat(dxyInput) : null
-    setManualParams(fechamentoVal, dxyVal)
+  const handleUpdate = async () => {
     setLoading(true)
+    setErrorMsg('')
+    try {
+      // Pega os dados direto do bridge
+      const res = await fetch('/api/profit-bridge')
+      const bridgeData = await res.json()
+      
+      if (bridgeData.ajusteAnterior && bridgeData.fechamentoAnterior) {
+        const now = new Date().toLocaleString('pt-BR')
+        setManualParams(bridgeData.ajusteAnterior, manualDxyPct, bridgeData.fechamentoAnterior, now)
+      } else {
+        setErrorMsg('Não foi possível capturar o Ajuste/Fechamento. Verifique a planilha.')
+        setTimeout(() => setErrorMsg(''), 5000)
+      }
+    } catch (e) {
+      console.error(e)
+      setErrorMsg('Erro de conexão com o Profit Bridge.')
+      setTimeout(() => setErrorMsg(''), 5000)
+    }
+    setLoading(false)
   }
 
   if (loading || !data) {
     return (
-      <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-6 flex items-center justify-center min-h-[200px] animate-pulse">
+      <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 flex items-center justify-center min-h-[200px] animate-pulse">
         <span className="text-slate-500 text-sm">Carregando Preço Justo...</span>
       </div>
     )
@@ -87,76 +93,58 @@ export function FairValueWidget() {
   const isVenda = data.status === 'VENDA'
 
   return (
-    <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col justify-between h-auto relative overflow-hidden min-w-[300px]">
+    <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 flex flex-col justify-between h-auto relative overflow-hidden min-w-[300px]">
       
       <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full blur-3xl opacity-10 ${
         isCompra ? 'bg-green-500' : isVenda ? 'bg-red-500' : 'bg-slate-500'
       }`} />
 
-      {/* Header com Título e Viés Macro Centralizado */}
-      <div className="flex flex-col items-center justify-center text-center mb-5 relative z-10 gap-2">
+      {/* Header com Título */}
+      <div className="flex items-center justify-between mb-4 relative z-10">
         <div className="flex items-center gap-2">
           <Calculator size={16} className="text-blue-400" />
           <h2 className="text-sm font-semibold text-slate-200">Preço Justo do Dólar</h2>
         </div>
-        <span className={`text-[10px] px-2.5 py-1 rounded font-bold border ${
-          isCompra ? 'bg-green-500/10 text-green-400 border-green-500/20' : 
-          isVenda ? 'bg-red-500/10 text-red-400 border-red-500/20' : 
-          'bg-slate-500/10 text-slate-400 border-slate-500/20'
-        }`}>
-          VIÉS MACRO: {data.status}
-        </span>
-
-        {/* Inputs Manuais de Ajuste e DXY */}
-        <div className="flex items-center gap-1.5 mt-1 flex-wrap justify-center">
-          <input 
-            type="number"
-            placeholder="Ajuste (5226)"
-            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-28 text-center outline-none focus:border-blue-500/50"
-            value={baseInput}
-            onChange={(e) => setBaseInput(e.target.value)}
-          />
-          <input 
-            type="number"
-            step="0.01"
-            placeholder="DXY% (-0.41)"
-            className="bg-[#0b1120] border border-[#1e293b] text-slate-300 text-xs rounded px-2 py-1 w-24 text-center outline-none focus:border-blue-500/50"
-            value={dxyInput}
-            onChange={(e) => setDxyInput(e.target.value)}
-          />
+        <div className="flex items-center gap-2">
+          {lastUpdated && (
+            <span className="text-[9px] text-slate-500">Att: {lastUpdated}</span>
+          )}
           <button 
-            onClick={handleSaveBase}
-            className="bg-blue-600/20 text-blue-400 hover:bg-blue-600/40 border border-blue-500/20 text-xs px-2 py-1 rounded transition-colors font-medium"
+            onClick={handleUpdate}
+            className="bg-blue-600/20 text-blue-400 hover:bg-blue-600/40 border border-blue-500/20 text-[10px] px-2 py-1 rounded transition-colors font-medium"
+            title="Atualizar Base (Planilha)"
           >
-            Salvar
+            Atualizar
           </button>
         </div>
       </div>
 
-      {/* Grid com os 4 Quadrados de Preços */}
-      <div className="grid grid-cols-2 gap-y-4 gap-x-2 relative z-10">
-        {/* Coluna 1 - Linha 1: JUSTO */}
-        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-slate-400 font-medium mb-1">JUSTO (Base)</span>
-          <span className="text-lg font-bold text-slate-300">{formatPts(data.justo)}</span>
+      {errorMsg && (
+        <div className="relative z-10 w-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] py-1 px-2 rounded mb-3 text-center">
+          {errorMsg}
         </div>
+      )}
 
-        {/* Coluna 2 - Linha 1: MÁXIMA */}
-        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-red-400 font-medium mb-1">MÁXIMA (Resistência)</span>
-          <span className="text-lg font-bold text-slate-200">{formatPts(data.maxima)}</span>
+      {/* Tabela Compacta de Valores */}
+      <div className="flex flex-col space-y-0.5 relative z-10">
+        <div className="flex justify-between items-center py-1.5 border-b border-[#1e293b]/50">
+          <span className="text-xs text-slate-400">Preço Justo (Base):</span>
+          <span className="text-sm font-bold text-slate-300">{formatPts(data.justo)}</span>
         </div>
-
-        {/* Coluna 1 - Linha 2: JUSTÍSSIMO */}
-        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-blue-400 font-medium mb-1">JUSTÍSSIMO</span>
-          <span className="text-lg font-bold text-white">{formatPts(data.justissimo)}</span>
+        
+        <div className="flex justify-between items-center py-1.5 border-b border-[#1e293b]/50">
+          <span className="text-xs text-slate-400">Justíssimo:</span>
+          <span className="text-sm font-bold text-blue-400">{formatPts(data.justissimo)}</span>
         </div>
-
-                {/* Coluna 2 - Linha 2: MÍNIMA */}
-        <div className="bg-[#0b1120] border border-[#1e293b] rounded-lg p-3 flex flex-col items-center">
-          <span className="text-[10px] text-green-400 font-medium mb-1">MÍNIMA (Suporte)</span>
-          <span className="text-lg font-bold text-slate-200">{formatPts(data.minima)}</span>
+        
+        <div className="flex justify-between items-center py-1.5 border-b border-[#1e293b]/50">
+          <span className="text-xs text-slate-400">Máxima (Resistência):</span>
+          <span className="text-sm font-bold text-red-400">{formatPts(data.maxima)}</span>
+        </div>
+        
+        <div className="flex justify-between items-center py-1.5">
+          <span className="text-xs text-slate-400">Mínima (Suporte):</span>
+          <span className="text-sm font-bold text-green-400">{formatPts(data.minima)}</span>
         </div>
       </div>
 

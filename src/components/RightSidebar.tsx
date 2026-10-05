@@ -9,11 +9,11 @@ export function RightSidebar({ grupos }: { grupos: any[] }) {
 
   return (
     <div 
-      className={`flex flex-col gap-4 overflow-y-auto scrollbar-hide pb-10 transition-all duration-300 h-full ${
-        collapsed ? 'w-16' : 'w-[320px]'
+      className={`flex flex-col gap-3 overflow-y-auto scrollbar-hide pb-6 transition-all duration-300 h-full ${
+        collapsed ? 'w-14' : 'w-[280px]'
       }`}
     >
-      <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-3 flex flex-col h-full overflow-hidden">
+      <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-2 flex flex-col h-full overflow-hidden">
         <div className={`flex items-center ${collapsed ? 'justify-center' : 'justify-between'} mb-5`}>
           {!collapsed && <h2 className="text-sm font-semibold text-slate-200 whitespace-nowrap pl-2">Ativos Cadastrados</h2>}
           <button 

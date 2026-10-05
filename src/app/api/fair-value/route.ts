@@ -32,9 +32,22 @@ export async function GET(req: Request) {
     const brl = data['BRL=X']
     const dxy = data['DX-Y.NYB']
     
+    // Read from profit_status.json
+    let rtdFechamento = null;
+    let rtdAjuste = null;
+    try {
+      const statusPath = path.join(process.cwd(), 'profit_status.json');
+      if (fs.existsSync(statusPath)) {
+        const fileData = fs.readFileSync(statusPath, 'utf8');
+        const json = JSON.parse(fileData);
+        if (json.fechamentoAnterior) rtdFechamento = json.fechamentoAnterior;
+        if (json.ajusteAnterior) rtdAjuste = json.ajusteAnterior;
+      }
+    } catch (e) {}
+
     // 1. Base Inicial (Fechamento/Ajuste do Dólar)
-    const fechamentoAnterior = (brl?.prev || brl?.price || 5.400) * 1000
-    const justo = baseAjuste || fechamentoAnterior
+    const fechamentoAnterior = rtdFechamento || baseAjuste || ((brl?.prev || brl?.price || 5.400) * 1000)
+    const justo = rtdAjuste || baseAjuste || fechamentoAnterior
 
     // 2. Dólar Projetado (Preço Justíssimo de Abertura)
     // Fórmula do Frajola: Base * (1 + (Δ% DXY / 100))

@@ -18,20 +18,23 @@ type BrokerMapping = {
 }
 
 const COMMON_BROKERS = [
-  { id: 8, name: 'UBS' },
-  { id: 16, name: 'J.P. Morgan' },
-  { id: 85, name: 'BTG Pactual' },
-  { id: 120, name: 'XP Investimentos' },
-  { id: 72, name: 'Bradesco' },
-  { id: 114, name: 'Itaú' },
-  { id: 40, name: 'Morgan Stanley' },
-  { id: 92, name: 'Goldman Sachs' },
-  { id: 3, name: 'Merrill Lynch' },
-  { id: 147, name: 'Clear' },
-  { id: 308, name: 'Rico' },
-  { id: 23, name: 'Credit Suisse' },
-  { id: 27, name: 'Santander' },
+  { id: 3, name: 'XP' },
+  { id: 8, name: 'BTG' },
+  { id: 16, name: 'UBS' },
+  { id: 17, name: 'Merrill' },
+  { id: 27, name: 'Santander Institucional' },
   { id: 39, name: 'Safra' },
+  { id: 49, name: 'Morgan' },
+  { id: 72, name: 'Bradesco' },
+  { id: 73, name: 'Ideal' },
+  { id: 85, name: 'BGC Liquidez' },
+  { id: 92, name: 'Goldman Sachs' },
+  { id: 108, name: 'Credit Suisse' },
+  { id: 114, name: 'Itaú' },
+  { id: 120, name: 'Genial' },
+  { id: 147, name: 'Ativa' },
+  { id: 308, name: 'Rico' },
+  { id: 1202, name: 'Nova Futura' }
 ]
 
 export default function GruposPlayersPage() {
@@ -45,7 +48,6 @@ export default function GruposPlayersPage() {
   const [newGroupDesc, setNewGroupDesc] = useState('')
 
   // Novo mapeamento form state
-  const [brokerId, setBrokerId] = useState('')
   const [brokerName, setBrokerName] = useState('')
   const [selectedGroupId, setSelectedGroupId] = useState('')
 
@@ -111,7 +113,15 @@ export default function GruposPlayersPage() {
 
   const handleAddMapping = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!brokerId || !brokerName || !selectedGroupId) return
+    if (!brokerName || !selectedGroupId) return
+
+    // Gerar broker_id baseado no hash do nome para manter o onConflict do banco
+    const nameUpper = brokerName.trim().toUpperCase()
+    let hashId = 0;
+    for (let i = 0; i < nameUpper.length; i++) {
+      hashId = Math.imul(31, hashId) + nameUpper.charCodeAt(i) | 0;
+    }
+    const generatedId = Math.abs(hashId);
 
     try {
       const res = await fetch('/api/player-groups', {
@@ -120,17 +130,19 @@ export default function GruposPlayersPage() {
         body: JSON.stringify({
           action: 'UPSERT_MAPPING',
           payload: {
-            broker_id: parseInt(brokerId, 10),
-            broker_name: brokerName,
+            broker_id: generatedId,
+            broker_name: brokerName.trim(),
             group_id: selectedGroupId
           }
         })
       })
 
       if (res.ok) {
-        setBrokerId('')
         setBrokerName('')
         fetchData()
+      } else {
+        const errData = await res.json()
+        alert(`Erro ao vincular: ${errData.error || 'Desconhecido'}`)
       }
     } catch (e) {
       console.error(e)
@@ -150,9 +162,8 @@ export default function GruposPlayersPage() {
     }
   }
 
-  const selectPresetBroker = (b: { id: number; name: string }) => {
-    setBrokerId(b.id.toString())
-    setBrokerName(b.name)
+  const selectPresetBroker = (name: string) => {
+    setBrokerName(name)
   }
 
   return (
@@ -287,33 +298,21 @@ export default function GruposPlayersPage() {
                 {COMMON_BROKERS.map((b) => (
                   <button
                     key={b.id}
-                    onClick={() => selectPresetBroker(b)}
+                    onClick={() => selectPresetBroker(b.name)}
                     className="text-[11px] bg-[#1e293b] hover:bg-blue-900/30 hover:border-blue-500/50 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700 transition"
                   >
-                    {b.name} ({b.id})
+                    {b.name}
                   </button>
                 ))}
               </div>
             </div>
 
-            <form onSubmit={handleAddMapping} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <form onSubmit={handleAddMapping} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs text-slate-400 block mb-1">Código Profit / B3</label>
-                <input
-                  type="number"
-                  placeholder="Ex: 8"
-                  value={brokerId}
-                  onChange={(e) => setBrokerId(e.target.value)}
-                  className="w-full bg-[#1e293b] border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="text-xs text-slate-400 block mb-1">Nome da Corretora</label>
+                <label className="text-xs text-slate-400 block mb-1">Nome da Corretora (Exatamente como aparece no Profit)</label>
                 <input
                   type="text"
-                  placeholder="Ex: UBS"
+                  placeholder="Ex: XP, UBS, Ideal..."
                   value={brokerName}
                   onChange={(e) => setBrokerName(e.target.value)}
                   className="w-full bg-[#1e293b] border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
@@ -366,8 +365,7 @@ export default function GruposPlayersPage() {
                 <table className="w-full text-left text-sm text-slate-300">
                   <thead className="bg-[#1e293b]/60 text-xs text-slate-400 uppercase tracking-wider">
                     <tr>
-                      <th className="px-4 py-3 rounded-l-xl">Cód. Corretora</th>
-                      <th className="px-4 py-3">Nome da Corretora</th>
+                      <th className="px-4 py-3 rounded-l-xl">Nome da Corretora no Profit</th>
                       <th className="px-4 py-3">Grupo Associado</th>
                       <th className="px-4 py-3 text-right rounded-r-xl">Ação</th>
                     </tr>
@@ -377,7 +375,6 @@ export default function GruposPlayersPage() {
                       const group = groups.find((g) => g.id === m.group_id)
                       return (
                         <tr key={m.id} className="hover:bg-[#1e293b]/30 transition">
-                          <td className="px-4 py-3 font-mono font-bold text-white">{m.broker_id}</td>
                           <td className="px-4 py-3 font-medium text-slate-200">{m.broker_name}</td>
                           <td className="px-4 py-3">
                             {group ? (

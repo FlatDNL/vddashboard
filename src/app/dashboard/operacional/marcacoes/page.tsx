@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect, useTransition } from 'react'
 import { fetchMarcacoes, syncMarcacoes } from './actions'
@@ -30,12 +30,12 @@ export default function MarcacoesPage() {
     if (!pasteText.trim()) return
 
     const lines = pasteText.split('\n')
-    const naovasMarcacoes: Marcacao[] = []
+    const novasMarcacoes: Marcacao[] = []
 
     lines.forEach((line) => {
-      const parts = line.split('\t') // O Excel usa tabulaÃ§Ã£o (\t) ao copiar colunas
+      const parts = line.split('\t') // O Excel usa tabulação (\t) ao copiar colunas
       if (parts.length >= 2) {
-        // Trata o nÃºmero do Brasil: "5.230,00" -> "5230.00"
+        // Trata o número do Brasil: "5.230,00" -> "5230.00"
         let rawPrice = parts[0].trim().replace(/\./g, '').replace(',', '.')
         const preco = parseFloat(rawPrice)
         const descricao = parts[1].trim()
@@ -48,7 +48,7 @@ export default function MarcacoesPage() {
         }
 
         if (!isNaN(preco) && descricao) {
-          naovasMarcacoes.push({
+          novasMarcacoes.push({
             id: 'temp_' + Math.random().toString(36).substring(7),
             preco,
             descricao,
@@ -58,7 +58,7 @@ export default function MarcacoesPage() {
       }
     })
 
-    setMarcacoes([...marcacoes, ...naovasMarcacoes])
+    setMarcacoes([...marcacoes, ...novasMarcacoes])
     setPasteText('')
   }
 
@@ -70,7 +70,7 @@ export default function MarcacoesPage() {
     const fechamento = localFechamento ? parseFloat(localFechamento.replace(',', '.')) : null
     const dxy = localDxy ? parseFloat(localDxy.replace(',', '.')) : null
     setManualParams(fechamento, dxy)
-    setToast('ParÃ¢metros salvos e aplicados nao SuperDOM!')
+    setToast('Parâmetros salvos e aplicados no SuperDOM!')
     setTimeout(() => setToast(null), 3000)
   }
 
@@ -78,7 +78,7 @@ export default function MarcacoesPage() {
     setLocalFechamento('')
     setLocalDxy('')
     setManualParams(null, null)
-    setToast('ParÃ¢metros zerados. Usando dados do Yahoo.')
+    setToast('Parâmetros zerados. Usando dados do Yahoo.')
     setTimeout(() => setToast(null), 3000)
   }
 
@@ -95,7 +95,7 @@ export default function MarcacoesPage() {
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center gap-2 text-slate-400">
           <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-          <span>Carregando marcaÃ§Ãµes...</span>
+          <span>Carregando marcações...</span>
         </div>
       </div>
     )
@@ -104,9 +104,9 @@ export default function MarcacoesPage() {
   return (
     <div className="flex h-full flex-col gap-6 overflow-y-auto scrollbar-hide pb-10 relative text-slate-200">
       
-      {/* BotÃµes do Topo e Toast */}
+      {/* Botões do Topo e Toast */}
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">MarcaÃ§Ãµes</h1>
+        <h1 className="text-2xl font-bold">Marcações</h1>
         <div className="flex items-center gap-4">
           {toast && (
             <span className="text-sm font-medium text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg transition-all animate-in fade-in slide-in-from-right-4">
@@ -120,7 +120,7 @@ export default function MarcacoesPage() {
                   await syncMarcacoes(marcacoes)
                   const refreshed = await fetchMarcacoes()
                   setMarcacoes(refreshed as Marcacao[])
-                  setToast('MarcaÃ§Ãµes salvas com sucesso!')
+                  setToast('Marcações salvas com sucesso!')
                   setTimeout(() => setToast(null), 3000)
                 } catch (e) {
                   console.error(e)
@@ -128,26 +128,26 @@ export default function MarcacoesPage() {
               })
             }}
             disabled={isPending}
-            className="flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_15px_rgba(5,150,105,0.4)] transition-all hover:bg-emerald-500 hover:shadow-[0_0_25px_rgba(5,150,105,0.6)] disabled:opacity-50 disabled:cursor-naot-allowed"
+            className="flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_15px_rgba(5,150,105,0.4)] transition-all hover:bg-emerald-500 hover:shadow-[0_0_25px_rgba(5,150,105,0.6)] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
-            <span>Salvar AlteraÃ§Ãµes</span>
+            <span>Salvar Alterações</span>
           </button>
         </div>
       </div>
 
-      {/* Grid: Params e ImportaÃ§Ã£o */}
+      {/* Grid: Params e Importação */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        {/* Container de ParÃ¢metros Manuais */}
+        {/* Container de Parâmetros Manuais */}
         <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-lg p-5">
           <div className="flex items-center gap-2 mb-4 text-emerald-400">
             <Calculator size={20} />
-            <h2 className="text-lg font-semibold">CÃ¡lculo de Abertura (Frajola)</h2>
+            <h2 className="text-lg font-semibold">Cálculo de Abertura (Frajola)</h2>
           </div>
           <p className="text-sm text-slate-500 mb-5">
-            Preencha os dados do Profit para o sistema calcular o Justo e JustÃ­ssimo exatos. 
-            Se deixar em branco, o sistema usarÃ¡ a base atrasada do Yahoo Finance.
+            Preencha os dados do Profit para o sistema calcular o Justo e Justíssimo exatos. 
+            Se deixar em branco, o sistema usará a base atrasada do Yahoo Finance.
           </p>
           
           <div className="flex gap-4">
@@ -158,17 +158,17 @@ export default function MarcacoesPage() {
                 value={localFechamento}
                 onChange={(e) => setLocalFechamento(e.target.value)}
                 placeholder="Ex: 5202.5"
-                className="w-full bg-[#0b1120] border border-[#1e293b] rounded-xl px-4 py-2.5 text-sm font-monao text-slate-200 focus:border-emerald-500 focus:outline-naone transition-colors"
+                className="w-full bg-[#0b1120] border border-[#1e293b] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-200 focus:border-emerald-500 focus:outline-none transition-colors"
               />
             </div>
             <div className="flex-1">
-              <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">VariaÃ§Ã£o DXY (%)</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">Variação DXY (%)</label>
               <input 
                 type="text" 
                 value={localDxy}
                 onChange={(e) => setLocalDxy(e.target.value)}
                 placeholder="Ex: -0.15"
-                className="w-full bg-[#0b1120] border border-[#1e293b] rounded-xl px-4 py-2.5 text-sm font-monao text-slate-200 focus:border-emerald-500 focus:outline-naone transition-colors"
+                className="w-full bg-[#0b1120] border border-[#1e293b] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-200 focus:border-emerald-500 focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function MarcacoesPage() {
               onClick={handleSaveParams}
               className="flex-1 rounded-xl bg-emerald-600/20 text-emerald-400 border border-emerald-600/30 px-4 py-2 text-sm font-semibold hover:bg-emerald-600 hover:text-white transition-all"
             >
-              Aplicar nao SuperDOM
+              Aplicar no SuperDOM
             </button>
             <button 
               onClick={handleClearParams}
@@ -189,13 +189,13 @@ export default function MarcacoesPage() {
           </div>
         </div>
 
-        {/* Container de ImportaÃ§Ã£o RÃ¡pida */}
+        {/* Container de Importação Rápida */}
         <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-lg p-5 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-semibold text-slate-200">ImportaÃ§Ã£o do Excel</h2>
+              <h2 className="text-lg font-semibold text-slate-200">Importação do Excel</h2>
               <p className="text-sm text-slate-500 mt-1">
-                <strong>PreÃ§o | DescriÃ§Ã£o | ImportÃ¢ncia</strong>
+                <strong>Preço | Descrição | Importância</strong>
               </p>
             </div>
             <button 
@@ -206,8 +206,8 @@ export default function MarcacoesPage() {
             </button>
           </div>
           <textarea 
-            className="w-full flex-1 bg-[#0b1120] border border-[#1e293b] rounded-xl p-3 text-sm font-monao text-slate-300 focus:outline-naone focus:border-blue-500 placeholder-slate-600 transition-colors"
-            placeholder="5230,00&#9;Suporte DiÃ¡rio&#9;Alta&#10;5240,00&#9;VWAP&#9;&#9;Média"
+            className="w-full flex-1 bg-[#0b1120] border border-[#1e293b] rounded-xl p-3 text-sm font-mono text-slate-300 focus:outline-none focus:border-blue-500 placeholder-slate-600 transition-colors"
+            placeholder="5230,00&#9;Suporte Diário&#9;Alta&#10;5240,00&#9;VWAP&#9;&#9;Média"
             value={pasteText}
             onChange={(e) => setPasteText(e.target.value)}
           />
@@ -215,15 +215,15 @@ export default function MarcacoesPage() {
 
       </div>
 
-      {/* Tabela de MarcaÃ§Ãµes */}
+      {/* Tabela de Marcações */}
       <div className="flex-1 rounded-2xl border border-[#1e293b] bg-[#0f172a] shadow-lg overflow-hidden flex flex-col">
         <div className="flex items-center justify-between border-b border-[#1e293b] bg-[#131d33] px-5 py-4">
-          <h3 className="text-lg font-semibold text-slate-200">MarcaÃ§Ãµes Cadastradas ({marcacoes.length})</h3>
+          <h3 className="text-lg font-semibold text-slate-200">Marcações Cadastradas ({marcacoes.length})</h3>
           <div className="flex items-center gap-3">
             <button 
               onClick={() => {
                 const id = 'temp_' + Date.now()
-                setMarcacoes([{ id, preco: 5000, descricao: 'Nova MarcaÃ§Ã£o', importancia: 'Média' }, ...marcacoes])
+                setMarcacoes([{ id, preco: 5000, descricao: 'Nova Marcação', importancia: 'Média' }, ...marcacoes])
               }}
               className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
             >
@@ -244,19 +244,19 @@ export default function MarcacoesPage() {
               <div className="h-16 w-16 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold">M</span>
               </div>
-              <h3 className="text-lg font-medium text-slate-200 mb-2">Nenhuma marcaÃ§Ã£o</h3>
+              <h3 className="text-lg font-medium text-slate-200 mb-2">Nenhuma marcação</h3>
               <p className="text-sm text-slate-500 max-w-sm">
-                Cole os dados do Excel acima para preencher suas marcaÃ§Ãµes operacionais.
+                Cole os dados do Excel acima para preencher suas marcações operacionais.
               </p>
             </div>
           ) : (
             <table className="w-full text-sm text-left">
               <thead className="text-xs uppercase bg-[#131d33] text-slate-400 sticky top-0 border-b border-[#1e293b]">
                 <tr>
-                  <th className="px-6 py-4 font-semibold">PreÃ§o</th>
-                  <th className="px-6 py-4 font-semibold">DescriÃ§Ã£o</th>
-                  <th className="px-6 py-4 font-semibold">ImportÃ¢ncia</th>
-                  <th className="px-6 py-4 font-semibold text-right">AÃ§Ãµes</th>
+                  <th className="px-6 py-4 font-semibold">Preço</th>
+                  <th className="px-6 py-4 font-semibold">Descrição</th>
+                  <th className="px-6 py-4 font-semibold">Importância</th>
+                  <th className="px-6 py-4 font-semibold text-right">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1e293b]">
@@ -268,7 +268,7 @@ export default function MarcacoesPage() {
                         step="0.5"
                         value={m.preco}
                         onChange={(e) => updateMarcacao(m.id, { preco: parseFloat(e.target.value) || 0 })}
-                        className="bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-28 text-slate-200 font-monao font-semibold focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-naone transition-all shadow-inner"
+                        className="bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-28 text-slate-200 font-mono font-semibold focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-all shadow-inner"
                       />
                     </td>
                     <td className="px-6 py-3">
@@ -276,14 +276,14 @@ export default function MarcacoesPage() {
                         type="text" 
                         value={m.descricao}
                         onChange={(e) => updateMarcacao(m.id, { descricao: e.target.value })}
-                        className="bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-full text-slate-200 font-medium focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-naone transition-all shadow-inner"
+                        className="bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-full text-slate-200 font-medium focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-all shadow-inner"
                       />
                     </td>
                     <td className="px-6 py-3">
                       <select 
                         value={m.importancia}
                         onChange={(e) => updateMarcacao(m.id, { importancia: e.target.value as Importancia })}
-                        className={`bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-32 font-bold focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-naone cursor-pointer transition-all shadow-inner ${getColor(m.importancia)}`}
+                        className={`bg-[#0f172a] border border-[#1e293b] rounded-lg px-3 py-1.5 w-32 font-bold focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none cursor-pointer transition-all shadow-inner ${getColor(m.importancia)}`}
                       >
                         <option value="Baixa" className="text-blue-500 font-bold">Baixa</option>
                         <option value="Média" className="text-yellow-500 font-bold">Média</option>

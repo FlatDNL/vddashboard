@@ -9,10 +9,14 @@ export default function SuperDOMPage() {
   const [currentPrice, setCurrentPrice] = useState<number>(0)
   const [ticker, setTicker] = useState('WDOV26')
   
-  // Pegando as marcações do Zustand
   const { marcacoes, setMarcacoes } = useMarcacoesStore()
-  const { manualFechamento, manualDxyPct } = useMarketParamsStore()
+  const { manualFechamento, manualDxyPct, setManualParams, fechamentoAnteriorReal } = useMarketParamsStore()
   const [systemPoints, setSystemPoints] = useState<any[]>([])
+  
+  // Indicator States
+  const [showIndicatorsModal, setShowIndicatorsModal] = useState(false)
+  const [freqIndicatorEnabled, setFreqIndicatorEnabled] = useState(false)
+  const [fechamentoParaFreq, setFechamentoParaFreq] = useState<number>(0)
 
   useEffect(() => {
     fetchMarcacoes().then(data => setMarcacoes(data as any))
@@ -23,6 +27,8 @@ export default function SuperDOMPage() {
       .then(data => {
           const baseJusto = manualFechamento !== null ? manualFechamento : data.justo
           const dxyVar = manualDxyPct !== null ? manualDxyPct : data.metrics.dxyPct
+
+          setFechamentoParaFreq(fechamentoAnteriorReal || data.fechamentoAnterior || baseJusto)
 
           const justissimoFinal = baseJusto * (1 + (dxyVar / 100))
           const maximaFinal = baseJusto + 34.5
@@ -39,7 +45,7 @@ export default function SuperDOMPage() {
   }, [manualFechamento, manualDxyPct])
   
   // Combine user markers with system generated lines
-  const allMarkers = [...marcacoes]
+  const allMarkers = marcacoes.map(m => ({ ...m }))
   systemPoints.forEach(sp => {
     // Round to nearest tick (0.5) to fit the grid perfectly
     const rounded = Math.round(sp.preco * 2) / 2
@@ -47,6 +53,31 @@ export default function SuperDOMPage() {
       allMarkers.push({ id: 'sys_'+sp.descricao, preco: rounded, descricao: sp.descricao, importancia: sp.importancia })
     }
   })
+  
+  if (freqIndicatorEnabled && fechamentoParaFreq > 0) {
+    for (let i = -12; i <= 12; i++) {
+      const pct = i * 0.25;
+      const preco = fechamentoParaFreq * (1 + (pct / 100));
+      const rounded = Math.round(preco * 2) / 2;
+      
+      const existing = allMarkers.find(m => m.preco === rounded);
+      const desc = `Freq ${pct > 0 ? '+' : ''}${pct.toFixed(2)}%`;
+
+      if (!existing) {
+        allMarkers.push({ 
+          id: 'sys_freq_'+i, 
+          preco: rounded, 
+          descricao: desc, 
+          importancia: 'Baixa'
+        });
+      } else if (i === 0) {
+        if (!existing.descricao.includes('0.00%')) {
+          existing.descricao = `${existing.descricao} | ${desc}`;
+        }
+        existing.importancia = 'Baixa';
+      }
+    }
+  }
 
   // Controle de rolagem e centralização
   const [basePrice, setBasePrice] = useState<number>(0)
@@ -203,6 +234,12 @@ export default function SuperDOMPage() {
         }`}>
           {wsConnected && profitConnected ? 'PROFIT ON' : 'PROFIT OFF'}
         </span>
+        <button
+          onClick={() => setShowIndicatorsModal(true)}
+          className="px-2 py-0.5 rounded text-[10px] font-bold shadow-md cursor-pointer hover:brightness-110 active:scale-95 transition-transform bg-blue-600/90 text-white border border-blue-500"
+        >
+          INDICADORES
+        </button>
       </div>
 
       {/* Column Headers */}
@@ -229,6 +266,39 @@ export default function SuperDOMPage() {
               else if (marcacao.importancia === 'Média') descColorClass = 'text-yellow-500';
               else if (marcacao.importancia === 'Baixa') descColorClass = 'text-blue-500';
             }
+
+            // Define bg color for Freq Zones
+            let zoneBgPrice = isCurrent ? 'bg-[#555] text-white border border-gray-400 z-10 shadow-inner' : 'bg-[#222] text-gray-300';
+            let zoneBgDesc = isCurrent ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]';
+
+            if (freqIndicatorEnabled && fechamentoParaFreq > 0) {
+              let isAboveFreq = false;
+              let isBelowFreq = false;
+
+              for (let i = -12; i <= 12; i++) {
+                const pct = i * 0.25;
+                const freqPreco = Math.round((fechamentoParaFreq * (1 + (pct / 100))) * 2) / 2;
+                
+                if (priceVal > freqPreco && priceVal <= freqPreco + 4) {
+                  isAboveFreq = true;
+                }
+                if (priceVal < freqPreco && priceVal >= freqPreco - 4) {
+                  isBelowFreq = true;
+                }
+              }
+
+              if (isAboveFreq) {
+                if (!isCurrent) {
+                  zoneBgPrice = 'bg-green-500/20 text-gray-300';
+                  zoneBgDesc = 'bg-green-500/10';
+                }
+              } else if (isBelowFreq) {
+                if (!isCurrent) {
+                  zoneBgPrice = 'bg-red-500/20 text-gray-300';
+                  zoneBgDesc = 'bg-red-500/10';
+                }
+              }
+            }
             
             return (
               <div 
@@ -241,15 +311,12 @@ export default function SuperDOMPage() {
                 }`}
               >
                 {/* Price Column */}
-                <div className={`text-center py-1 border-r border-[#111] font-bold transition-colors ${
-                  isCurrent ? 'bg-[#555] text-white border border-gray-400 z-10 shadow-inner' : 
-                  'bg-[#222] text-gray-300'
-                }`}>
+                <div className={`text-center py-1 border-r border-[#111] font-bold transition-colors ${zoneBgPrice}`}>
                   {formatPrice(priceVal)}
                 </div>
 
                 {/* Descrição Column */}
-                <div className={`px-3 py-1 flex items-center justify-between transition-colors ${isCurrent ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]'}`}>
+                <div className={`px-3 py-1 flex items-center justify-between transition-colors ${zoneBgDesc}`}>
                   <span className={`text-sm font-bold tracking-wide ${descColorClass}`}>
                     {marcacao ? marcacao.descricao : ''}
                   </span>
@@ -260,6 +327,49 @@ export default function SuperDOMPage() {
           })}
         </div>
       </div>
+      {/* Indicators Modal */}
+      {showIndicatorsModal && (
+        <div className="absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+          <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-4 w-72 shadow-2xl flex flex-col gap-4">
+            <div className="flex items-center justify-between border-b border-[#333] pb-2">
+              <h3 className="text-sm font-bold text-gray-200">Indicadores</h3>
+              <button 
+                onClick={() => setShowIndicatorsModal(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                X
+              </button>
+            </div>
+            
+            <div className="flex flex-col gap-3">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  checked={freqIndicatorEnabled}
+                  onChange={(e) => setFreqIndicatorEnabled(e.target.checked)}
+                  className="w-4 h-4 rounded bg-[#222] border-[#444] text-blue-600 focus:ring-blue-500 cursor-pointer"
+                />
+                <span className="text-gray-300 text-xs font-semibold group-hover:text-white transition-colors">
+                  Frequência (Base: {fechamentoParaFreq ? fechamentoParaFreq.toFixed(2) : '--'})
+                </span>
+              </label>
+
+              <div className="text-[10px] text-gray-500 ml-6 leading-tight">
+                Traça suporte/resistência a cada 0,25% de variação a partir do valor base.
+              </div>
+            </div>
+            
+            <div className="mt-2 flex justify-end">
+              <button 
+                onClick={() => setShowIndicatorsModal(false)}
+                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Custom styles to hide scrollbar */}
       <style dangerouslySetInnerHTML={{__html: `
