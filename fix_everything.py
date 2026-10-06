@@ -1,7 +1,9 @@
-'use client'
+import json
+
+file_content = """'use client'
 
 import React, { useEffect, useState, useRef } from 'react'
-import { Maximize, Minimize, X } from 'lucide-react'
+import { Maximize, Minimize } from 'lucide-react'
 
 // Utilidades para formatar números
 const formatPts = (val: number) => (Math.round(val * 2) / 2).toFixed(1).replace('.', ',')
@@ -64,50 +66,7 @@ export default function BloombergTerminal() {
   const [news, setNews] = useState<any[]>([])
   const [aggression, setAggression] = useState<any[]>([])
   
-  const [nowTimer, setNowTimer] = useState(new Date())
-  const [activeModalTime, setActiveModalTime] = useState<string | null>(null)
-  const triggeredModals = useRef<Set<string>>(new Set())
-  
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!activeModalTime) return;
-    const modalEvents = news.filter(n => n.dateIso === activeModalTime);
-    if (modalEvents.length > 0) {
-      // Checa se TODOS os eventos deste horário já tiveram a pressão calculada
-      const allCalculated = modalEvents.every(e => e.pressure?.direction && e.pressure.direction !== 'AGUARDANDO');
-      if (allCalculated) {
-        const t = setTimeout(() => {
-          setActiveModalTime(null);
-        }, 10000);
-        return () => clearTimeout(t);
-      }
-    }
-  }, [activeModalTime, news]);
-
-
-  useEffect(() => {
-    const interval = setInterval(() => setNowTimer(new Date()), 1000)
-    return () => clearInterval(interval)
-  }, [])
-  
-  useEffect(() => {
-    const currentMs = nowTimer.getTime()
-    news.forEach(item => {
-      if (!item.dateIso) return
-      const eventMs = new Date(item.dateIso).getTime()
-      const diffSeconds = Math.floor((eventMs - currentMs) / 1000)
-      
-      // Faltando 5 segundos para a noticia
-      if (diffSeconds <= 5 && diffSeconds > -300 && !triggeredModals.current.has(item.dateIso)) {
-        triggeredModals.current.add(item.dateIso)
-        setActiveModalTime(item.dateIso)
-      }
-    })
-  }, [nowTimer, news])
-
-
-
 
   useEffect(() => {
     let isMounted = true
@@ -138,18 +97,7 @@ export default function BloombergTerminal() {
         
         // News (now Events)
         const eventsList = calendarData?.events || []
-        const now = new Date()
-        const hh = String(now.getHours()).padStart(2, '0')
-        const mm = String(now.getMinutes()).padStart(2, '0')
-        const currentTime = `${hh}:${mm}`
-        
-        // Ensure we parse time safely, assuming format "HH:MM"
-        const upcomingEvents = eventsList.filter((e: any) => {
-          if (!e.time || typeof e.time !== 'string') return false
-          const timeStr = e.time.trim()
-          return timeStr >= currentTime
-        })
-        setNews(upcomingEvents.slice(0, 15)) // Top 15 upcoming events
+        setNews(eventsList.slice(0, 8)) // Top 8 events
 
         // Aggression: pegar saldo acumulado final por grupo
         const groups = aggData.groups || []
@@ -236,7 +184,7 @@ export default function BloombergTerminal() {
     <div ref={containerRef} className="min-h-screen bg-[#121212] text-[#e2e8f0] p-4 font-mono uppercase selection:bg-gray-700 relative group flex flex-col h-screen overflow-hidden">
       
       {/* Botão de Tela Cheia */}
-      <div className="absolute top-4 left-4 z-50 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute top-4 left-4 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
           onClick={toggleFullscreen}
           className="flex items-center gap-2 bg-[#222] hover:bg-[#333] text-gray-300 px-3 py-1.5 rounded border border-[#444] transition-all shadow-xl"
@@ -244,6 +192,14 @@ export default function BloombergTerminal() {
           {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
           <span className="text-sm font-semibold">{isFullscreen ? 'SAIR' : 'TELA CHEIA'}</span>
         </button>
+      </div>
+
+      {/* Top Bar */}
+      <div className="flex flex-col items-center pb-2 mb-3 shrink-0">
+        <h1 className="text-3xl font-sans tracking-widest text-gray-200">MACRO DÓLAR — WDO</h1>
+        <div className="text-sm text-gray-500 tracking-[0.3em] mt-1 font-sans">
+          Tendência | Risco | Fluxo | Notícias | Contexto
+        </div>
       </div>
 
       {/* Main Content Layout */}
@@ -258,22 +214,19 @@ export default function BloombergTerminal() {
             </div>
             <div className="p-3 px-4 flex flex-col justify-center flex-1">
               <div className="flex items-center justify-between">
-                <span className={`text-2xl font-bold ${
-                  risk?.global?.status?.toUpperCase() === 'RISK ON' ? 'text-[#22c55e]' : 
-                  risk?.global?.status?.toUpperCase() === 'RISK OFF' ? 'text-[#ef4444]' : 'text-yellow-500'
-                }`}>
+                <span className={`text-2xl font-bold ${globalScore > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                   {risk?.global?.status || 'NEUTRO'} {globalScore > 0 ? '+' : ''}{globalScore.toFixed(0)}
                 </span>
-                <div className="flex flex-col xl:flex-row gap-1 xl:gap-6 text-base font-mono items-end xl:items-center">
-                   <div className="flex gap-2 items-center justify-end w-full">
+                <div className="flex gap-6 text-base font-mono">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">S&P</span>
                      <ValChange val={quotes['^GSPC']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center justify-end w-full">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">DXY</span>
                      <ValChange val={quotes['DX-Y.NYB']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center justify-end w-full">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">UST10Y</span>
                      <ValChange val={quotes['^TNX']?.changePercent} />
                    </div>
@@ -291,22 +244,19 @@ export default function BloombergTerminal() {
             </div>
             <div className="p-3 px-4 flex flex-col justify-center flex-1">
               <div className="flex items-center justify-between">
-                <span className={`text-2xl font-bold ${
-                  risk?.brazil?.status?.toUpperCase() === 'RISK ON' ? 'text-[#22c55e]' : 
-                  risk?.brazil?.status?.toUpperCase() === 'RISK OFF' ? 'text-[#ef4444]' : 'text-yellow-500'
-                }`}>
+                <span className={`text-2xl font-bold ${brazilScore > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                   {risk?.brazil?.status || 'NEUTRO'} {brazilScore > 0 ? '+' : ''}{brazilScore.toFixed(0)}
                 </span>
-                <div className="flex flex-col xl:flex-row gap-1 xl:gap-6 text-base font-mono items-end xl:items-center">
-                   <div className="flex gap-2 items-center justify-end w-full">
+                <div className="flex gap-6 text-base font-mono">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">IBOV</span>
                      <ValChange val={quotes['^BVSP']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center justify-end w-full">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">EWZ</span>
                      <ValChange val={quotes['EWZ']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center justify-end w-full">
+                   <div className="flex gap-2 items-center">
                      <span className="text-gray-300">DI</span>
                      <ValChange val={undefined} />
                    </div>
@@ -336,16 +286,6 @@ export default function BloombergTerminal() {
                   </span>
                   <ValChange val={quotes['BRL=X']?.changePercent} big />
                 </div>
-                {/* WDO Pressure Button (Massive) */}
-                {risk?.wdo?.action && (
-                  <div className={`px-10 py-3 rounded-md font-black text-4xl shadow-md tracking-wider ${
-                     risk.wdo.action.toUpperCase().includes('COMPRA') ? 'bg-[#22c55e] text-white' : 
-                     risk.wdo.action.toUpperCase().includes('VENDA') ? 'bg-[#ef4444] text-white' : 'bg-yellow-500 text-black'
-                  }`}>
-                    {risk.wdo.action.toUpperCase().includes('COMPRA') ? 'COMPRA' : 
-                     risk.wdo.action.toUpperCase().includes('VENDA') ? 'VENDA' : 'NEUTRO'}
-                  </div>
-                )}
               </div>
             </div>
 
@@ -387,11 +327,11 @@ export default function BloombergTerminal() {
                     <table className="w-full text-left text-sm font-mono">
                       <thead className="sticky top-0 bg-[#1c1c1c]">
                         <tr className="text-gray-500 border-b border-[#333]">
-                          <th className="py-1 px-1 font-normal">HORA</th>
-                          <th className="py-1 px-1 font-normal">PAÍS</th>
-                          <th className="py-1 px-1 font-normal">EVENTO</th>
-                          <th className="py-1 px-1 font-normal">IMPACTO</th>
-                          <th className="py-1 px-1 font-normal text-right">ATUAL</th>
+                          <th className="py-2 px-1 font-normal">HORA</th>
+                          <th className="py-2 px-1 font-normal">PAÍS</th>
+                          <th className="py-2 px-1 font-normal">EVENTO</th>
+                          <th className="py-2 px-1 font-normal">IMPACTO</th>
+                          <th className="py-2 px-1 font-normal text-right">ATUAL</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -400,34 +340,13 @@ export default function BloombergTerminal() {
                           const isMed = item.impact === 'MEDIUM'
                           const impactText = isHigh ? 'ALTO' : isMed ? 'MÉDIO' : 'BAIXO'
                           const impactColor = isHigh ? 'text-[#ef4444]' : isMed ? 'text-yellow-400' : 'text-[#22c55e]'
-                          
-                          let rowClass = "border-b border-[#222] hover:bg-[#333] transition-colors leading-tight"
-                          let displayTime = item.time
-                          let textTimeClass = "text-gray-400"
-                          
-                          if (item.dateIso) {
-                            const diffSeconds = Math.floor((new Date(item.dateIso).getTime() - nowTimer.getTime()) / 1000)
-                            if (diffSeconds > 0 && diffSeconds <= 300) {
-                              const m = Math.floor(diffSeconds / 60).toString().padStart(2, '0')
-                              const s = (diffSeconds % 60).toString().padStart(2, '0')
-                              displayTime = `${m}:${s}`
-                              if (diffSeconds <= 60) {
-                                textTimeClass = "text-red-400 font-black animate-pulse"
-                                rowClass = "border-b border-red-500 bg-[#451a1a] transition-colors leading-tight animate-pulse"
-                              } else {
-                                textTimeClass = "text-yellow-400 font-black"
-                                rowClass = "border-b border-yellow-500 bg-[#423812] transition-colors leading-tight"
-                              }
-                            }
-                          }
-                          
                           return (
-                            <tr key={i} className={rowClass}>
-                              <td className={`py-1 px-1 font-mono w-16 ${textTimeClass}`}>{displayTime}</td>
-                              <td className="py-1 px-1 text-center">{item.country === 'US' ? '🇺🇸' : item.country === 'BR' ? '🇧🇷' : item.country}</td>
-                              <td className="py-1 px-1 text-gray-300 truncate max-w-[200px]" title={item.title}>{item.title}</td>
-                              <td className={`py-1 px-1 ${impactColor}`}>{impactText}</td>
-                              <td className="py-1 px-1 text-right text-gray-200">{item.actual !== '-' ? item.actual : ''}</td>
+                            <tr key={i} className="border-b border-[#222] hover:bg-[#333] transition-colors">
+                              <td className="py-3 px-1 text-gray-400">{item.time}</td>
+                              <td className="py-3 px-1 text-center">{item.country === 'US' ? '🇺🇸' : item.country === 'BR' ? '🇧🇷' : item.country}</td>
+                              <td className="py-3 px-1 text-gray-300 truncate max-w-[200px]" title={item.title}>{item.title}</td>
+                              <td className={`py-3 px-1 ${impactColor}`}>{impactText}</td>
+                              <td className="py-3 px-1 text-right text-gray-200">{item.actual !== '-' ? item.actual : ''}</td>
                             </tr>
                           )
                         })}
@@ -438,7 +357,7 @@ export default function BloombergTerminal() {
                         )}
                       </tbody>
                     </table>
-                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -480,8 +399,8 @@ export default function BloombergTerminal() {
               <div className="bg-[#2a2a2a] text-sm text-gray-300 px-4 py-1.5 font-bold flex items-center gap-2 shrink-0">
                 📊 INDICADORES MACRO
               </div>
-              <div className="p-3 overflow-y-hidden flex-1 flex flex-col justify-center">
-                <div className="flex flex-col gap-[2px] text-base font-mono leading-none">
+              <div className="p-5 pt-3 overflow-y-auto flex-1">
+                <div className="flex flex-col gap-2 text-base font-mono">
                   {[
                     { label: 'DXY', sym: 'DX-Y.NYB' },
                     { label: 'EUR/USD', sym: 'EURUSD=X' },
@@ -494,7 +413,7 @@ export default function BloombergTerminal() {
                     { label: 'NASDAQ', sym: '^IXIC' },
                     { label: 'VIX', sym: '^VIX' },
                   ].map((row, i) => (
-                    <div key={i} className="flex justify-between items-center">
+                    <div key={i} className="flex justify-between items-center py-1">
                       <span className="text-gray-300 w-28">{row.label}</span>
                       <span className="text-gray-200 flex-1 text-right mr-6">
                         {formatPrice(quotes[row.sym]?.price, row.sym === 'DX-Y.NYB' || row.sym === 'EURUSD=X' || row.sym === '^TNX' ? 3 : 2)}
@@ -513,8 +432,8 @@ export default function BloombergTerminal() {
               <div className="bg-[#2a2a2a] text-sm text-gray-300 px-4 py-1.5 font-bold flex items-center gap-2 shrink-0">
                 📈 JUROS / COMMODITIES
               </div>
-              <div className="p-3">
-                <div className="flex flex-col gap-1 text-base font-mono leading-none">
+              <div className="p-5 pt-3">
+                <div className="flex flex-col gap-3 text-base font-mono">
                   {[
                     { label: 'UST10Y', sym: '^TNX' },
                     { label: 'DI1', sym: 'NONE' }, // Unavailable
@@ -563,91 +482,10 @@ export default function BloombergTerminal() {
           100% { transform: translateX(-50%); }
         }
       `}} />
-      
-            {/* Modal Notícia */}
-      {(() => {
-        if (!activeModalTime) return null;
-        const modalEvents = news.filter(n => n.dateIso === activeModalTime)
-        if (modalEvents.length === 0) return null;
-        
-        return (
-          <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4">
-            <div className="bg-[#1a1a1a] border border-[#333] rounded-xl w-full max-w-4xl shadow-2xl flex flex-col relative animate-in fade-in zoom-in duration-300 max-h-[90vh]">
-              
-              {/* Header do Modal */}
-              <div className="flex items-center justify-between p-6 border-b border-[#333] shrink-0">
-                <div className="flex flex-col">
-                  <span className="text-gray-400 text-sm font-mono tracking-widest">EVENTOS AO VIVO • {modalEvents[0]?.time}</span>
-                  <h2 className="text-2xl font-bold text-white uppercase">Resultados Simultâneos</h2>
-                </div>
-                <button onClick={() => setActiveModalTime(null)} className="text-gray-400 hover:text-white bg-[#333] hover:bg-[#444] p-2 rounded-full transition-colors">
-                  <X size={24} />
-                </button>
-              </div>
-              
-              {/* Corpo Rolável */}
-              <div className="flex flex-col gap-6 p-6 overflow-y-auto">
-                {modalEvents.map((evt, idx) => (
-                  <div key={idx} className="bg-[#2a2a2a] border border-[#444] rounded-xl flex flex-col overflow-hidden">
-                    
-                    <div className="flex items-center gap-3 p-4 border-b border-[#333] bg-[#333]">
-                      <span className="text-3xl">{evt.country === 'US' ? '🇺🇸' : evt.country === 'BR' ? '🇧🇷' : evt.country}</span>
-                      <h3 className="text-xl font-bold text-white uppercase truncate">{evt.title}</h3>
-                    </div>
-                    
-                    <div className="flex flex-col xl:flex-row p-4 gap-6">
-                      
-                      {/* Lado Esquerdo: Estatísticas */}
-                      <div className="grid grid-cols-3 gap-2 flex-1">
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="text-gray-500 text-[10px] xl:text-xs tracking-widest mb-1">ANTERIOR</span>
-                          <span className="text-lg xl:text-xl font-bold text-gray-300">{evt.previous !== '-' ? evt.previous : '---'}</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center border-x border-[#444]">
-                          <span className="text-gray-500 text-[10px] xl:text-xs tracking-widest mb-1">PROJEÇÃO</span>
-                          <span className="text-lg xl:text-xl font-bold text-gray-300">{evt.forecast !== '-' ? evt.forecast : '---'}</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="text-blue-400 text-[10px] xl:text-xs tracking-widest mb-1 font-bold">ATUAL</span>
-                          <span className="text-2xl xl:text-3xl font-bold text-white">{evt.actual !== '-' ? evt.actual : '---'}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Lado Direito: Pressão */}
-                      <div className="flex flex-col items-center justify-center bg-[#0f172a] border border-[#1e293b] p-4 rounded-lg w-full xl:w-[280px] shrink-0">
-                        <span className="text-gray-400 text-[10px] tracking-widest mb-2">PRESSÃO DÓLAR</span>
-                        {evt.pressure?.direction && evt.pressure.direction !== 'AGUARDANDO' ? (
-                          <>
-                            <div className={`text-2xl xl:text-3xl font-black mb-1 ${
-                              evt.pressure.direction === 'ALTA' ? 'text-emerald-500' :
-                              evt.pressure.direction === 'BAIXA' ? 'text-red-500' : 'text-yellow-500'
-                            }`}>
-                              {evt.pressure.direction === 'ALTA' ? 'COMPRA' : evt.pressure.direction === 'BAIXA' ? 'VENDA' : 'NEUTRO'}
-                            </div>
-                            <p className="text-gray-400 text-center text-[10px] xl:text-xs">{evt.pressure.explanation}</p>
-                          </>
-                        ) : (
-                          <div className="flex flex-col items-center animate-pulse">
-                            <div className="text-lg xl:text-xl font-bold text-yellow-500 mb-1">AGUARDANDO...</div>
-                            <p className="text-gray-500 text-center text-[10px]">Calculando impacto</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Footer do Modal */}
-              <div className="p-4 border-t border-[#333] shrink-0">
-                <button onClick={() => setActiveModalTime(null)} className="w-full bg-[#444] hover:bg-[#555] text-white py-3 rounded font-bold uppercase tracking-widest transition-colors">
-                  FECHAR JANELA
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
     </div>
   )
 }
+"""
+
+with open('src/app/dashboard/demo/BloombergTerminal.tsx', 'w', encoding='utf-8') as f:
+    f.write(file_content)
