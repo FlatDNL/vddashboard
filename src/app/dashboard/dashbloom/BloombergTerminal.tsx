@@ -193,7 +193,7 @@ export default function BloombergTerminal() {
     <div ref={containerRef} className="min-h-screen bg-[#121212] text-[#e2e8f0] p-4 font-mono uppercase selection:bg-gray-700 relative group flex flex-col h-screen overflow-hidden">
       
       {/* Botão de Tela Cheia */}
-      <div className="absolute top-4 left-4 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute top-4 left-4 z-50 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
           onClick={toggleFullscreen}
           className="flex items-center gap-2 bg-[#222] hover:bg-[#333] text-gray-300 px-3 py-1.5 rounded border border-[#444] transition-all shadow-xl"
@@ -215,19 +215,22 @@ export default function BloombergTerminal() {
             </div>
             <div className="p-3 px-4 flex flex-col justify-center flex-1">
               <div className="flex items-center justify-between">
-                <span className={`text-2xl font-bold ${globalScore > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                <span className={`text-2xl font-bold ${
+                  risk?.global?.status?.toUpperCase() === 'RISK ON' ? 'text-[#22c55e]' : 
+                  risk?.global?.status?.toUpperCase() === 'RISK OFF' ? 'text-[#ef4444]' : 'text-yellow-500'
+                }`}>
                   {risk?.global?.status || 'NEUTRO'} {globalScore > 0 ? '+' : ''}{globalScore.toFixed(0)}
                 </span>
-                <div className="flex gap-6 text-base font-mono">
-                   <div className="flex gap-2 items-center">
+                <div className="flex flex-col xl:flex-row gap-1 xl:gap-6 text-base font-mono items-end xl:items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">S&P</span>
                      <ValChange val={quotes['^GSPC']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">DXY</span>
                      <ValChange val={quotes['DX-Y.NYB']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">UST10Y</span>
                      <ValChange val={quotes['^TNX']?.changePercent} />
                    </div>
@@ -245,19 +248,22 @@ export default function BloombergTerminal() {
             </div>
             <div className="p-3 px-4 flex flex-col justify-center flex-1">
               <div className="flex items-center justify-between">
-                <span className={`text-2xl font-bold ${brazilScore > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                <span className={`text-2xl font-bold ${
+                  risk?.brazil?.status?.toUpperCase() === 'RISK ON' ? 'text-[#22c55e]' : 
+                  risk?.brazil?.status?.toUpperCase() === 'RISK OFF' ? 'text-[#ef4444]' : 'text-yellow-500'
+                }`}>
                   {risk?.brazil?.status || 'NEUTRO'} {brazilScore > 0 ? '+' : ''}{brazilScore.toFixed(0)}
                 </span>
-                <div className="flex gap-6 text-base font-mono">
-                   <div className="flex gap-2 items-center">
+                <div className="flex flex-col xl:flex-row gap-1 xl:gap-6 text-base font-mono items-end xl:items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">IBOV</span>
                      <ValChange val={quotes['^BVSP']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">EWZ</span>
                      <ValChange val={quotes['EWZ']?.changePercent} />
                    </div>
-                   <div className="flex gap-2 items-center">
+                   <div className="flex gap-2 items-center justify-end w-full">
                      <span className="text-gray-300">DI</span>
                      <ValChange val={undefined} />
                    </div>
