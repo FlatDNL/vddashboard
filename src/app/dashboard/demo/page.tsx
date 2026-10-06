@@ -1,421 +1,255 @@
-import { LineChart, BarChart2, Activity, Settings2, SlidersHorizontal, ArrowUp, ArrowDown, ShieldAlert, Target } from 'lucide-react'
+import React from 'react';
+import { ArrowUp, ArrowDown, Eye, EyeOff, Globe, Calendar, Activity, TrendingUp, TrendingDown } from 'lucide-react';
 
 export default function DashboardPage() {
-
   return (
-    <div className="flex gap-6 h-full">
-      {/* Main Column */}
-      <div className="flex-1 flex flex-col gap-4 overflow-y-auto scrollbar-hide pb-10">
-        
-        {/* Top Asset Header */}
-        <div className="flex items-center justify-between bg-[#0f172a] p-4 rounded-2xl border border-[#1e293b]">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-800 border border-slate-700">
-              <span className="text-2xl">🇺🇸</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white flex items-center gap-2">
-                USD/BRL
-              </h1>
-              <span className="text-xs text-slate-400">Dólar Americano / Real Brasileiro</span>
-            </div>
+    <div className="min-h-full bg-[#020617] p-4 text-slate-200 overflow-y-auto scrollbar-hide">
+      
+      {/* Header Area */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">WDOFUT</h1>
+          <p className="text-sm text-slate-400">Mini Dólar Futuro • Vencimento SET/25</p>
+        </div>
+        <div className="flex items-center gap-4 bg-[#0f172a] border border-[#1e293b] rounded-xl p-3">
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold text-white">5.672,50</span>
+            <span className="text-xs text-emerald-500 font-medium flex items-center">
+              <ArrowUp size={12} className="mr-1" /> +0,86% (+48,50)
+            </span>
           </div>
-          
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-white">5,4128</span>
-                <span className="text-xs font-medium text-emerald-500 flex items-center">
-                  <ArrowUp size={12} className="mr-0.5" /> +0,0324 (+0,60%)
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-slate-500"></span>
-                17:42:36
-              </span>
-            </div>
-            
-            <div className="hidden md:flex gap-6 text-[11px]">
-              <div className="flex flex-col">
-                <span className="text-slate-500 mb-0.5">Máxima do dia</span>
-                <span className="font-semibold text-slate-200">5,4210</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-slate-500 mb-0.5">Mínima do dia</span>
-                <span className="font-semibold text-slate-200">5,3786</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-slate-500 mb-0.5">Abertura</span>
-                <span className="font-semibold text-slate-200">5,3804</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-slate-500 mb-0.5">Fechamento anterior</span>
-                <span className="font-semibold text-slate-200">5,3804</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="flex rounded-lg bg-[#1e293b] p-1">
-              {['M1', 'M5', 'M15', 'H1', 'H4', 'D1'].map((tf) => (
-                <button
-                  key={tf}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
-                    tf === 'M15' 
-                      ? 'bg-blue-600 text-white shadow' 
-                      : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                >
-                  {tf}
-                </button>
-              ))}
-            </div>
-            <button className="p-2 rounded-lg bg-[#1e293b] text-slate-400 hover:text-white transition-colors">
-              <Settings2 size={16} />
-            </button>
+          <div className="h-10 w-px bg-[#1e293b]"></div>
+          <div className="flex flex-col text-xs text-slate-400 gap-1">
+            <div className="flex justify-between gap-4"><span>MÁX.</span> <span className="text-slate-200">5.681,00</span></div>
+            <div className="flex justify-between gap-4"><span>MÍN.</span> <span className="text-slate-200">5.630,00</span></div>
           </div>
         </div>
-
-        {/* 4 Indicator Cards Row */}
-        <div className="grid grid-cols-4 gap-4">
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col justify-between">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
-                <Activity size={14} />
-              </div>
-              <span className="text-xs font-medium text-slate-300">Tendência Quântica</span>
-            </div>
-            <div className="flex-1 flex flex-col justify-end">
-              <div className="text-xl font-bold text-emerald-500 mb-2 tracking-wide">ALTA</div>
-              {/* Fake mini chart */}
-              <div className="h-6 w-full flex items-end gap-1 mb-2">
-                 <svg viewBox="0 0 100 20" className="w-full h-full stroke-emerald-500 fill-none" preserveAspectRatio="none">
-                    <polyline points="0,15 10,12 20,18 30,5 40,10 50,2 60,8 70,2 80,10 90,4 100,0" strokeWidth="2" />
-                 </svg>
-              </div>
-              <div className="flex justify-between text-[10px] text-slate-500 mt-auto border-t border-[#1e293b] pt-2">
-                <span>Probabilidade de continuidade</span>
-                <span className="text-emerald-500 font-bold">72%</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col items-center">
-            <div className="flex w-full items-center gap-2 mb-2">
-              <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-500">
-                <Activity size={14} />
-              </div>
-              <span className="text-xs font-medium text-slate-300">Força do Movimento</span>
-            </div>
-            {/* Fake Gauge */}
-            <div className="relative w-24 h-24 mt-2">
-               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                  <circle cx="50" cy="50" r="40" className="stroke-[#1e293b] fill-none" strokeWidth="12" />
-                  <circle cx="50" cy="50" r="40" className="stroke-emerald-500 fill-none" strokeWidth="12" strokeDasharray="251" strokeDashoffset="80" strokeLinecap="round" />
-               </svg>
-               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-xl font-bold text-white">68%</span>
-                  <span className="text-[10px] text-emerald-500 font-medium">Forte</span>
-               </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col items-center">
-            <div className="flex w-full items-center gap-2 mb-2">
-              <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400">
-                <Activity size={14} />
-              </div>
-              <span className="text-xs font-medium text-slate-300">Volatilidade Atual</span>
-            </div>
-            <div className="relative w-24 h-24 mt-2">
-               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                  <circle cx="50" cy="50" r="40" className="stroke-[#1e293b] fill-none" strokeWidth="12" />
-                  <circle cx="50" cy="50" r="40" className="stroke-blue-500 fill-none" strokeWidth="12" strokeDasharray="251" strokeDashoffset="145" strokeLinecap="round" />
-               </svg>
-               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-xl font-bold text-white">42%</span>
-                  <span className="text-[10px] text-blue-400 font-medium">Moderada</span>
-               </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col items-center">
-            <div className="flex w-full items-center gap-2 mb-2">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
-                <ArrowDown size={14} className="transform rotate-180" />
-              </div>
-              <span className="text-xs font-medium text-slate-300">Sentimento do Mercado</span>
-            </div>
-            <div className="relative w-24 h-24 mt-2">
-               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                  <circle cx="50" cy="50" r="40" className="stroke-[#1e293b] fill-none" strokeWidth="12" />
-                  <circle cx="50" cy="50" r="40" className="stroke-emerald-500 fill-none" strokeWidth="12" strokeDasharray="251" strokeDashoffset="97" strokeLinecap="round" />
-               </svg>
-               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-xl font-bold text-white">61%</span>
-                  <span className="text-[10px] text-emerald-500 font-medium">Otimista</span>
-               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Middle Row (Chart + Support/Resistance) */}
-        <div className="flex gap-4 h-[420px]">
-          <div className="flex-1 bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-sm font-semibold text-slate-200">Dólar/Real - Gráfico de Preços</h2>
-              <div className="flex gap-3 text-xs text-slate-400">
-                <span className="flex items-center gap-1 hover:text-white cursor-pointer"><BarChart2 size={14}/> Indicadores</span>
-                <span className="flex items-center gap-1 hover:text-white cursor-pointer"><Settings2 size={14}/></span>
-              </div>
-            </div>
-            <div className="flex-1 border border-[#1e293b] bg-[#0b1120] rounded-xl flex items-center justify-center relative overflow-hidden">
-               {/* TradingView Placeholder */}
-               <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/10 to-transparent"></div>
-               <img src="https://s3.tradingview.com/tv-logo-bg.svg" className="absolute bottom-4 left-4 h-6 opacity-30" />
-               <div className="flex flex-col items-center text-slate-500">
-                 <LineChart size={48} className="mb-2 opacity-50" />
-                 <span className="text-sm font-medium">Área do Gráfico TradingView</span>
-                 <span className="text-xs mt-1 opacity-70">Aguardando integração na Fase 2</span>
-               </div>
-            </div>
-          </div>
-          
-          <div className="w-64 bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col">
-            <h2 className="text-sm font-semibold text-slate-200 mb-6">Níveis de Suporte e Resistência</h2>
-            <div className="flex-1 flex flex-col justify-between">
-              {[
-                { label: 'R3', value: '5,4500', color: 'text-emerald-500', bar: 'bg-emerald-500/20' },
-                { label: 'R2', value: '5,4330', color: 'text-emerald-500', bar: 'bg-emerald-500/40' },
-                { label: 'R1', value: '5,4200', color: 'text-emerald-500', bar: 'bg-emerald-500/60' },
-                { label: 'Atual', value: '5,4128', color: 'text-blue-500', bar: 'bg-blue-500', active: true },
-                { label: 'S1', value: '5,3980', color: 'text-red-500', bar: 'bg-red-500/60' },
-                { label: 'S2', value: '5,3850', color: 'text-red-500', bar: 'bg-red-500/40' },
-                { label: 'S3', value: '5,3700', color: 'text-red-500', bar: 'bg-red-500/20' },
-              ].map((level, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <span className={`w-8 text-xs font-semibold ${level.color}`}>{level.label}</span>
-                  <div className="flex-1 h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
-                    <div className={`h-full ${level.bar} ${level.active ? 'w-full' : 'w-2/3'}`}></div>
-                  </div>
-                  <span className={`w-14 text-right text-xs font-mono ${level.active ? 'text-white font-bold' : 'text-slate-400'}`}>{level.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Row (Volume, Osciladores, Mapa Calor) */}
-        <div className="grid grid-cols-3 gap-4 h-64">
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col">
-            <h2 className="text-sm font-semibold text-slate-200 mb-4">Análise de Volume</h2>
-            <div className="flex-1 flex items-end gap-1 px-2 pb-2">
-              {Array.from({length: 30}).map((_, i) => (
-                <div key={i} className={`flex-1 rounded-t-sm ${Math.random() > 0.5 ? 'bg-emerald-500' : 'bg-red-500'}`} style={{height: `${Math.random() * 100}%`}}></div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col">
-            <h2 className="text-sm font-semibold text-slate-200 mb-2">Osciladores Quânticos</h2>
-            <div className="flex-1 flex items-center justify-between">
-              <div className="relative w-28 h-28">
-                 <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                    <circle cx="50" cy="50" r="40" className="stroke-[#1e293b] fill-none" strokeWidth="10" />
-                    <circle cx="50" cy="50" r="40" className="stroke-cyan-400 fill-none" strokeWidth="10" strokeDasharray="251" strokeDashoffset="70" strokeLinecap="round" />
-                 </svg>
-                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-2xl font-bold text-white">72%</span>
-                    <span className="text-[9px] text-cyan-400 font-medium">Mercado em Alta</span>
-                 </div>
-              </div>
-              <div className="flex-1 flex flex-col gap-3 pl-4">
-                {[
-                  { name: 'Momentum', val: '68%', color: 'bg-emerald-500', textCol: 'text-emerald-500' },
-                  { name: 'Força Relativa', val: '74%', color: 'bg-cyan-400', textCol: 'text-cyan-400' },
-                  { name: 'Amplitude', val: '61%', color: 'bg-blue-500', textCol: 'text-blue-500' },
-                  { name: 'Tendência', val: '80%', color: 'bg-emerald-400', textCol: 'text-emerald-400' },
-                ].map((osc, i) => (
-                  <div key={i}>
-                    <div className="flex justify-between text-[10px] mb-1">
-                      <span className="text-slate-400 flex items-center gap-1"><span className={`w-1.5 h-1.5 rounded-full ${osc.color}`}></span>{osc.name}</span>
-                      <span className={`font-semibold ${osc.textCol}`}>{osc.val}</span>
-                    </div>
-                    <div className="h-1 w-full bg-[#1e293b] rounded-full overflow-hidden">
-                      <div className={`h-full ${osc.color}`} style={{width: osc.val}}></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 flex flex-col">
-            <h2 className="text-sm font-semibold text-slate-200 mb-4">Mapa de Calor - Fluxo de Ordens</h2>
-            <div className="flex-1 relative rounded-lg overflow-hidden flex flex-col">
-               <div className="flex justify-between text-[9px] text-slate-500 mb-1 px-1">
-                 <span>5,4400</span><span>5,4300</span><span>5,4200</span>
-               </div>
-               <div className="flex-1 bg-gradient-to-r from-red-500/20 via-yellow-500/20 to-emerald-500/20 border border-[#1e293b] rounded">
-                 {/* Fake heatmap grid */}
-                 <div className="w-full h-full grid grid-cols-10 grid-rows-5 gap-0.5 p-0.5 mix-blend-screen">
-                    {Array.from({length: 50}).map((_, i) => (
-                      <div key={i} className={`rounded-sm ${Math.random() > 0.7 ? 'bg-red-500/80' : Math.random() > 0.4 ? 'bg-yellow-500/80' : 'bg-emerald-500/80'}`} style={{opacity: Math.random() * 0.5 + 0.5}}></div>
-                    ))}
-                 </div>
-               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Very Bottom Row: Análise Quantitativa - USD/BRL */}
-        <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5">
-          <h2 className="text-sm font-semibold text-slate-200 mb-4">Análise Quantitativa - USD/BRL</h2>
-          <div className="grid grid-cols-4 gap-4">
-             <div className="bg-[#0b1120] rounded-xl p-3 border border-[#1e293b]">
-               <div className="flex items-center gap-2 mb-2">
-                 <div className="p-1 rounded bg-emerald-500/20 text-emerald-500"><ArrowUp size={12}/></div>
-                 <span className="text-[10px] text-slate-400">Probabilidade de Alta</span>
-               </div>
-               <div className="text-xl font-bold text-white mb-2">72%</div>
-               <div className="h-1 w-full bg-[#1e293b] rounded-full"><div className="h-full bg-emerald-500 w-[72%] rounded-full"></div></div>
-             </div>
-             
-             <div className="bg-[#0b1120] rounded-xl p-3 border border-[#1e293b]">
-               <div className="flex items-center gap-2 mb-2">
-                 <div className="p-1 rounded bg-red-500/20 text-red-500"><ArrowDown size={12}/></div>
-                 <span className="text-[10px] text-slate-400">Probabilidade de Baixa</span>
-               </div>
-               <div className="text-xl font-bold text-white mb-2">28%</div>
-               <div className="h-1 w-full bg-[#1e293b] rounded-full"><div className="h-full bg-red-500 w-[28%] rounded-full"></div></div>
-             </div>
-             
-             <div className="bg-[#0b1120] rounded-xl p-3 border border-[#1e293b] flex items-center gap-4">
-               <div className="p-2 rounded-xl bg-yellow-500/20 text-yellow-500"><ShieldAlert size={20}/></div>
-               <div>
-                 <div className="text-[10px] text-slate-400">Risco Atual</div>
-                 <div className="text-lg font-bold text-yellow-500">Médio</div>
-                 <div className="w-16 h-1 mt-1 bg-[#1e293b] rounded-full"><div className="h-full bg-yellow-500 w-1/2 rounded-full"></div></div>
-               </div>
-             </div>
-             
-             <div className="bg-[#0b1120] rounded-xl p-3 border border-[#1e293b] flex items-center gap-4">
-               <div className="p-2 rounded-xl bg-blue-500/20 text-blue-500"><Target size={20}/></div>
-               <div>
-                 <div className="text-[10px] text-slate-400">Recomendação</div>
-                 <div className="text-sm font-bold text-blue-400">Aguardar Confirmação</div>
-               </div>
-             </div>
-          </div>
-        </div>
-
       </div>
 
-      {/* Right Sidebar Column */}
-      <div className="w-[320px] flex flex-col gap-4 overflow-y-auto scrollbar-hide pb-10">
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6 pb-10">
         
-        {/* Indicadores Técnicos */}
-        <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5">
-          <h2 className="text-sm font-semibold text-slate-200 mb-5">Indicadores Técnicos</h2>
-          <div className="space-y-4">
-            {[
-              { name: 'RSI (14)', val: '68,4', status: 'Comprado', col: 'text-emerald-500', dot: 'bg-slate-500' },
-              { name: 'MACD', val: '0,0123', status: 'Comprado', col: 'text-emerald-500', dot: 'bg-emerald-500' },
-              { name: 'Estocástico (14,3,3)', val: '78,2', status: 'Comprado', col: 'text-emerald-500', dot: 'bg-emerald-500' },
-              { name: 'Média Móvel (50)', val: '5,3901', status: 'Alta', col: 'text-emerald-500', dot: 'bg-yellow-500' },
-              { name: 'Média Móvel (200)', val: '5,3647', status: 'Alta', col: 'text-emerald-500', dot: 'bg-yellow-500' },
-            ].map((ind, i) => (
-              <div key={i} className="flex justify-between items-center text-xs">
-                <span className="text-slate-400 flex items-center gap-2">
-                  <span className={`w-1.5 h-1.5 rounded-full ${ind.dot}`}></span> {ind.name}
-                </span>
-                <div className="flex items-center gap-4">
-                  <span className="text-slate-200 font-mono font-medium">{ind.val}</span>
-                  <span className={`${ind.col} w-16 text-right font-medium`}>{ind.status}</span>
+        {/* COLUNA 1: Preço Justo & Saldo de Agressão */}
+        <div className="flex flex-col gap-4 xl:gap-6">
+          
+          {/* Preços de Referência */}
+          <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 md:p-5">
+            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Preços de Referência (R$)</h2>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] text-slate-500 mb-1 font-medium">JUSTO</div>
+                  <div className="text-lg font-bold text-slate-200">5.667,80</div>
                 </div>
+                <div className="text-emerald-500 font-medium text-sm">+4,70</div>
               </div>
-            ))}
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] text-slate-500 mb-1 font-medium">JUSTÍSSIMO</div>
+                  <div className="text-lg font-bold text-slate-200">5.664,20</div>
+                </div>
+                <div className="text-emerald-500 font-medium text-sm">+8,30</div>
+              </div>
+
+              <div className="h-px w-full bg-[#1e293b] my-2"></div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] text-slate-500 mb-1 font-medium">MÁXIMA DO DÓLAR</div>
+                  <div className="text-sm font-semibold text-slate-300">5.683,50</div>
+                </div>
+                <div className="text-red-500 text-xs font-medium">-11,00 pts</div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] text-slate-500 mb-1 font-medium">MÍNIMA DO DÓLAR</div>
+                  <div className="text-sm font-semibold text-slate-300">5.640,10</div>
+                </div>
+                <div className="text-emerald-500 text-xs font-medium">+32,40 pts</div>
+              </div>
+            </div>
           </div>
+
+          {/* Saldo de Agressão (Gauge e Composição) */}
+          <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 md:p-5">
+            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Pressão & Agressão</h2>
+            
+            <div className="flex items-center justify-center mb-6 mt-2 relative">
+               <svg viewBox="0 0 100 55" className="w-48 overflow-visible">
+                  {/* Background Arc */}
+                  <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#1e293b" strokeWidth="10" strokeLinecap="round" />
+                  {/* Foreground Arc - Positive (Green) */}
+                  <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#10b981" strokeWidth="10" strokeLinecap="round" strokeDasharray="125" strokeDashoffset="40" />
+               </svg>
+               <div className="absolute bottom-2 flex flex-col items-center">
+                 <span className="text-3xl font-bold text-emerald-500">+76</span>
+                 <span className="text-[10px] font-semibold text-emerald-500 tracking-wider">COMPRADOR</span>
+               </div>
+            </div>
+
+            <div className="space-y-3">
+               {[
+                 { label: 'Agressão', val: '+72', color: 'bg-emerald-500', width: '80%' },
+                 { label: 'Impulso', val: '+86', color: 'bg-emerald-400', width: '90%' },
+                 { label: 'Velocidade', val: '+76', color: 'bg-emerald-600', width: '75%' },
+                 { label: 'Book', val: '+68', color: 'bg-emerald-500', width: '70%' },
+                 { label: 'Absorção', val: '-18', color: 'bg-red-500', width: '20%' },
+               ].map((item, i) => (
+                 <div key={i} className="flex items-center justify-between gap-2 text-xs">
+                   <span className="text-slate-400 w-20">{item.label}</span>
+                   <div className="flex-1 h-1.5 bg-[#1e293b] rounded-full overflow-hidden">
+                     <div className={`h-full ${item.color} rounded-full`} style={{width: item.width}}></div>
+                   </div>
+                   <span className={`w-8 text-right font-semibold ${item.val.startsWith('-') ? 'text-red-500' : 'text-emerald-500'}`}>{item.val}</span>
+                 </div>
+               ))}
+            </div>
+          </div>
+          
         </div>
 
-        {/* Sinais de Mercado */}
-        <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex flex-col">
-          <h2 className="text-sm font-semibold text-slate-200 mb-5">Sinais de Mercado</h2>
-          <div className="space-y-4">
-             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
-                    <ArrowUp size={16} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold text-slate-200">Entrada de Compra</div>
-                    <div className="text-[10px] text-emerald-500 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Confirmado
-                    </div>
-                  </div>
-                </div>
-                <div className="text-xs text-slate-300 font-mono">5,4120</div>
-             </div>
-             
-             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
-                    <ArrowDown size={16} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold text-slate-200">Entrada de Venda</div>
-                    <div className="text-[10px] text-red-500 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span> Aguardando
-                    </div>
-                  </div>
-                </div>
-                <div className="text-xs text-slate-300 font-mono">5,4200</div>
-             </div>
-             
-             <div className="pt-3 border-t border-[#1e293b] space-y-3">
-               <div className="flex justify-between text-xs">
-                 <span className="text-slate-400 flex items-center gap-2"><ArrowUp size={12} className="text-cyan-500"/> Alvo 1</span>
-                 <span className="text-slate-300 font-mono">5,4330</span>
-               </div>
-               <div className="flex justify-between text-xs">
-                 <span className="text-slate-400 flex items-center gap-2"><ArrowUp size={12} className="text-cyan-500"/> Alvo 2</span>
-                 <span className="text-slate-300 font-mono">5,4500</span>
-               </div>
-               <div className="flex justify-between text-xs">
-                 <span className="text-slate-400 flex items-center gap-2"><ArrowDown size={12} className="text-red-500"/> Stop Loss</span>
-                 <span className="text-slate-300 font-mono">5,3980</span>
-               </div>
-             </div>
+        {/* COLUNA 2: Risco & Calendário */}
+        <div className="flex flex-col gap-4 xl:gap-6">
+          
+          {/* Risk */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 flex flex-col items-center text-center">
+              <Globe className="text-slate-500 mb-2" size={24} />
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Global Risk</div>
+              <div className="text-2xl font-bold text-slate-200 mb-1">50,2</div>
+              <div className="text-[10px] font-medium text-slate-500 bg-[#1e293b] px-2 py-0.5 rounded-full">Neutro</div>
+            </div>
+            
+            <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 flex flex-col items-center text-center">
+              <div className="h-6 w-6 rounded-full bg-green-700 border border-yellow-400 flex items-center justify-center mb-2">
+                <div className="h-2 w-2 bg-blue-600 rounded-full"></div>
+              </div>
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Risk Brasil</div>
+              <div className="text-2xl font-bold text-slate-200 mb-1">48,7</div>
+              <div className="text-[10px] font-medium text-slate-500 bg-[#1e293b] px-2 py-0.5 rounded-full">Neutro</div>
+            </div>
           </div>
+
+          {/* Calendário Econômico */}
+          <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 md:p-5 flex-1">
+            <div className="flex items-center gap-2 mb-4">
+              <Calendar className="text-slate-400" size={16} />
+              <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Calendário Econômico</h2>
+            </div>
+            
+            <div className="space-y-4">
+              {[
+                { time: '09:30', country: '🇺🇸', event: 'Pedidos Iniciais por Seguro-Desemprego', impact: 3, actual: '228K', prev: '230K', status: 'positive' },
+                { time: '09:30', country: '🇺🇸', event: 'Índice de Preços ao Produtor (PPI)', impact: 3, actual: '0.2%', prev: '0.1%', status: 'negative' },
+                { time: '10:00', country: '🇧🇷', event: 'Produção Industrial (Mensal)', impact: 2, actual: '-0.1%', prev: '0.3%', status: 'negative' },
+                { time: '14:00', country: '🇺🇸', event: 'Discurso de Powell (Fed)', impact: 3, actual: '-', prev: '-', status: 'neutral' },
+                { time: '15:30', country: '🇺🇸', event: 'Balanço Orçamentário', impact: 2, actual: '-', prev: '-', status: 'neutral' },
+              ].map((ev, i) => (
+                <div key={i} className="flex gap-3 border-b border-[#1e293b] pb-3 last:border-0 last:pb-0">
+                  <div className="flex flex-col items-center min-w-[40px]">
+                    <span className="text-xs font-mono text-slate-400">{ev.time}</span>
+                    <span className="text-lg">{ev.country}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs font-medium text-slate-300 mb-1">{ev.event}</div>
+                    <div className="flex gap-1 mb-1">
+                      {Array.from({length: 3}).map((_, j) => (
+                        <Activity key={j} size={10} className={j < ev.impact ? 'text-red-500' : 'text-slate-600'} />
+                      ))}
+                    </div>
+                    {ev.actual !== '-' && (
+                       <div className="text-[10px] flex gap-3 text-slate-500 mt-1">
+                         <span>Atual: <span className={ev.status === 'positive' ? 'text-emerald-500' : ev.status === 'negative' ? 'text-red-500' : ''}>{ev.actual}</span></span>
+                         <span>Prev: {ev.prev}</span>
+                       </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
         </div>
 
-        {/* Últimas Notícias */}
-        <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-5 flex-1">
-          <h2 className="text-sm font-semibold text-slate-200 mb-5">Últimas Notícias</h2>
-          <div className="space-y-4">
-             <div className="pb-4 border-b border-[#1e293b]/50">
-               <p className="text-xs text-slate-300 leading-relaxed mb-1">
-                 Dólar fecha em alta com exterior e dados do Brasil
-               </p>
-               <span className="text-[10px] text-slate-500">22/09/2025 17:21</span>
-             </div>
-             <div className="pb-4 border-b border-[#1e293b]/50">
-               <p className="text-xs text-slate-300 leading-relaxed mb-1">
-                 Mercado ajusta projeções para juros após ata do Copom
-               </p>
-               <span className="text-[10px] text-slate-500">22/09/2025 16:58</span>
-             </div>
-             <div className="pb-4 border-b border-[#1e293b]/50">
-               <p className="text-xs text-slate-300 leading-relaxed mb-1">
-                 Fluxo estrangeiro volta ao Brasil e fortalece o real
-               </p>
-               <span className="text-[10px] text-slate-500">22/09/2025 16:32</span>
-             </div>
-             
-             <button className="text-xs text-blue-400 hover:text-blue-300 mt-2">
-               Ver todas as notícias →
-             </button>
+        {/* COLUNA 3: Ativos e Indicadores */}
+        <div className="flex flex-col gap-4 xl:gap-6">
+          
+          {/* Ativos Cadastrados (Olhinho) */}
+          <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 md:p-5">
+            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Ativos Monitorados</h2>
+            
+            <div className="space-y-2">
+              {[
+                { symbol: 'WDOFUT', name: 'Mini Dólar Futuro', price: '5.672,50', change: '+0,86%', color: 'text-emerald-500', visible: true },
+                { symbol: 'WIN', name: 'Mini Índice Futuro', price: '134.500', change: '-1,20%', color: 'text-red-500', visible: true },
+                { symbol: 'DI1F25', name: 'Juros Jan/25', price: '13,75%', change: '+0,12', color: 'text-emerald-500', visible: true },
+                { symbol: 'DXY', name: 'Dollar Index', price: '100,48', change: '-0,32%', color: 'text-red-500', visible: true },
+                { symbol: 'PETR4', name: 'Petrobras PN', price: '38,42', change: '+1,15%', color: 'text-emerald-500', visible: false },
+                { symbol: 'VALE3', name: 'Vale ON', price: '62,30', change: '-0,50%', color: 'text-red-500', visible: false },
+              ].map((asset, i) => (
+                <div key={i} className={`flex items-center justify-between p-2 rounded-lg transition-colors ${asset.visible ? 'bg-[#1e293b]/50' : 'opacity-50 hover:opacity-100'}`}>
+                  <div className="flex items-center gap-3">
+                    <button className="text-slate-400 hover:text-white transition-colors">
+                      {asset.visible ? <Eye size={16} /> : <EyeOff size={16} className="text-slate-600" />}
+                    </button>
+                    <div>
+                      <div className="text-xs font-bold text-slate-200">{asset.symbol}</div>
+                      <div className="text-[10px] text-slate-500">{asset.name}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs font-mono text-slate-300">{asset.price}</div>
+                    <div className={`text-[10px] font-medium ${asset.color}`}>{asset.change}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <button className="w-full mt-4 py-2 border border-[#1e293b] rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#1e293b] transition-colors">
+              + Adicionar Ativo
+            </button>
           </div>
+
+          {/* Matriz de Fatores / Drivers */}
+          <div className="bg-[#0f172a] border border-[#1e293b] rounded-2xl p-4 md:p-5 flex-1">
+            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Drivers do Dólar</h2>
+            
+            <div className="space-y-3">
+              {[
+                { name: 'DI (jan/30)', val: '13,75%', change: '+0,12', icon: Activity, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+                { name: '6L1! (BRL)', val: '5,462', change: '+0,18', icon: TrendingUp, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+                { name: 'DXY (USD)', val: '100,48', change: '-0,32', icon: TrendingDown, color: 'text-red-500', bg: 'bg-red-500/10' },
+                { name: 'US 10Y', val: '4,18%', change: '+0,05', icon: Activity, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+                { name: 'Petróleo (WTI)', val: '70,32', change: '+0,68', icon: Activity, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+              ].map((driver, i) => (
+                <div key={i} className="flex items-center justify-between p-2 hover:bg-[#1e293b]/30 rounded-lg">
+                   <div className="flex items-center gap-3">
+                     <div className={`p-1.5 rounded-md ${driver.bg} ${driver.color}`}>
+                       <driver.icon size={14} />
+                     </div>
+                     <span className="text-xs font-medium text-slate-300">{driver.name}</span>
+                   </div>
+                   <div className="text-right flex items-center gap-3">
+                     <span className="text-xs font-mono text-slate-300">{driver.val}</span>
+                     <span className={`text-[10px] w-8 text-right font-medium ${driver.color}`}>
+                       {driver.change.startsWith('+') ? '▲' : '▼'} {driver.change.replace(/[+-]/, '')}
+                     </span>
+                   </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-[#1e293b]">
+              <div className="flex items-center justify-between text-xs">
+                 <span className="text-slate-400">Confluência Geral</span>
+                 <span className="text-emerald-500 font-bold px-2 py-1 bg-emerald-500/10 rounded">FAVORÁVEL AO DÓLAR</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
