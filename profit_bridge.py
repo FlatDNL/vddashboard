@@ -123,22 +123,24 @@ def read_rtd_market_data():
     global sheet
     if not sheet:
         return None, None, None
-    try:
-        # Preço (C1 - Linha 1, Coluna 3)
-        price_val = sheet.Cells(1, 3).Value
-        # Fechamento Anterior (E1 - Linha 1, Coluna 5)
-        fech_val = sheet.Cells(1, 5).Value
-        # Ajuste Anterior (G1 - Linha 1, Coluna 7)
-        ajuste_val = sheet.Cells(1, 7).Value
-        
-        price = float(price_val) if price_val is not None else None
-        fech = float(fech_val) if fech_val is not None else None
-        ajuste = float(ajuste_val) if ajuste_val is not None else None
-        
-        return price, fech, ajuste
-    except Exception:
-        pass
-    return None, None, None
+    
+    def safe_float(row, col):
+        try:
+            val = sheet.Cells(row, col).Value
+            if val is None: return None
+            if isinstance(val, str) and (val.startswith('#') or val.strip() == ''):
+                return None
+            fval = float(val)
+            if fval < -2000000000: return None # Trata códigos de erro COM do Excel
+            return fval
+        except:
+            return None
+
+    price = safe_float(1, 3)
+    fech = safe_float(1, 5)
+    ajuste = safe_float(1, 7)
+    
+    return price, fech, ajuste
 
 def parse_profit_time(hora_val):
     try:
@@ -231,7 +233,15 @@ def process_rtd_times_and_trades():
                 cumulative_group_saldos[g_id] = cumulative_group_saldos.get(g_id, 0) - volume
 
     except Exception as e:
-        log_msg(f"⚠️ Erro crítico no loop process_rtd_times_and_trades: {e}")
+        err_str = str(e)
+        if "-2147418111" in err_str or "0x80010001" in err_str or "rejeitada" in err_str:
+            pass # Excel está ocupado (editando célula ou calculando). Ignorar silenciosamente.
+        elif "0x800a01a8" in err_str or "2146827864" in err_str:
+            global connected
+            connected = False
+            log_msg("⚠️ Conexão com Excel perdida ou objeto inválido. Tentando reconectar...")
+        else:
+            log_msg(f"⚠️ Erro no loop process_rtd_times_and_trades: {e}")
 
 def get_config_ticker():
     try:

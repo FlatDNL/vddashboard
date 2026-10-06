@@ -40,8 +40,8 @@ export async function GET(req: Request) {
       if (fs.existsSync(statusPath)) {
         const fileData = fs.readFileSync(statusPath, 'utf8');
         const json = JSON.parse(fileData);
-        if (json.fechamentoAnterior) rtdFechamento = json.fechamentoAnterior;
-        if (json.ajusteAnterior) rtdAjuste = json.ajusteAnterior;
+        if (json.fechamentoAnterior !== undefined && json.fechamentoAnterior !== null) rtdFechamento = json.fechamentoAnterior;
+        if (json.ajusteAnterior !== undefined && json.ajusteAnterior !== null) rtdAjuste = json.ajusteAnterior;
       }
     } catch (e) {}
 

@@ -62,11 +62,11 @@ export function FairValueWidget() {
       const res = await fetch('/api/profit-bridge')
       const bridgeData = await res.json()
       
-      if (bridgeData.ajusteAnterior && bridgeData.fechamentoAnterior) {
+      if (bridgeData.ajusteAnterior !== undefined && bridgeData.ajusteAnterior !== null) {
         const now = new Date().toLocaleString('pt-BR')
-        setManualParams(bridgeData.ajusteAnterior, manualDxyPct, bridgeData.fechamentoAnterior, now)
+        setManualParams(bridgeData.ajusteAnterior, manualDxyPct, bridgeData.fechamentoAnterior || null, now)
       } else {
-        setErrorMsg('Não foi possível capturar o Ajuste/Fechamento. Verifique a planilha.')
+        setErrorMsg('Não foi possível capturar o Ajuste. Verifique a planilha (G1).')
         setTimeout(() => setErrorMsg(''), 5000)
       }
     } catch (e) {

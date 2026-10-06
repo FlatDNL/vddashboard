@@ -21,7 +21,7 @@ type NavigationItem = {
 const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Calendário Econômico', href: '/dashboard/calendario', icon: Activity },
-  { name: 'Demo', href: '/dashboard/demo', icon: SlidersHorizontal },
+  { name: 'DashBloom', href: '/dashboard/dashbloom', icon: SlidersHorizontal },
   { name: 'Mensagens', href: '/dashboard/mensagens', icon: Mail },
   { 
     name: 'Macroeconomia', 
