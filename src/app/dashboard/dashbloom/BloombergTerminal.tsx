@@ -588,51 +588,47 @@ export default function BloombergTerminal() {
               {/* Corpo Rolável */}
               <div className="flex flex-col gap-6 p-6 overflow-y-auto">
                 {modalEvents.map((evt, idx) => (
-                  <div key={idx} className="bg-[#2a2a2a] border border-[#444] rounded-xl flex flex-col overflow-hidden">
+                  <div key={idx} className="bg-[#2a2a2a] border border-[#444] rounded-lg flex flex-col xl:flex-row items-center justify-between p-3 gap-4">
                     
-                    <div className="flex items-center gap-3 p-4 border-b border-[#333] bg-[#333]">
-                      <span className="text-3xl">{evt.country === 'US' ? '🇺🇸' : evt.country === 'BR' ? '🇧🇷' : evt.country}</span>
-                      <h3 className="text-xl font-bold text-white uppercase truncate">{evt.title}</h3>
+                    {/* País e Título */}
+                    <div className="flex items-center gap-3 flex-1 min-w-[200px] w-full xl:w-auto">
+                      <span className="text-2xl">{evt.country === 'US' ? '🇺🇸' : evt.country === 'BR' ? '🇧🇷' : evt.country}</span>
+                      <h3 className="text-sm xl:text-base font-bold text-white uppercase line-clamp-2 leading-tight">{evt.title}</h3>
                     </div>
                     
-                    <div className="flex flex-col xl:flex-row p-4 gap-6">
-                      
-                      {/* Lado Esquerdo: Estatísticas */}
-                      <div className="grid grid-cols-3 gap-2 flex-1">
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="text-gray-500 text-[10px] xl:text-xs tracking-widest mb-1">ANTERIOR</span>
-                          <span className="text-lg xl:text-xl font-bold text-gray-300">{evt.previous !== '-' ? evt.previous : '---'}</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center border-x border-[#444]">
-                          <span className="text-gray-500 text-[10px] xl:text-xs tracking-widest mb-1">PROJEÇÃO</span>
-                          <span className="text-lg xl:text-xl font-bold text-gray-300">{evt.forecast !== '-' ? evt.forecast : '---'}</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="text-blue-400 text-[10px] xl:text-xs tracking-widest mb-1 font-bold">ATUAL</span>
-                          <span className="text-2xl xl:text-3xl font-bold text-white">{evt.actual !== '-' ? evt.actual : '---'}</span>
-                        </div>
+                    {/* Números */}
+                    <div className="grid grid-cols-3 gap-2 xl:gap-4 flex-1 w-full xl:w-auto bg-[#1a1a1a] rounded p-2 xl:p-0 xl:bg-transparent">
+                      <div className="flex flex-col items-center justify-center">
+                        <span className="text-gray-500 text-[9px] xl:text-[10px] tracking-widest mb-0.5">ANTERIOR</span>
+                        <span className="text-sm xl:text-base font-bold text-gray-300">{evt.previous !== '-' ? evt.previous : '---'}</span>
                       </div>
-                      
-                      {/* Lado Direito: Pressão */}
-                      <div className="flex flex-col items-center justify-center bg-[#0f172a] border border-[#1e293b] p-4 rounded-lg w-full xl:w-[280px] shrink-0">
-                        <span className="text-gray-400 text-[10px] tracking-widest mb-2">PRESSÃO DÓLAR</span>
-                        {evt.pressure?.direction && evt.pressure.direction !== 'AGUARDANDO' ? (
-                          <>
-                            <div className={`text-2xl xl:text-3xl font-black mb-1 ${
-                              evt.pressure.direction === 'ALTA' ? 'text-emerald-500' :
-                              evt.pressure.direction === 'BAIXA' ? 'text-red-500' : 'text-yellow-500'
-                            }`}>
-                              {evt.pressure.direction === 'ALTA' ? 'COMPRA' : evt.pressure.direction === 'BAIXA' ? 'VENDA' : 'NEUTRO'}
-                            </div>
-                            <p className="text-gray-400 text-center text-[10px] xl:text-xs">{evt.pressure.explanation}</p>
-                          </>
-                        ) : (
-                          <div className="flex flex-col items-center animate-pulse">
-                            <div className="text-lg xl:text-xl font-bold text-yellow-500 mb-1">AGUARDANDO...</div>
-                            <p className="text-gray-500 text-center text-[10px]">Calculando impacto</p>
+                      <div className="flex flex-col items-center justify-center border-x border-[#444]">
+                        <span className="text-gray-500 text-[9px] xl:text-[10px] tracking-widest mb-0.5">PROJEÇÃO</span>
+                        <span className="text-sm xl:text-base font-bold text-gray-300">{evt.forecast !== '-' ? evt.forecast : '---'}</span>
+                      </div>
+                      <div className="flex flex-col items-center justify-center">
+                        <span className="text-blue-400 text-[9px] xl:text-[10px] tracking-widest mb-0.5 font-bold">ATUAL</span>
+                        <span className="text-base xl:text-lg font-bold text-white">{evt.actual !== '-' ? evt.actual : '---'}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Pressão */}
+                    <div className="flex flex-col items-center justify-center bg-[#0f172a] border border-[#1e293b] py-2 px-3 rounded w-full xl:w-[150px] shrink-0">
+                      <span className="text-gray-400 text-[8px] tracking-widest mb-1">PRESSÃO DÓLAR</span>
+                      {evt.pressure?.direction && evt.pressure.direction !== 'AGUARDANDO' ? (
+                        <>
+                          <div className={`text-sm xl:text-base font-black leading-none ${
+                            evt.pressure.direction === 'ALTA' ? 'text-emerald-500' :
+                            evt.pressure.direction === 'BAIXA' ? 'text-red-500' : 'text-yellow-500'
+                          }`}>
+                            {evt.pressure.direction === 'ALTA' ? 'COMPRA' : evt.pressure.direction === 'BAIXA' ? 'VENDA' : 'NEUTRO'}
                           </div>
-                        )}
-                      </div>
+                        </>
+                      ) : (
+                        <div className="flex flex-col items-center animate-pulse">
+                          <div className="text-xs font-bold text-yellow-500">AGUARDANDO</div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
