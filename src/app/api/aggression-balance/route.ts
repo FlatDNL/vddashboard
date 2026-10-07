@@ -1,10 +1,23 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
+import fs from 'fs'
+import path from 'path'
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const asset = searchParams.get('asset') || 'WDOFUT'
+    let asset = searchParams.get('asset')
+    if (!asset) {
+      try {
+        const statusPath = path.join(process.cwd(), 'profit_status.json')
+        if (fs.existsSync(statusPath)) {
+          const status = JSON.parse(fs.readFileSync(statusPath, 'utf8'))
+          asset = status.asset
+        }
+      } catch (e) {}
+    }
+    if (!asset) asset = 'WDOX26' // Fallback geral
+    
     const tf = searchParams.get('tf') || '5m' // 5m, 15m, 30m, 4h, 1d
 
     const supabase = await createClient()
@@ -59,7 +72,18 @@ export async function GET(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const asset = searchParams.get('asset') || 'WDOFUT'
+    let asset = searchParams.get('asset')
+    if (!asset) {
+      try {
+        const statusPath = path.join(process.cwd(), 'profit_status.json')
+        if (fs.existsSync(statusPath)) {
+          const status = JSON.parse(fs.readFileSync(statusPath, 'utf8'))
+          asset = status.asset
+        }
+      } catch (e) {}
+    }
+    if (!asset) asset = 'WDOX26'
+    
     const supabase = await createClient()
 
     // Deleta os registros daquele ativo específico

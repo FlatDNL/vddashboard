@@ -74,6 +74,7 @@ export async function GET() {
 
     try {
       const statusPath = path.join(process.cwd(), 'profit_status.json')
+      
       if (fs.existsSync(statusPath)) {
         const fileData = fs.readFileSync(statusPath, 'utf8')
         const json = JSON.parse(fileData)

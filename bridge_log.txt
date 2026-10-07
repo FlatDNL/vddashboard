@@ -48035,3 +48035,1206 @@
 2026-10-06 15:34:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
 2026-10-06 15:34:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
 2026-10-06 15:34:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:29:44 - ✅ Supabase Client Inicializado!
+2026-10-07 08:29:44 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-07 08:29:44 - 📡 Porta WebSocket: 8080
+
+2026-10-07 08:29:45 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx)!
+2026-10-07 08:29:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:29:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:29:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:30:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:31:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:32:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:33:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:34:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:35:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:42 - ✅ Supabase Client Inicializado!
+2026-10-07 08:36:42 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-07 08:36:42 - 📡 Porta WebSocket: 8080
+
+2026-10-07 08:36:42 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx)!
+2026-10-07 08:36:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:36:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:37:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:38:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:39:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:40:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:41:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:28 - ✅ Supabase Client Inicializado!
+2026-10-07 08:42:28 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-07 08:42:28 - 📡 Porta WebSocket: 8080
+
+2026-10-07 08:42:28 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx, Aba: Planilha1)!
+2026-10-07 08:42:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:42:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:43:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:44:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:07 - ✅ Trade processado: 09:27:59.473, comp=09:27:59.473, vend=15.0, vol=5000, agr=-
+2026-10-07 08:45:08 - ✅ Trade processado: 09:27:59.473, comp=09:27:59.473, vend=60.0, vol=5000, agr=-
+2026-10-07 08:45:08 - ✅ Trade processado: 09:27:58.357, comp=09:27:58.357, vend=50.0, vol=4999, agr=-
+2026-10-07 08:45:08 - ✅ Trade processado: 09:27:50.954, comp=09:27:50.954, vend=5.0, vol=4999, agr=-
+2026-10-07 08:45:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:56 - ✅ Supabase Client Inicializado!
+2026-10-07 08:45:56 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-07 08:45:56 - 📡 Porta WebSocket: 8080
+
+2026-10-07 08:45:56 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx, Aba: Planilha1)!
+2026-10-07 08:45:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:45:58 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:45:58 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:45:58 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:45:58 - 📈 [Loop Principal] Cotação: 0.0 | Fech: 5026.0 | Aj: 5024.898
+2026-10-07 08:45:58 - ✅ Trade processado: 09:28:47.743, comp=09:28:47.743, vend=100.0, vol=4998, agr=JP MORGAN
+2026-10-07 08:45:58 - ✅ Trade processado: 09:28:46.974, comp=09:28:46.974, vend=5.0, vol=4999, agr=-
+2026-10-07 08:45:58 - ✅ Trade processado: 09:28:41.799, comp=09:28:41.799, vend=5.0, vol=4999, agr=UBS
+2026-10-07 08:45:58 - ✅ Trade processado: 09:28:39.138, comp=09:28:39.138, vend=5.0, vol=4998, agr=JP MORGAN
+2026-10-07 08:46:00 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:00 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:00 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:01 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:02 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:02 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:04 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:04 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:04 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:06 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:06 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:06 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:07 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:07 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:07 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:13 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:13 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:13 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:14 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:14 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:14 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:16 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:16 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:16 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:17 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:17 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:18 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:20 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:20 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:20 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:22 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:22 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:22 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:24 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:24 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:24 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:26 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:26 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:26 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:27 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:27 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:28 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:28 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:28 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:28 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:29 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:30 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:30 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:32 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:32 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:32 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:33 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:33 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:33 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:34 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:34 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:34 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:35 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:35 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:35 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:37 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:37 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:37 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:43 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:43 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:43 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:43 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:43 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:43 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:44 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:44 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:46 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:46 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:46 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:48 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:48 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:48 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:50 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:50 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:50 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:52 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:52 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:52 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:54 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:54 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:54 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:56 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:56 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:56 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:46:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:46:58 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:46:58 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:46:58 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:00 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:00 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:00 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:02 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:02 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:02 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:04 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:04 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:04 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:06 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:06 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:06 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:08 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:08 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:08 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:13 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:13 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:13 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:14 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:14 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:14 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:16 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:16 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:16 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:18 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:18 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:18 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:19 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:19 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:20 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:22 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:22 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:22 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:24 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:24 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:24 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:26 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:26 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:26 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:28 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:28 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:28 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:30 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:30 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:30 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:32 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:32 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:32 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:34 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:34 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:34 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:36 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:36 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:36 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:37 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:47:38 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:38 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:47:59 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:47:59 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:47:59 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:00 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:01 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:01 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:01 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:02 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:02 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:02 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:03 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:03 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:03 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:05 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:06 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:06 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:07 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:07 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:07 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:10 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:10 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:10 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:12 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:12 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:12 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:13 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:14 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:14 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:16 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:16 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:16 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:17 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:17 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:17 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:19 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:19 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:19 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:21 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:21 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:21 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:23 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:23 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:23 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:26 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:26 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:26 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:28 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:28 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:28 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:30 - ➡️ Botão Atualizar clicado!
+2026-10-07 08:48:30 - 🔍 Leitura Bruta da Planilha -> Aba: Planilha1 | G1 (Ajuste): 5024.898
+2026-10-07 08:48:30 - ✅ Valor do Ajuste convertido pelo script: 5024.898
+2026-10-07 08:48:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:48:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:49:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:50:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:51:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:52:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:53:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:12 - ✅ Supabase Client Inicializado!
+2026-10-07 08:54:12 - 🚀 Iniciando Ponte 100% RTD Excel + Coletor de Saldo de Agressão...
+2026-10-07 08:54:12 - 📡 Porta WebSocket: 8080
+
+2026-10-07 08:54:12 - ✅ Conectado com sucesso ao Excel RTD (Planilha: PlanilhaRTD.xlsx, Aba: Planilha1)!
+2026-10-07 08:54:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:14 - ✅ Trade processado: 09:36:58.651, comp=-, vend=XP, vol=90, agr=VENDEDOR
+2026-10-07 08:54:14 - ✅ Trade processado: 09:36:58.651, comp=-, vend=AGORA, vol=5, agr=VENDEDOR
+2026-10-07 08:54:14 - ✅ Trade processado: 09:36:58.651, comp=-, vend=IDEAL, vol=10, agr=VENDEDOR
+2026-10-07 08:54:14 - ✅ Trade processado: 09:36:58.651, comp=-, vend=GENIAL, vol=5, agr=VENDEDOR
+2026-10-07 08:54:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:54:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:55:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:56:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:57:58 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-07 08:57:58 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-07 08:58:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:58:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:28 - 
+🔗 Dashboard Web conectado ao Bridge 100% RTD!
+2026-10-07 08:59:28 - ♻️ Comando de RESET recebido: Memória de saldo limpa.
+2026-10-07 08:59:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 08:59:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:00:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:01:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:02:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:03:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:04:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:05:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:06:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:07:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:08:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:09:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:10:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:11:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:12:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:13:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:14:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:15:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:16:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:17:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:18:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:19:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:20:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:21:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:22:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:23:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:24:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:25:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:26:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:27:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:28:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:29:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:30:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:31:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:32:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:33:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:34:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:35:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:36:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:37:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:38:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:39:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:40:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:41:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:42:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:43:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:44:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:11 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:17 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:40 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:45:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:22 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:28 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:34 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:46:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:47:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:48:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:25 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:48 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:49:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:50:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:03 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:09 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:14 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:20 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:33 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:50 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:51:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:52:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:39 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:45 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:51 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:53:56 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:01 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:07 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:30 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:36 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:47 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:53 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:54:59 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:05 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:16 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:27 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:38 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:44 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:55:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:56:58 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:04 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:10 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:15 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:21 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:26 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:32 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:43 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:57:54 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:18 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:23 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:29 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:35 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:41 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:46 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:52 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:58:57 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:02 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:08 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:13 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:19 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:24 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:31 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:37 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:42 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:49 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 09:59:55 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 10:00:00 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 10:00:06 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83
+2026-10-07 10:00:12 - 📋 Grupos carregados: 3 | Mapeamento Corretoras: 83

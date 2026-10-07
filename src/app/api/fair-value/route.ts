@@ -4,17 +4,19 @@ import fs from 'fs'
 import path from 'path'
 
 const yahooFinance = new YahooFinance()
-
 export const revalidate = 0
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
-    const baseParam = searchParams.get('base')
-    const dxyParam = searchParams.get('dxy')
-    const baseAjuste = baseParam ? parseFloat(baseParam) : null
-    const manualDxy = dxyParam !== null && dxyParam !== '' ? parseFloat(dxyParam) : null
+    const isUpdate = searchParams.get('update') === 'true'
+    
+    const baselinePath = path.join(process.cwd(), 'fair_value_baseline.json')
+    let dxyPct = 0
+    let spotPct = 0
+    let emAvg = 0
 
+    // Sempre busca os valores atuais (para o BRL=X live)
     const symbols = ['BRL=X', 'DX-Y.NYB', 'MXN=X', 'ZAR=X', 'CLP=X']
     const quotes = await yahooFinance.quote(symbols)
     
@@ -23,16 +25,36 @@ export async function GET(req: Request) {
       data[q.symbol] = {
         price: q.regularMarketPrice,
         prev: q.regularMarketPreviousClose,
-        pct: q.regularMarketChangePercent,
-        high: q.regularMarketDayHigh,
-        low: q.regularMarketDayLow
+        pct: q.regularMarketChangePercent
       }
     })
 
-    const brl = data['BRL=X']
-    const dxy = data['DX-Y.NYB']
-    
-    // Read from profit_status.json
+    const brlPrice = data['BRL=X']?.price || 5.400
+
+    // Se pediu update, salva no JSON as variações percentuais da madrugada
+    if (isUpdate) {
+      dxyPct = data['DX-Y.NYB']?.pct || 0
+      spotPct = data['BRL=X']?.pct || 0
+      
+      const mxn = data['MXN=X']?.pct || 0
+      const zar = data['ZAR=X']?.pct || 0
+      const clp = data['CLP=X']?.pct || 0
+      emAvg = (mxn + zar + clp) / 3
+
+      fs.writeFileSync(baselinePath, JSON.stringify({ dxyPct, spotPct, emAvg, timestamp: Date.now() }))
+    } else {
+      // Se não pediu update, lê as variações congeladas da última atualização
+      if (fs.existsSync(baselinePath)) {
+        try {
+          const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
+          dxyPct = baseline.dxyPct || 0
+          spotPct = baseline.spotPct || 0
+          emAvg = baseline.emAvg || 0
+        } catch (e) {}
+      }
+    }
+
+    // Leitura do status da planilha local (Ajuste/Fechamento)
     let rtdFechamento = null;
     let rtdAjuste = null;
     try {
@@ -45,30 +67,26 @@ export async function GET(req: Request) {
       }
     } catch (e) {}
 
-    // 1. Base Inicial (Fechamento/Ajuste do Dólar)
-    const fechamentoAnterior = rtdFechamento || baseAjuste || ((brl?.prev || brl?.price || 5.400) * 1000)
-    const justo = rtdAjuste || baseAjuste || fechamentoAnterior
+    // 1. Base Inicial (Fechamento e Ajuste da Planilha)
+    const fechamentoAnterior = rtdFechamento || 5400
+    const ajusteAnterior = rtdAjuste || fechamentoAnterior
 
-    // 2. Dólar Projetado (Preço Justíssimo de Abertura)
-    // Fórmula do Frajola: Base * (1 + (Δ% DXY / 100))
-    const dxyPctUsado = manualDxy !== null ? manualDxy : (dxy?.pct || 0)
-    const justissimo = justo * (1 + (dxyPctUsado / 100))
+    // 2. Dólar Projetado (Variação percentual sobre o Fechamento)
+    // Justo = Projeção do Fechamento pela variação do Spot (BRL=X)
+    const justo = fechamentoAnterior * (1 + (spotPct / 100))
+    
+    // Justíssimo = Projeção do Fechamento pela variação do DXY
+    const justissimo = fechamentoAnterior * (1 + (dxyPct / 100))
 
     // 3. Faixa da Madrugada (Máxima e Mínima Estimadas)
-    const maxima = justo + 34.5
-    const minima = justo - 35.5
+    const maxima = justo + 33.5
+    const minima = justo - 34.0
 
-    const atual = (brl?.price || 5.400) * 1000
-
-    // Variação dos emergentes apenas para métricas do painel
-    const mxn = data['MXN=X']?.pct || 0
-    const zar = data['ZAR=X']?.pct || 0
-    const clp = data['CLP=X']?.pct || 0
-    const emAvg = (mxn + zar + clp) / 3
+    const atual = brlPrice * 1000
 
     let status = 'NEUTRO'
-    if ((dxy?.pct || 0) > 0.1) status = 'COMPRA'
-    if ((dxy?.pct || 0) < -0.1) status = 'VENDA'
+    if (dxyPct > 0.1) status = 'COMPRA'
+    if (dxyPct < -0.1) status = 'VENDA'
 
     return NextResponse.json({
       timestamp: Date.now(),
@@ -80,7 +98,7 @@ export async function GET(req: Request) {
       minima,
       status,
       metrics: {
-        dxyPct: dxy?.pct || 0,
+        dxyPct: dxyPct,
         emPct: emAvg
       }
     })

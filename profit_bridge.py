@@ -105,12 +105,24 @@ def connect_excel_rtd():
         pythoncom.CoInitialize()
         excel_app = win32com.client.GetActiveObject("Excel.Application")
         if excel_app:
-            # Tenta pegar a planilha ativa ou a primeira aba
             if excel_app.Workbooks.Count > 0:
                 workbook = excel_app.ActiveWorkbook
-                sheet = workbook.ActiveSheet
+                
+                # Tenta procurar a aba correta que tem "Fech. Anterior" em D1
+                found_sheet = None
+                for sh in workbook.Sheets:
+                    val = sh.Cells(1, 4).Value # D1
+                    if val and isinstance(val, str) and "Fech" in val:
+                        found_sheet = sh
+                        break
+                
+                if found_sheet:
+                    sheet = found_sheet
+                else:
+                    sheet = workbook.ActiveSheet
+
                 connected = True
-                log_msg(f"✅ Conectado com sucesso ao Excel RTD (Planilha: {workbook.Name})!")
+                log_msg(f"✅ Conectado com sucesso ao Excel RTD (Planilha: {workbook.Name}, Aba: {sheet.Name})!")
                 write_status_file()
                 return True
     except Exception as e:
@@ -128,12 +140,16 @@ def read_rtd_market_data():
         try:
             val = sheet.Cells(row, col).Value
             if val is None: return None
-            if isinstance(val, str) and (val.startswith('#') or val.strip() == ''):
-                return None
+            if isinstance(val, str):
+                val = val.strip()
+                if val.startswith('#') or val == '':
+                    return None
+                if ',' in val:
+                    val = val.replace('.', '').replace(',', '.')
             fval = float(val)
             if fval < -2000000000: return None # Trata códigos de erro COM do Excel
             return fval
-        except:
+        except Exception as e:
             return None
 
     price = safe_float(1, 3)
@@ -173,15 +189,15 @@ def process_rtd_times_and_trades():
         return
 
     try:
-        # Leitura em bloco das 500 linhas (Colunas A a F, Linhas 3 a 502)
-        data_range = sheet.Range("A3:F502").Value
+        # Leitura em bloco das 500 linhas (Colunas B a G, Linhas 3 a 502)
+        data_range = sheet.Range("B3:G502").Value
         if not data_range:
             return
 
         snapshot_counts = {}
         for row in data_range:
             # Índices baseados na imagem: 
-            # A(0)=Data, B(1)=Compradora, C(2)=Valor, D(3)=Quantidade, E(4)=Vendedora, F(5)=Agressor
+            # B(0)=Data, C(1)=Compradora, D(2)=Valor, E(3)=Quantidade, F(4)=Vendedora, G(5)=Agressor
             hora, comprador, valor, qtd, vendedor, agressor = row[0], row[1], row[2], row[3], row[4], row[5]
 
             # Se a linha estiver vazia ou com erro RTD, pular
@@ -209,7 +225,13 @@ def process_rtd_times_and_trades():
             try:
                 c_str = str(comprador).upper().strip() if comprador else ""
                 v_str = str(vendedor).upper().strip() if vendedor else ""
-                volume = int(float(qtd)) if qtd else 0
+                
+                if isinstance(qtd, str):
+                    qtd_str = qtd.strip().replace('.', '').replace(',', '.')
+                    volume = int(float(qtd_str)) if qtd_str else 0
+                else:
+                    volume = int(float(qtd)) if qtd else 0
+                    
                 agressor_str = str(agressor).upper().strip()
             except (ValueError, TypeError) as e:
                 if len(processed_trade_keys) < 10:
@@ -291,6 +313,11 @@ async def aggression_loop():
                 last_reload = time.time()
 
             if connected:
+                # Ler dados globais (Cotação, Fechamento, Ajuste) e salvar no JSON
+                p, f, a = read_rtd_market_data()
+                write_status_file(f, a)
+                
+                # Processar os trades e salvar agressão
                 process_rtd_times_and_trades()
                 await flush_aggression_to_supabase(current_ticker)
             else:

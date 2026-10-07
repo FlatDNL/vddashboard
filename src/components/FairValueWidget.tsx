@@ -65,6 +65,9 @@ export function FairValueWidget() {
       if (bridgeData.ajusteAnterior !== undefined && bridgeData.ajusteAnterior !== null) {
         const now = new Date().toLocaleString('pt-BR')
         setManualParams(bridgeData.ajusteAnterior, manualDxyPct, bridgeData.fechamentoAnterior || null, now)
+        
+        // Dispara o cálculo e o congelamento dos percentuais do Yahoo Finance
+        await fetch('/api/fair-value?update=true')
       } else {
         setErrorMsg('Não foi possível capturar o Ajuste. Verifique a planilha (G1).')
         setTimeout(() => setErrorMsg(''), 5000)
