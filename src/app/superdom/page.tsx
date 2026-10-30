@@ -19,6 +19,8 @@ export default function SuperDOMPage() {
   const [freqIndicatorEnabled, setFreqIndicatorEnabled] = useState(false)
   const [fechamentoParaFreq, setFechamentoParaFreq] = useState<number>(0)
 
+  const [dxyPctApi, setDxyPctApi] = useState<number>(0)
+
   useEffect(() => {
     fetchMarcacoes().then(data => setMarcacoes(data as any))
     
@@ -26,11 +28,12 @@ export default function SuperDOMPage() {
     fetch('/api/fair-value')
       .then(res => res.json())
       .then(data => {
+          const dxyVar = manualDxyPct !== null ? manualDxyPct : (data?.metrics?.dxyPct || 0)
+          setDxyPctApi(dxyVar)
+
+          setFechamentoParaFreq(prev => prev > 0 ? prev : (fechamentoAnteriorReal || data.fechamentoAnterior || data.justo))
+
           const baseJusto = manualFechamento !== null ? manualFechamento : data.justo
-          const dxyVar = manualDxyPct !== null ? manualDxyPct : data.metrics.dxyPct
-
-          setFechamentoParaFreq(fechamentoAnteriorReal || data.fechamentoAnterior || baseJusto)
-
           const justissimoFinal = baseJusto * (1 + (dxyVar / 100))
           const maximaFinal = baseJusto + 34.5
           const minimaFinal = baseJusto - 35.5
@@ -44,6 +47,24 @@ export default function SuperDOMPage() {
       })
       .catch(e => console.error(e))
   }, [manualFechamento, manualDxyPct])
+
+  // Recalcula as linhas do sistema sempre que o fechamento do MT5 chegar via Realtime/API
+  useEffect(() => {
+    if (fechamentoParaFreq <= 0) return
+    const baseBase = manualFechamento !== null ? manualFechamento : fechamentoParaFreq
+    const dxyVar = manualDxyPct !== null ? manualDxyPct : dxyPctApi
+    const baseJusto = manualFechamento !== null ? manualFechamento : (baseBase * (1 + (dxyVar / 100)))
+    const justissimoFinal = baseJusto * (1 + (dxyVar / 100))
+    const maximaFinal = baseJusto + 34.5
+    const minimaFinal = baseJusto - 35.5
+
+    setSystemPoints([
+      { preco: maximaFinal, descricao: 'MÁXIMA ESTIMADA', importancia: 'Alta' },
+      { preco: baseJusto, descricao: 'AJUSTE ANTERIOR (Base)', importancia: 'Média' },
+      { preco: justissimoFinal, descricao: 'JUSTÍSSIMO MACRO', importancia: 'Alta' },
+      { preco: minimaFinal, descricao: 'MÍNIMA ESTIMADA', importancia: 'Alta' }
+    ])
+  }, [fechamentoParaFreq, manualFechamento, manualDxyPct, dxyPctApi])
   
   // Combine user markers with system generated lines
   const allMarkers = marcacoes.map(m => ({ ...m }))
@@ -128,7 +149,7 @@ export default function SuperDOMPage() {
 
     const supabase = createClient();
     const channel = supabase
-      .channel('fluxo_ia_superdom')
+      .channel('fluxo_ia')
       .on('broadcast', { event: 'status' }, (msg) => {
         if (isUnmounted) return;
         const payload = msg?.payload;
