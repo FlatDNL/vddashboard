@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { createClient } from '@/utils/supabase/client'
 import { useMarcacoesStore } from '@/store/marcacoes'
 import { fetchMarcacoes } from '@/app/dashboard/operacional/marcacoes/actions'
 import { useMarketParamsStore } from '@/store/marketParams'
 
 export default function SuperDOMPage() {
   const [currentPrice, setCurrentPrice] = useState<number>(0)
-  const [ticker, setTicker] = useState('WDOV26')
+  const [ticker, setTicker] = useState('WDOZ26')
   
   const { marcacoes, setMarcacoes } = useMarcacoesStore()
   const { manualFechamento, manualDxyPct, setManualParams, fechamentoAnteriorReal } = useMarketParamsStore()
@@ -83,69 +84,70 @@ export default function SuperDOMPage() {
   const [basePrice, setBasePrice] = useState<number>(0)
   const [centerPrice, setCenterPrice] = useState<number>(0)
   
-  // Status de conexÃ£o
-  const [wsConnected, setWsConnected] = useState<boolean>(false)
-  const [profitConnected, setProfitConnected] = useState<boolean>(false)
+  // Status de conexão com MetaTrader 5
+  const [mt5Connected, setMt5Connected] = useState<boolean>(false)
+  const lastRealtimeTs = useRef<number>(0)
   
   const containerRef = useRef<HTMLDivElement>(null)
   const rowRefs = useRef<{ [key: string]: HTMLDivElement }>({})
 
-  // Conexão com WebSocket para pegar a cotação real
+  // Conexão direta com MetaTrader 5 (via Supabase Realtime Broadcast + API /api/fluxo-ia)
   useEffect(() => {
-    let ws: WebSocket | null = null;
-    let reconnectTimer: NodeJS.Timeout;
     let isUnmounted = false;
 
-    const connectWs = () => {
+    const fetchMt5Quote = async () => {
       if (isUnmounted) return;
+      // Se estiver recebendo via broadcast em tempo real nos últimos 3s, evita sobrepor
+      if (Date.now() - lastRealtimeTs.current < 3000) return;
+
       try {
-        ws = new WebSocket('ws://localhost:8080');
-
-        ws.onopen = () => {
-          if (isUnmounted) return;
-          setWsConnected(true);
-          const savedTicker = localStorage.getItem('profit_ticker')
-          if (savedTicker && ws) {
-            ws.send(JSON.stringify({ action: 'set_ticker', ticker: savedTicker }))
+        const res = await fetch('/api/fluxo-ia', { cache: 'no-store' });
+        if (res.ok && !isUnmounted) {
+          const data = await res.json();
+          if (data.fechamentoAnterior && data.fechamentoAnterior > 0) {
+            setFechamentoParaFreq(data.fechamentoAnterior);
           }
-        };
-
-        ws.onmessage = (event) => {
-          if (isUnmounted) return;
-          try {
-            const data = JSON.parse(event.data);
-            if (data.type === 'status') {
-              setProfitConnected(data.profitConnected);
+          if (data.online && data.preco_atual > 0) {
+            setCurrentPrice(data.preco_atual);
+            setMt5Connected(true);
+            if (data.ativo) setTicker(data.ativo);
+          } else {
+            if (data.preco_atual > 0) {
+              setCurrentPrice((prev) => (prev === 0 ? data.preco_atual : prev));
             }
-            if (data.type === 'price') {
-              setCurrentPrice(data.price);
-              setProfitConnected(true);
-            }
-          } catch (e) {}
-        };
-
-        ws.onclose = () => {
-          if (!isUnmounted) {
-            setWsConnected(false);
-            setProfitConnected(false);
-            reconnectTimer = setTimeout(connectWs, 3000);
+            setMt5Connected(false);
           }
-        };
-
-        ws.onerror = () => {
-          if (ws && ws.readyState === WebSocket.OPEN) ws.close();
-        };
-      } catch (e) {}
+        }
+      } catch (e) {
+        if (!isUnmounted) setMt5Connected(false);
+      }
     };
 
-    connectWs();
+    fetchMt5Quote();
+    const pollInterval = setInterval(fetchMt5Quote, 1000);
+
+    const supabase = createClient();
+    const channel = supabase
+      .channel('fluxo_ia_superdom')
+      .on('broadcast', { event: 'status' }, (msg) => {
+        if (isUnmounted) return;
+        const payload = msg?.payload;
+        if (payload && payload.preco_atual > 0) {
+          lastRealtimeTs.current = Date.now();
+          setCurrentPrice(payload.preco_atual);
+          setMt5Connected(true);
+          if (payload.ativo) setTicker(payload.ativo);
+          if (payload.fechamentoAnterior && payload.fechamentoAnterior > 0) {
+            setFechamentoParaFreq(payload.fechamentoAnterior);
+          }
+        }
+      })
+      .subscribe();
+
     return () => {
       isUnmounted = true;
-      clearTimeout(reconnectTimer);
-      if (ws) {
-        ws.onclose = null;
-        ws.close();
-      }
+      clearInterval(pollInterval);
+      supabase.removeChannel(channel);
     };
   }, []);
 
@@ -223,16 +225,16 @@ export default function SuperDOMPage() {
   return (
     <div className="flex flex-col h-screen w-full bg-[#0a0a0a] text-xs font-mono select-none overflow-hidden text-gray-300">
       
-      {/* Top Tag indicating Profit Status */}
+      {/* Top Tag indicating MetaTrader 5 Status */}
       <div className="absolute top-1 left-2 z-20 flex gap-2">
         <span 
           onClick={() => setAutoCenterTrigger(prev => prev + 1)}
           className={`px-2 py-0.5 rounded text-[10px] font-bold shadow-md cursor-pointer hover:brightness-110 active:scale-95 transition-transform ${
-          wsConnected && profitConnected 
+          mt5Connected 
             ? 'bg-green-600/90 text-white border border-green-500' 
             : 'bg-red-600/90 text-white border border-red-500'
         }`}>
-          {wsConnected && profitConnected ? 'PROFIT ON' : 'PROFIT OFF'}
+          {mt5Connected ? `MT5 ON (${ticker})` : 'MT5 OFF'}
         </span>
         <button
           onClick={() => setShowIndicatorsModal(true)}

@@ -2,8 +2,67 @@ import { NextResponse } from 'next/server'
 import YahooFinance from 'yahoo-finance2'
 import fs from 'fs'
 import path from 'path'
+import { execFile } from 'child_process'
+import { promisify } from 'util'
 
+const execFileAsync = promisify(execFile)
 const yahooFinance = new YahooFinance()
+
+async function getMt5MarketData() {
+  try {
+    const fluxoPath = path.join(process.cwd(), 'fluxo_ia_status.json')
+    if (fs.existsSync(fluxoPath)) {
+      const json = JSON.parse(fs.readFileSync(fluxoPath, 'utf8'))
+      const age = Date.now() / 1000 - (json.updatedAt || 0)
+      if (json.fechamentoAnterior && json.fechamentoAnterior > 0 && age < 60) {
+        return {
+          fechamentoAnterior: Number(json.fechamentoAnterior),
+          precoAtual: json.preco_atual > 0 ? Number(json.preco_atual) : null
+        }
+      }
+    }
+  } catch (e) {}
+
+  try {
+    const pyCode = [
+      'import json, MetaTrader5 as mt5, master_fluxo_ia',
+      'if not mt5.initialize(): raise SystemExit(1)',
+      'sym = master_fluxo_ia.detectar_simbolo_ativo()',
+      'mt5.symbol_select(sym, True)',
+      'tick = mt5.symbol_info_tick(sym)',
+      'price = float(tick.last if tick and tick.last > 0 else (tick.bid if tick else 0))',
+      'fech = float(master_fluxo_ia.obter_fechamento_anterior_mt5(sym))',
+      'mt5.shutdown()',
+      'print(json.dumps({"fechamentoAnterior": fech, "precoAtual": price}))'
+    ].join('; ')
+    const { stdout } = await execFileAsync('python', ['-c', pyCode], {
+      cwd: process.cwd(),
+      timeout: 3000
+    })
+    const parsed = JSON.parse(stdout.trim())
+    if (parsed.fechamentoAnterior > 0) {
+      return {
+        fechamentoAnterior: Number(parsed.fechamentoAnterior),
+        precoAtual: parsed.precoAtual > 0 ? Number(parsed.precoAtual) : null
+      }
+    }
+  } catch (e) {}
+
+  try {
+    const fluxoPath = path.join(process.cwd(), 'fluxo_ia_status.json')
+    if (fs.existsSync(fluxoPath)) {
+      const json = JSON.parse(fs.readFileSync(fluxoPath, 'utf8'))
+      if (json.fechamentoAnterior && json.fechamentoAnterior > 0) {
+        return {
+          fechamentoAnterior: Number(json.fechamentoAnterior),
+          precoAtual: json.preco_atual > 0 ? Number(json.preco_atual) : null
+        }
+      }
+    }
+  } catch (e) {}
+
+  return { fechamentoAnterior: null, precoAtual: null }
+}
 
 async function get0850Snapshot(yahooFinance: any) {
   const CACHE_FILE = path.join(process.cwd(), 'snapshot_0850.json')
@@ -121,23 +180,27 @@ export async function GET(req: Request) {
       dxyPct = parseFloat(manualDxy)
     }
 
-    // Leitura do status da planilha local (Ajuste/Fechamento)
-    let rtdFechamento = null;
-    let rtdAjuste = null;
-    try {
-      const statusPath = path.join(process.cwd(), 'profit_status.json');
-      if (fs.existsSync(statusPath)) {
-        const fileData = fs.readFileSync(statusPath, 'utf8');
-        const json = JSON.parse(fileData);
-        if (json.fechamentoAnterior !== undefined && json.fechamentoAnterior !== null) rtdFechamento = json.fechamentoAnterior;
-        if (json.ajusteAnterior !== undefined && json.ajusteAnterior !== null) rtdAjuste = json.ajusteAnterior;
-      }
-    } catch (e) {}
+    // Leitura do fechamento do dia anterior diretamente do MetaTrader 5
+    const mt5Data = await getMt5MarketData()
+    let mt5Fechamento: number | null = mt5Data.fechamentoAnterior
+    let rtdAjuste: number | null = null
+
+    if (!mt5Fechamento) {
+      try {
+        const statusPath = path.join(process.cwd(), 'profit_status.json');
+        if (fs.existsSync(statusPath)) {
+          const fileData = fs.readFileSync(statusPath, 'utf8');
+          const json = JSON.parse(fileData);
+          if (json.fechamentoAnterior !== undefined && json.fechamentoAnterior !== null) mt5Fechamento = json.fechamentoAnterior;
+          if (json.ajusteAnterior !== undefined && json.ajusteAnterior !== null) rtdAjuste = json.ajusteAnterior;
+        }
+      } catch (e) {}
+    }
 
     const manualBase = searchParams.get('base')
 
-    // 1. Base Inicial (Fechamento e Ajuste da Planilha)
-    let fechamentoAnterior = rtdFechamento || 5400
+    // 1. Base Inicial (Fechamento do MetaTrader 5)
+    let fechamentoAnterior = mt5Fechamento || 5400
     if (manualBase !== null && !isNaN(parseFloat(manualBase))) {
       fechamentoAnterior = parseFloat(manualBase)
     }
@@ -155,7 +218,7 @@ export async function GET(req: Request) {
     const maxima = justo + 34.0
     const minima = justo - 34.0
 
-    const atual = brlPrice * 1000
+    const atual = mt5Data.precoAtual || (brlPrice * 1000)
 
     let status = 'NEUTRO'
     if (dxyPct > 0.1) status = 'COMPRA'

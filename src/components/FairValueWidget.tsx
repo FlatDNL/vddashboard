@@ -58,23 +58,27 @@ export function FairValueWidget() {
     setLoading(true)
     setErrorMsg('')
     try {
-      // Pega os dados direto do bridge
-      const res = await fetch('/api/profit-bridge')
-      const bridgeData = await res.json()
+      // Pega o fechamento anterior direto do MetaTrader 5 via /api/fluxo-ia
+      const res = await fetch('/api/fluxo-ia', { cache: 'no-store' })
+      const mt5Data = await res.json()
       
-      if (bridgeData.fechamentoAnterior !== undefined && bridgeData.fechamentoAnterior !== null) {
+      if (mt5Data.fechamentoAnterior !== undefined && mt5Data.fechamentoAnterior !== null && mt5Data.fechamentoAnterior > 0) {
         const now = new Date().toLocaleString('pt-BR')
-        setManualParams(bridgeData.fechamentoAnterior, manualDxyPct, bridgeData.ajusteAnterior || null, now)
+        setManualParams(mt5Data.fechamentoAnterior, manualDxyPct, mt5Data.fechamentoAnterior, now)
         
         // Dispara o cálculo e o congelamento dos percentuais do Yahoo Finance
-        await fetch('/api/fair-value?update=true')
+        const fvRes = await fetch(`/api/fair-value?update=true&base=${mt5Data.fechamentoAnterior}`)
+        if (fvRes.ok) {
+          const fvJson = await fvRes.json()
+          setData(fvJson)
+        }
       } else {
-        setErrorMsg('Não foi possível capturar o Ajuste. Verifique a planilha (G1).')
+        setErrorMsg('Não foi possível capturar o Fechamento Anterior no MetaTrader 5.')
         setTimeout(() => setErrorMsg(''), 5000)
       }
     } catch (e) {
       console.error(e)
-      setErrorMsg('Erro de conexão com o Profit Bridge.')
+      setErrorMsg('Erro de conexão com o MetaTrader 5.')
       setTimeout(() => setErrorMsg(''), 5000)
     }
     setLoading(false)

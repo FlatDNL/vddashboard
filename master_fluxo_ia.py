@@ -30,10 +30,14 @@ Execução:
 
 import sys
 import os
+import re
 import time
 import json
+import ctypes
+import ctypes.wintypes
 import threading
 import queue
+import urllib.request
 from datetime import datetime, timedelta, time as dtime
 import MetaTrader5 as mt5
 import numpy as np
@@ -51,32 +55,53 @@ BROADCAST_URL = f"{SUPABASE_URL}/realtime/v1/api/broadcast"
 _broadcast_queue = queue.Queue(maxsize=1)
 
 def _supabase_broadcast_worker():
-    if not httpx or not SUPABASE_URL or not SUPABASE_KEY:
+    if not SUPABASE_URL or not SUPABASE_KEY:
         return
     headers = {
         "apikey": SUPABASE_KEY,
         "Authorization": f"Bearer {SUPABASE_KEY}",
         "Content-Type": "application/json"
     }
-    with httpx.Client(timeout=2.0) as client:
+    if httpx is not None:
+        with httpx.Client(timeout=2.0) as client:
+            while True:
+                payload = _broadcast_queue.get()
+                if payload is None:
+                    break
+                try:
+                    client.post(
+                        BROADCAST_URL,
+                        headers=headers,
+                        json={
+                            "messages": [
+                                {
+                                    "topic": "fluxo_ia",
+                                    "event": "status",
+                                    "payload": {"online": True, **payload}
+                                }
+                            ]
+                        }
+                    )
+                except Exception:
+                    pass
+    else:
         while True:
             payload = _broadcast_queue.get()
             if payload is None:
                 break
             try:
-                client.post(
-                    BROADCAST_URL,
-                    headers=headers,
-                    json={
-                        "messages": [
-                            {
-                                "topic": "fluxo_ia",
-                                "event": "status",
-                                "payload": {"online": True, **payload}
-                            }
-                        ]
-                    }
-                )
+                body = json.dumps({
+                    "messages": [
+                        {
+                            "topic": "fluxo_ia",
+                            "event": "status",
+                            "payload": {"online": True, **payload}
+                        }
+                    ]
+                }).encode("utf-8")
+                req = urllib.request.Request(BROADCAST_URL, data=body, headers=headers, method="POST")
+                with urllib.request.urlopen(req, timeout=2.0):
+                    pass
             except Exception:
                 pass
 
@@ -118,18 +143,200 @@ CONFIG = {
 }
 
 
+def _ler_texto_arquivo_mt5(caminho):
+    """Lê arquivos de configuração/perfil do MT5 suportando UTF-16 e UTF-8."""
+    for enc in ("utf-16", "utf-8", "cp1252"):
+        try:
+            with open(caminho, "r", encoding=enc) as f:
+                return f.read()
+        except Exception:
+            continue
+    return ""
+
+
+def _obter_simbolo_janela_mt5():
+    """Captura o código do gráfico aberto diretamente da janela ativa do MetaTrader 5 no Windows."""
+    if sys.platform != "win32":
+        return None
+    try:
+        user32 = ctypes.windll.user32
+        WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.wintypes.HWND, ctypes.wintypes.LPARAM)
+        simbolos_encontrados = []
+
+        def cb_window(hwnd, lparam):
+            cls_buf = ctypes.create_unicode_buffer(256)
+            user32.GetClassNameW(hwnd, cls_buf, 256)
+            if "MetaQuotes::MetaTrader" in cls_buf.value:
+                title_buf = ctypes.create_unicode_buffer(512)
+                user32.GetWindowTextW(hwnd, title_buf, 512)
+                # Exemplo de título: "201052 - Corretora - [WDOZ26,M5]"
+                m = re.search(r"\[([A-Za-z0-9_\-\$@\.]+)\s*,", title_buf.value)
+                if m:
+                    simbolos_encontrados.append(m.group(1).strip().upper())
+
+                def cb_child(ch_hwnd, ch_lparam):
+                    c_buf = ctypes.create_unicode_buffer(512)
+                    user32.GetWindowTextW(ch_hwnd, c_buf, 512)
+                    val = c_buf.value.strip()
+                    if val:
+                        # Exemplo de janela filha MDI de gráfico: "WDOZ26,M5" ou "WDOZ26,Daily"
+                        m_ch = re.match(r"^([A-Za-z0-9_\-\$@\.]+)\s*,\s*(?:M\d+|H\d+|D1|W1|MN|Daily|Weekly|Monthly)$", val, re.IGNORECASE)
+                        if m_ch:
+                            simbolos_encontrados.append(m_ch.group(1).strip().upper())
+                    return True
+
+                user32.EnumChildWindows(hwnd, WNDENUMPROC(cb_child), 0)
+            return True
+
+        user32.EnumWindows(WNDENUMPROC(cb_window), 0)
+        for s in simbolos_encontrados:
+            if s and mt5.symbol_info(s) is not None:
+                return s
+        return simbolos_encontrados[0] if simbolos_encontrados else None
+    except Exception:
+        return None
+
+
+def _obter_simbolo_terminal_ini(data_path):
+    """Lê o símbolo ativo configurado no terminal.ini do MetaTrader 5."""
+    try:
+        term_ini = os.path.join(data_path, "config", "terminal.ini")
+        if not os.path.isfile(term_ini):
+            return None
+        txt = _ler_texto_arquivo_mt5(term_ini)
+        # Busca na seção [SymbolsDlg] ou [MarketWatch]
+        m = re.search(r"\[SymbolsDlg\][^\[]*?^Symbol\s*=\s*([A-Za-z0-9_\-\$@\.]+)", txt, re.MULTILINE | re.IGNORECASE | re.DOTALL)
+        if m:
+            sym = m.group(1).strip().upper()
+            if sym and mt5.symbol_info(sym) is not None:
+                return sym
+    except Exception:
+        pass
+    return None
+
+
+def _obter_simbolo_perfil_mt5():
+    """Lê o símbolo do gráfico aberto nos arquivos de perfil (.chr) do MetaTrader 5."""
+    try:
+        term_info = mt5.terminal_info()
+        if not term_info or not term_info.data_path:
+            return None
+        data_path = term_info.data_path
+
+        # Descobre o perfil ativo no common.ini (padrão: Default)
+        perfil_ativo = "Default"
+        common_ini = os.path.join(data_path, "config", "common.ini")
+        if os.path.isfile(common_ini):
+            txt_ini = _ler_texto_arquivo_mt5(common_ini)
+            m_prof = re.search(r"^ProfileLast\s*=\s*(.+)$", txt_ini, re.MULTILINE | re.IGNORECASE)
+            if m_prof:
+                perfil_ativo = m_prof.group(1).strip()
+
+        charts_dir = os.path.join(data_path, "MQL5", "Profiles", "Charts", perfil_ativo)
+        if not os.path.isdir(charts_dir):
+            charts_dir = os.path.join(data_path, "MQL5", "Profiles", "Charts", "Default")
+        if not os.path.isdir(charts_dir):
+            return None
+
+        arquivos_chr = []
+        order_wnd = os.path.join(charts_dir, "order.wnd")
+        if os.path.isfile(order_wnd):
+            txt_order = _ler_texto_arquivo_mt5(order_wnd)
+            for linha in txt_order.splitlines():
+                nome_chr = linha.strip()
+                if nome_chr.lower().endswith(".chr"):
+                    caminho_chr = os.path.join(charts_dir, nome_chr)
+                    if os.path.isfile(caminho_chr):
+                        arquivos_chr.append(caminho_chr)
+
+        # Adiciona quaisquer outros arquivos .chr do diretório ordenados pelos mais recentes
+        outros_chr = [
+            os.path.join(charts_dir, f)
+            for f in os.listdir(charts_dir)
+            if f.lower().endswith(".chr")
+        ]
+        outros_chr.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+        for c in outros_chr:
+            if c not in arquivos_chr:
+                arquivos_chr.append(c)
+
+        simbolos_chr = []
+        for caminho_chr in arquivos_chr:
+            txt_chr = _ler_texto_arquivo_mt5(caminho_chr)
+            m_sym = re.search(r"^symbol\s*=\s*([^\r\n]+)", txt_chr, re.MULTILINE | re.IGNORECASE)
+            if m_sym:
+                simbolos_chr.append(m_sym.group(1).strip().upper())
+
+        # Prioriza gráficos WDO se houver múltiplos gráficos abertos, senão retorna o primeiro gráfico aberto
+        for s in simbolos_chr:
+            if s.startswith("WDO") and mt5.symbol_info(s) is not None:
+                return s
+        for s in simbolos_chr:
+            if mt5.symbol_info(s) is not None:
+                return s
+        if simbolos_chr:
+            return simbolos_chr[0]
+
+        return _obter_simbolo_terminal_ini(data_path)
+    except Exception:
+        return None
+
+
 def detectar_simbolo_ativo():
-    """Detecta automaticamente o contrato mais líquido e ativo no MT5."""
+    """Detecta dinamicamente o ativo do gráfico aberto no MetaTrader 5."""
     if not mt5.initialize():
-        return "WDOX26"
-    candidatos = ["WDOX26", "WDO$", "WDOZ26"]
-    for s in candidatos:
+        return "WDOZ26"
+
+    # 1. Busca direta do gráfico aberto na janela do MetaTrader 5
+    sym_janela = _obter_simbolo_janela_mt5()
+    if sym_janela:
+        return sym_janela
+
+    # 2. Busca no perfil de gráficos abertos (.chr) do MetaTrader 5
+    sym_perfil = _obter_simbolo_perfil_mt5()
+    if sym_perfil:
+        return sym_perfil
+
+    # 3. Fallback dinâmico: busca entre os contratos de WDO disponíveis no MT5 o que possui cotação mais recente
+    simbolos_wdo = mt5.symbols_get(group="*WDO*") or []
+    melhor_sym = None
+    melhor_tempo = -1
+    for s_info in simbolos_wdo:
+        nome = s_info.name
+        if len(nome) == 6 and nome.startswith("WDO") and nome[3].isalpha() and nome[4:].isdigit():
+            tick = mt5.symbol_info_tick(nome)
+            if tick is not None and (tick.bid > 0 or tick.ask > 0 or tick.last > 0):
+                if tick.time >= melhor_tempo:
+                    melhor_tempo = tick.time
+                    melhor_sym = nome
+    if melhor_sym:
+        return melhor_sym
+
+    for s in ["WDOZ26", "WDO$"]:
         info = mt5.symbol_info(s)
         if info is not None:
-            tick = mt5.symbol_info_tick(s)
-            if tick is not None and (tick.bid > 0 or tick.ask > 0 or tick.last > 0):
-                return s
-    return "WDOX26"
+            return s
+    return "WDOZ26"
+
+
+def obter_fechamento_anterior_mt5(sym):
+    """Obtém o fechamento do dia anterior para o símbolo diretamente do MetaTrader 5."""
+    try:
+        info = mt5.symbol_info(sym)
+        if info is not None and info.session_close > 0:
+            return float(info.session_close)
+
+        hoje = datetime.now().date()
+        for candidato in [sym, "WDO$"]:
+            rates = mt5.copy_rates_from_pos(candidato, mt5.TIMEFRAME_D1, 0, 5)
+            if rates is not None and len(rates) > 0:
+                for r in reversed(rates):
+                    dt_candle = datetime.utcfromtimestamp(int(r['time'])).date()
+                    if dt_candle < hoje and r['close'] > 0:
+                        return float(r['close'])
+    except Exception:
+        pass
+    return 0.0
 
 
 def tocar_alerta(tipo="ENTRADA"):
@@ -161,12 +368,19 @@ def carregar_dados_dia_tick(data_alvo):
     if not mt5.initialize():
         return None
 
+    sym = detectar_simbolo_ativo()
+    mt5.symbol_select(sym, True)
+
     d_ini = datetime(data_alvo.year, data_alvo.month, data_alvo.day, 0, 0, 0)
     d_fim = datetime(data_alvo.year, data_alvo.month, data_alvo.day, 23, 59, 59)
 
-    ticks = mt5.copy_ticks_range("WDOX26", d_ini, d_fim, mt5.COPY_TICKS_ALL)
+    ticks = mt5.copy_ticks_range(sym, d_ini, d_fim, mt5.COPY_TICKS_ALL)
     if ticks is None or len(ticks) == 0:
-        ticks = mt5.copy_ticks_range("WDO$", d_ini, d_fim, mt5.COPY_TICKS_ALL)
+        for fallback_sym in ["WDO$", "WDOZ26", "WDOX26"]:
+            if fallback_sym != sym:
+                ticks = mt5.copy_ticks_range(fallback_sym, d_ini, d_fim, mt5.COPY_TICKS_ALL)
+                if ticks is not None and len(ticks) > 0:
+                    break
     mt5.shutdown()
 
     if ticks is None or len(ticks) == 0:
@@ -468,6 +682,7 @@ def executar_tempo_real():
     motivo_encerramento = ""
     ultimo_minuto_impresso = -1
     last_trade_closed_time = None
+    ultima_checa_simbolo = time.time()
 
     h_ini = dtime(CONFIG["HORA_INICIO"][0], CONFIG["HORA_INICIO"][1], 0)
     h_fim = dtime(CONFIG["HORA_FIM"][0], CONFIG["HORA_FIM"][1], 0)
@@ -477,6 +692,15 @@ def executar_tempo_real():
             time.sleep(0.5)
             now = datetime.now()
             t_curr = now.time()
+
+            # Atualiza dinamicamente o código caso o gráfico aberto no MetaTrader mude (quando zerado)
+            if posicao is None and (time.time() - ultima_checa_simbolo) >= 5.0:
+                ultima_checa_simbolo = time.time()
+                novo_sym = _obter_simbolo_janela_mt5() or _obter_simbolo_perfil_mt5()
+                if novo_sym and novo_sym != sym:
+                    sym = novo_sym
+                    mt5.symbol_select(sym, True)
+                    print(f"\n{ANSI_CIANO}🔄 [ATIVO ATUALIZADO] Gráfico aberto no MetaTrader alterado para: {sym}{ANSI_RESET}", flush=True)
 
             ticks = mt5.copy_ticks_range(sym, datetime(now.year, now.month, now.day, 0, 0, 0), now + timedelta(seconds=5), mt5.COPY_TICKS_ALL)
             if ticks is None or len(ticks) == 0:
@@ -522,6 +746,7 @@ def executar_tempo_real():
             tick_info = mt5.symbol_info_tick(sym)
             bid = tick_info.bid if tick_info else last
             ask = tick_info.ask if tick_info else last
+            fechamento_ant = obter_fechamento_anterior_mt5(sym)
 
             # ---------------------------------------------------------
             # 1. Gerenciamento de Posição Aberta
@@ -698,6 +923,7 @@ def executar_tempo_real():
                     "preco_atual": float(last),
                     "bid": float(bid),
                     "ask": float(ask),
+                    "fechamentoAnterior": fechamento_ant,
                     "vwap": float(round(vwap, 2)),
                     "dist_pts": float(round(dist, 2)),
                     "dist_abs": float(round(dist_abs, 2)),
