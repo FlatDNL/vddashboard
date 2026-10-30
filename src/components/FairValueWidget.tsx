@@ -62,9 +62,9 @@ export function FairValueWidget() {
       const res = await fetch('/api/profit-bridge')
       const bridgeData = await res.json()
       
-      if (bridgeData.ajusteAnterior !== undefined && bridgeData.ajusteAnterior !== null) {
+      if (bridgeData.fechamentoAnterior !== undefined && bridgeData.fechamentoAnterior !== null) {
         const now = new Date().toLocaleString('pt-BR')
-        setManualParams(bridgeData.ajusteAnterior, manualDxyPct, bridgeData.fechamentoAnterior || null, now)
+        setManualParams(bridgeData.fechamentoAnterior, manualDxyPct, bridgeData.ajusteAnterior || null, now)
         
         // Dispara o cálculo e o congelamento dos percentuais do Yahoo Finance
         await fetch('/api/fair-value?update=true')

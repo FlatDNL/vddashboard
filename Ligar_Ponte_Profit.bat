@@ -6,7 +6,7 @@ echo   Iniciando Ponte Profit Pro (Modo Silencioso)
 echo ===========================================
 echo.
 
-set PYTHON_EXE=C:\Users\daniel.reis\AppData\Local\Programs\Python\Python313\pythonw.exe
+set PYTHON_EXE=C:\Users\Daniel\AppData\Local\Programs\Python\Python312\pythonw.exe
 
 if exist "%PYTHON_EXE%" (
     start "" "%PYTHON_EXE%" "profit_bridge.py"

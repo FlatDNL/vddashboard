@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 import { Maximize, Minimize, X } from 'lucide-react'
+import { useMarketParamsStore } from '@/store/marketParams'
+import { createClient } from '@/utils/supabase/client'
 
 // Utilidades para formatar números
 const formatPts = (val: number) => (Math.round(val * 2) / 2).toFixed(1).replace('.', ',')
@@ -63,6 +65,9 @@ export default function BloombergTerminal() {
   const [risk, setRisk] = useState<any>(null)
   const [news, setNews] = useState<any[]>([])
   const [aggression, setAggression] = useState<any[]>([])
+  const [fluxoIa, setFluxoIa] = useState<any>(null)
+  const lastRealtimeTs = useRef<number>(0)
+  const { manualFechamento, manualDxyPct } = useMarketParamsStore()
   
   const [nowTimer, setNowTimer] = useState(new Date())
   const [activeModalTime, setActiveModalTime] = useState<string | null>(null)
@@ -114,20 +119,28 @@ export default function BloombergTerminal() {
 
     const fetchData = async () => {
       try {
-        const [quotesRes, fvRes, riskRes, calendarRes, aggRes] = await Promise.all([
+        const fvParams = new URLSearchParams()
+        if (manualFechamento !== null) fvParams.set('base', manualFechamento.toString())
+        if (manualDxyPct !== null) fvParams.set('dxy', manualDxyPct.toString())
+        const fvQuery = fvParams.toString()
+        const fvUrl = fvQuery ? `/api/fair-value?${fvQuery}` : '/api/fair-value'
+
+        const [quotesRes, fvRes, riskRes, calendarRes, aggRes, fluxoRes] = await Promise.all([
           fetch(`/api/quotes?symbols=${SYMBOLS.join(',')}`),
-          fetch('/api/fair-value'),
+          fetch(fvUrl),
           fetch('/api/risk'),
           fetch('/api/calendar'),
-          fetch('/api/aggression-balance')
+          fetch('/api/aggression-balance'),
+          fetch('/api/fluxo-ia')
         ])
 
-        const [quotesData, fvData, riskData, calendarData, aggData] = await Promise.all([
+        const [quotesData, fvData, riskData, calendarData, aggData, fluxoData] = await Promise.all([
           quotesRes.json().catch(() => ({})),
           fvRes.json().catch(() => null),
           riskRes.json().catch(() => null),
           calendarRes.json().catch(() => ({ events: [] })),
-          aggRes.json().catch(() => ({ groups: [], records: [] }))
+          aggRes.json().catch(() => ({ groups: [], records: [] })),
+          fluxoRes.json().catch(() => null)
         ])
 
         if (!isMounted) return
@@ -135,6 +148,9 @@ export default function BloombergTerminal() {
         setQuotes(quotesData)
         setFairValue(fvData)
         setRisk(riskData)
+        if (Date.now() - lastRealtimeTs.current > 3000) {
+          setFluxoIa(fluxoData)
+        }
         
         // News (now Events)
         const eventsList = calendarData?.events || []
@@ -177,11 +193,42 @@ export default function BloombergTerminal() {
 
     fetchData()
     const interval = setInterval(fetchData, 10000)
+
+    // Canal Supabase Realtime Broadcast para receber o Fluxo IA Master online em tempo real
+    const supabase = createClient()
+    const channel = supabase
+      .channel('fluxo_ia')
+      .on('broadcast', { event: 'status' }, (msg) => {
+        if (isMounted && msg?.payload) {
+          lastRealtimeTs.current = Date.now()
+          setFluxoIa({ online: true, ...msg.payload })
+        }
+      })
+      .subscribe()
+
+    // Fallback local de alta frequência caso esteja rodando localmente sem broadcast recente
+    const fluxoFastInterval = setInterval(async () => {
+      if (Date.now() - lastRealtimeTs.current < 3000) {
+        return
+      }
+      try {
+        const res = await fetch('/api/fluxo-ia')
+        if (res.ok && isMounted) {
+          const data = await res.json()
+          if (Date.now() - lastRealtimeTs.current >= 3000) {
+            setFluxoIa(data)
+          }
+        }
+      } catch {}
+    }, 500)
+
     return () => {
       isMounted = false
       clearInterval(interval)
+      clearInterval(fluxoFastInterval)
+      supabase.removeChannel(channel)
     }
-  }, [])
+  }, [manualFechamento, manualDxyPct])
 
   if (loading) {
     return (
@@ -349,28 +396,303 @@ export default function BloombergTerminal() {
               </div>
             </div>
 
-            {/* Participantes */}
+            {/* FLUXO IA MASTER — REVERSÃO INSTITUCIONAL (BLOOMBERG STYLE) */}
             <div className="bg-[#1c1c1c] border border-[#2a2a2a] rounded-md shrink-0 overflow-hidden flex flex-col">
-              <div className="bg-[#2a2a2a] text-sm text-gray-300 px-4 py-1.5 font-bold flex items-center">
-                PARTICIPANTES
-              </div>
-              <div className="p-5 pt-4">
-                <div className="grid grid-cols-3 text-center">
-                  {aggression.length > 0 ? aggression.map((g, i) => (
-                    <div key={i} className="flex flex-col">
-                      <span className="text-base text-gray-300 mb-2">{g.name}</span>
-                      <span className={`text-4xl font-bold tracking-tight ${g.value > 0 ? 'text-[#22c55e]' : g.value < 0 ? 'text-[#ef4444]' : 'text-gray-500'}`}>
-                        {g.value > 0 ? '+' : ''}{g.value.toLocaleString('pt-BR')} {g.value > 0 ? '↑' : g.value < 0 ? '↓' : ''}
-                      </span>
-                    </div>
-                  )) : (
-                    <>
-                      <div className="flex flex-col"><span className="text-base text-gray-300 mb-2">ESTRANGEIROS</span><span className="text-gray-500 text-4xl font-bold">---</span></div>
-                      <div className="flex flex-col"><span className="text-base text-gray-300 mb-2">BANCOS</span><span className="text-gray-500 text-4xl font-bold">---</span></div>
-                      <div className="flex flex-col"><span className="text-base text-gray-300 mb-2">VAREJO</span><span className="text-gray-500 text-4xl font-bold">---</span></div>
-                    </>
-                  )}
+              <div className="bg-[#2a2a2a] text-sm text-gray-300 px-4 py-1.5 font-bold flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span>🤖 FLUXO IA MASTER // REVERSÃO VWAP</span>
+                  <span className="text-[11px] text-gray-400 font-normal">[{fluxoIa?.ativo || 'WDO'}]</span>
                 </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-gray-400">
+                    VWAP: {fluxoIa?.vwap ? formatPts(fluxoIa.vwap) : '---'} | DIST: {fluxoIa?.dist_pts !== undefined ? `${fluxoIa.dist_pts > 0 ? '+' : ''}${formatPts(fluxoIa.dist_pts)}` : '---'} | Z: {fluxoIa?.z_score !== undefined ? `${fluxoIa.z_score > 0 ? '+' : ''}${fluxoIa.z_score.toFixed(2)}σ` : '---'}
+                  </span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
+                    fluxoIa?.online ? 'bg-emerald-950 text-[#22c55e] border border-emerald-800' : 'bg-gray-800 text-gray-500'
+                  }`}>
+                    {fluxoIa?.online ? 'MT5 LIVE' : 'MT5 OFFLINE'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-3.5 px-4 flex flex-col gap-3">
+                {/* 1. SEÇÃO FORÇA DE AGRESSÃO + CRITÉRIOS DE VALIDAÇÃO (CHECKLIST) */}
+                {(() => {
+                  const d10 = fluxoIa?.delta_10s ?? 0
+                  const d30 = fluxoIa?.delta_30s ?? 0
+                  const distAbs = fluxoIa?.dist_abs ?? 0
+                  const distPts = fluxoIa?.dist_pts ?? 0
+                  const zScore = fluxoIa?.z_score ?? 0
+                  const inCooldown = fluxoIa?.em_cooldown ?? false
+                  const cooldownSec = fluxoIa?.cooldown_restante_seg ?? 0
+
+                  // Normalização da barra de força (escala até +-400 contratos de D10s)
+                  const maxLimit = 350
+                  const clampedD10 = Math.max(-maxLimit, Math.min(maxLimit, d10))
+                  const pctVenda = clampedD10 < 0 ? (Math.abs(clampedD10) / maxLimit) * 100 : 0
+                  const pctCompra = clampedD10 > 0 ? (clampedD10 / maxLimit) * 100 : 0
+
+                  // Checklist 1: Afastamento VWAP (Esperado: 10 a 22 pts)
+                  let vwapStatus: 'green' | 'yellow' | 'red' = 'red'
+                  let vwapLabel = `${distPts > 0 ? '+' : ''}${formatPts(distPts)} pts`
+                  if (distAbs >= 10.0 && distAbs <= 22.0) {
+                    vwapStatus = 'green'
+                  } else if ((distAbs >= 7.0 && distAbs < 10.0) || (distAbs > 22.0 && distAbs <= 26.0)) {
+                    vwapStatus = 'yellow'
+                  }
+
+                  // Checklist 2: Z-Score (Esperado: |Z| >= 1.80)
+                  let zStatus: 'green' | 'yellow' | 'red' = 'red'
+                  const absZ = Math.abs(zScore)
+                  if (absZ >= 1.8) {
+                    zStatus = 'green'
+                  } else if (absZ >= 1.3) {
+                    zStatus = 'yellow'
+                  }
+
+                  // Checklist 3: D10s Agressão Reação (Esperado: |D10| >= 100 no sentido correto)
+                  // Se zScore > 0 estamos na máxima (espera venda: D10 <= -100). Se zScore < 0 estamos na mínima (espera compra: D10 >= 100).
+                  let d10Status: 'green' | 'yellow' | 'red' = 'red'
+                  if (zScore > 0) {
+                    if (d10 <= -100) d10Status = 'green'
+                    else if (d10 < -25) d10Status = 'yellow'
+                  } else if (zScore < 0) {
+                    if (d10 >= 100) d10Status = 'green'
+                    else if (d10 > 25) d10Status = 'yellow'
+                  } else {
+                    if (Math.abs(d10) >= 100) d10Status = 'yellow'
+                  }
+
+                  // Checklist 4: D30s Filtro Institucional (Não pode ter agressão contra > 500)
+                  let d30Status: 'green' | 'yellow' | 'red' = 'green'
+                  if (zScore > 0 && d30 >= 500) d30Status = 'red'
+                  else if (zScore < 0 && d30 <= -500) d30Status = 'red'
+                  else if (zScore > 0 && d30 >= 250) d30Status = 'yellow'
+                  else if (zScore < 0 && d30 <= -250) d30Status = 'yellow'
+
+                  // Checklist 5: Cooldown
+                  let cdStatus: 'green' | 'yellow' | 'red' = inCooldown ? 'yellow' : 'green'
+
+                  const badgeClass = (st: 'green' | 'yellow' | 'red') => {
+                    if (st === 'green') return 'bg-emerald-950/70 border-emerald-500/80 text-emerald-300'
+                    if (st === 'yellow') return 'bg-amber-950/70 border-amber-500/80 text-amber-300'
+                    return 'bg-rose-950/60 border-rose-800/80 text-rose-300'
+                  }
+
+                  const dotClass = (st: 'green' | 'yellow' | 'red') => {
+                    if (st === 'green') return 'bg-emerald-400 shadow-[0_0_8px_#22c55e]'
+                    if (st === 'yellow') return 'bg-amber-400 shadow-[0_0_8px_#f59e0b]'
+                    return 'bg-rose-500 shadow-[0_0_6px_#ef4444]'
+                  }
+
+                  return (
+                    <div className="flex flex-col gap-2.5">
+                      {/* BARRA DE FORÇA DE AGRESSÃO BIPOLAR */}
+                      <div className="bg-[#121212] border border-[#2d2d2d] rounded-lg p-2.5 flex flex-col gap-1.5 shadow-inner">
+                        <div className="flex justify-between items-center text-[11px] font-bold">
+                          <div className="flex items-center gap-1.5 text-rose-400">
+                            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                            <span>AGRESSÃO VENDEDORA</span>
+                            {d10 < 0 && (
+                              <span className="font-mono text-sm font-black ml-1 text-rose-300">
+                                {d10} cnt
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="text-center font-mono text-[10px] text-gray-400">
+                            DELTA 10s: <strong className={d10 > 0 ? 'text-emerald-400 font-bold' : d10 < 0 ? 'text-rose-400 font-bold' : 'text-gray-300'}>{d10 > 0 ? `+${d10}` : d10}</strong> | D30s: <strong className={d30 > 0 ? 'text-emerald-400' : d30 < 0 ? 'text-rose-400' : 'text-gray-400'}>{d30 > 0 ? `+${d30}` : d30}</strong>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 text-emerald-400">
+                            {d10 > 0 && (
+                              <span className="font-mono text-sm font-black mr-1 text-emerald-300">
+                                +{d10} cnt
+                              </span>
+                            )}
+                            <span>AGRESSÃO COMPRADORA</span>
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                          </div>
+                        </div>
+
+                        {/* Barra com divisor central neutro */}
+                        <div className="h-4 bg-[#1f1f1f] rounded relative flex overflow-hidden border border-[#333]">
+                          {/* Lado Vendedor (da metade para a esquerda) */}
+                          <div className="w-1/2 h-full flex justify-end bg-[#161616] relative border-r border-[#444]">
+                            <div
+                              className="h-full bg-gradient-to-l from-rose-600 to-rose-400 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(244,63,94,0.5)]"
+                              style={{ width: `${pctVenda}%` }}
+                            />
+                            {/* Marca de gatilho 100 contratos */}
+                            <div
+                              className="absolute top-0 bottom-0 border-l border-dashed border-rose-300/40"
+                              style={{ right: `${(100 / maxLimit) * 100}%` }}
+                              title="Gatilho 100 contratos"
+                            />
+                          </div>
+
+                          {/* Lado Comprador (da metade para a direita) */}
+                          <div className="w-1/2 h-full flex justify-start bg-[#161616] relative">
+                            {/* Marca de gatilho 100 contratos */}
+                            <div
+                              className="absolute top-0 bottom-0 border-r border-dashed border-emerald-300/40"
+                              style={{ left: `${(100 / maxLimit) * 100}%` }}
+                              title="Gatilho 100 contratos"
+                            />
+                            <div
+                              className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                              style={{ width: `${pctCompra}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* QUADRADOS / BADGES DE CHECKLIST OPERACIONAL */}
+                      <div className="grid grid-cols-5 gap-2">
+                        {/* 1. DISTÂNCIA VWAP */}
+                        <div className={`border rounded p-2 flex flex-col justify-between transition-all ${badgeClass(vwapStatus)}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-300">Afast. VWAP</span>
+                            <span className={`w-2.5 h-2.5 rounded-sm ${dotClass(vwapStatus)}`} />
+                          </div>
+                          <span className="text-sm font-mono font-black mt-1">{vwapLabel}</span>
+                          <span className="text-[9px] text-gray-400">Meta: 10 - 22 pts</span>
+                        </div>
+
+                        {/* 2. Z-SCORE */}
+                        <div className={`border rounded p-2 flex flex-col justify-between transition-all ${badgeClass(zStatus)}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-300">Fator Z (σ)</span>
+                            <span className={`w-2.5 h-2.5 rounded-sm ${dotClass(zStatus)}`} />
+                          </div>
+                          <span className="text-sm font-mono font-black mt-1">
+                            {zScore !== undefined ? `${zScore > 0 ? '+' : ''}${zScore.toFixed(2)}σ` : '---'}
+                          </span>
+                          <span className="text-[9px] text-gray-400">Meta: |Z| ≥ 1.80</span>
+                        </div>
+
+                        {/* 3. DELTA 10s */}
+                        <div className={`border rounded p-2 flex flex-col justify-between transition-all ${badgeClass(d10Status)}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-300">Delta 10s</span>
+                            <span className={`w-2.5 h-2.5 rounded-sm ${dotClass(d10Status)}`} />
+                          </div>
+                          <span className="text-sm font-mono font-black mt-1">
+                            {d10 !== undefined ? `${d10 > 0 ? '+' : ''}${d10}` : '---'}
+                          </span>
+                          <span className="text-[9px] text-gray-400">Gatilho: ≥ 100 cnt</span>
+                        </div>
+
+                        {/* 4. DELTA 30s */}
+                        <div className={`border rounded p-2 flex flex-col justify-between transition-all ${badgeClass(d30Status)}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-300">Filtro D30s</span>
+                            <span className={`w-2.5 h-2.5 rounded-sm ${dotClass(d30Status)}`} />
+                          </div>
+                          <span className="text-sm font-mono font-black mt-1">
+                            {d30 !== undefined ? `${d30 > 0 ? '+' : ''}${d30}` : '---'}
+                          </span>
+                          <span className="text-[9px] text-gray-400">Sem barreira contra</span>
+                        </div>
+
+                        {/* 5. COOLDOWN / STATUS */}
+                        <div className={`border rounded p-2 flex flex-col justify-between transition-all ${badgeClass(cdStatus)}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-300">Repique/Cooldown</span>
+                            <span className={`w-2.5 h-2.5 rounded-sm ${dotClass(cdStatus)}`} />
+                          </div>
+                          <span className="text-sm font-mono font-black mt-1">
+                            {inCooldown ? `${cooldownSec}s` : 'LIBERADO'}
+                          </span>
+                          <span className="text-[9px] text-gray-400">{inCooldown ? 'Em pausa técnica' : 'Pronto para entrada'}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })()}
+
+                {/* Linha de Status Principal */}
+                <div className="flex items-center justify-between pt-1 border-t border-[#252525]">
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-400 text-xs tracking-wider">ESTADO DO GATILHO:</span>
+                    {(() => {
+                      const st = fluxoIa?.estado || 'NEUTRO'
+                      if (st === 'PREPARAR_COMPRA') {
+                        return (
+                          <div className="px-3 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/50 rounded font-black text-sm tracking-wide animate-pulse">
+                            ⚠️ PREPARAR COMPRA (EXAUSTÃO VENDEDORA)
+                          </div>
+                        )
+                      }
+                      if (st === 'PREPARAR_VENDA') {
+                        return (
+                          <div className="px-3 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/50 rounded font-black text-sm tracking-wide animate-pulse">
+                            ⚠️ PREPARAR VENDA (EXAUSTÃO COMPRADORA)
+                          </div>
+                        )
+                      }
+                      if (st === 'COMPRA' || (st === 'EM_OPERACAO' && fluxoIa?.sinal?.tipo === 'COMPRA')) {
+                        return (
+                          <div className="px-3 py-1 bg-emerald-500/20 text-[#22c55e] border border-emerald-500 rounded font-black text-sm tracking-wide shadow-[0_0_12px_rgba(34,197,94,0.3)]">
+                            ⚡ COMPRA CONFIRMADA (GATILHO ATIVO)
+                          </div>
+                        )
+                      }
+                      if (st === 'VENDA' || (st === 'EM_OPERACAO' && fluxoIa?.sinal?.tipo === 'VENDA')) {
+                        return (
+                          <div className="px-3 py-1 bg-rose-500/20 text-[#ef4444] border border-rose-500 rounded font-black text-sm tracking-wide shadow-[0_0_12px_rgba(239,68,68,0.3)]">
+                            ⚡ VENDA CONFIRMADA (GATILHO ATIVO)
+                          </div>
+                        )
+                      }
+                      if (st === 'COOLDOWN') {
+                        return (
+                          <div className="px-3 py-1 bg-blue-950 text-blue-400 border border-blue-800 rounded font-bold text-xs tracking-wide">
+                            ⏱️ COOLDOWN ({fluxoIa?.cooldown_restante_seg || 0}s)
+                          </div>
+                        )
+                      }
+                      return (
+                        <div className="px-3 py-1 bg-[#252525] text-gray-400 border border-[#3a3a3a] rounded font-bold text-xs tracking-wide">
+                          ⚪ NEUTRO (MONITORANDO FAIXA VWAP)
+                        </div>
+                      )
+                    })()}
+                  </div>
+
+                  <div className="text-xs text-gray-400 flex items-center gap-2">
+                    <span>PREÇO ATUAL: <strong className="text-white font-mono">{fluxoIa?.preco_atual ? formatPts(fluxoIa.preco_atual) : '---'}</strong></span>
+                    <span className="text-gray-600">|</span>
+                    <span>TICK: {fluxoIa?.updatedAtStr ?? '---'}</span>
+                  </div>
+                </div>
+
+                {/* Parâmetros Operacionais (Entrada, Stop, Alvo) */}
+                {fluxoIa?.sinal && (fluxoIa.estado?.startsWith('PREPARAR') || fluxoIa.estado === 'COMPRA' || fluxoIa.estado === 'VENDA' || fluxoIa.estado === 'EM_OPERACAO') ? (
+                  <div className="grid grid-cols-4 gap-2 bg-[#141414] border border-[#333] rounded p-2.5 text-center mt-0.5">
+                    <div>
+                      <span className="text-[10px] text-gray-400 font-bold block">ENTRADA REF</span>
+                      <span className="text-lg font-black text-white">{formatPts(fluxoIa.sinal.entrada)}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-[#ef4444] font-bold block">STOP LOSS (-{fluxoIa.sinal.pts_stop} PTS)</span>
+                      <span className="text-lg font-black text-[#ef4444]">{formatPts(fluxoIa.sinal.stop)}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-emerald-400 font-bold block">PARCIAL (+{fluxoIa.sinal.pts_parcial} PTS)</span>
+                      <span className="text-lg font-black text-emerald-400">{formatPts(fluxoIa.sinal.parcial)}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-[#22c55e] font-bold block">ALVO FINAL (+{fluxoIa.sinal.pts_alvo} PTS)</span>
+                      <span className="text-lg font-black text-[#22c55e]">{formatPts(fluxoIa.sinal.alvo)}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-[11px] text-gray-500 flex justify-between items-center border-t border-[#252525] pt-1">
+                    <span>GESTÃO: STOP 8.0 PTS | PARCIAL +5.0 PTS (MOVE PARA 0.0) | ALVO +10.0 PTS</span>
+                    <span>{fluxoIa?.updatedAtStr ? `ÚLTIMO TICK: ${fluxoIa.updatedAtStr}` : ''}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -443,27 +765,27 @@ export default function BloombergTerminal() {
               </div>
 
               {/* Preço / Níveis */}
-              <div className="col-span-4 bg-[#1c1c1c] border border-[#2a2a2a] rounded-md flex flex-col justify-center overflow-hidden">
+              <div className="col-span-4 bg-[#1c1c1c] border border-[#2a2a2a] rounded-md flex flex-col min-h-0 overflow-hidden">
                 <div className="bg-[#2a2a2a] text-sm text-gray-300 px-4 py-1.5 font-bold flex items-center gap-2 shrink-0">
                   💰 PREÇO / NÍVEIS
                 </div>
-                <div className="p-4 flex-1 flex flex-col justify-center">
-                  <div className="flex flex-col gap-5 text-base font-mono">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-400 tracking-widest">JUSTO</span>
-                      <span className="text-gray-200 font-bold text-2xl">{fairValue?.justo ? formatPts(fairValue.justo) : '---'}</span>
+                <div className="px-4 py-2.5 flex-1 flex flex-col justify-between min-h-0 overflow-y-auto">
+                  <div className="flex flex-col justify-evenly h-full gap-1.5 text-sm xl:text-base font-mono">
+                    <div className="flex justify-between items-center gap-2">
+                      <span className="text-gray-400 tracking-wider text-xs xl:text-sm">JUSTO</span>
+                      <span className="text-gray-200 font-bold text-lg xl:text-xl leading-tight">{fairValue?.justo ? formatPts(fairValue.justo) : '---'}</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-400 tracking-widest">JUSTÍSSIMO</span>
-                      <span className="text-gray-200 font-bold text-2xl">{fairValue?.justissimo ? formatPts(fairValue.justissimo) : '---'}</span>
+                    <div className="flex justify-between items-center gap-2">
+                      <span className="text-gray-400 tracking-wider text-xs xl:text-sm">JUSTÍSSIMO</span>
+                      <span className="text-gray-200 font-bold text-lg xl:text-xl leading-tight">{fairValue?.justissimo ? formatPts(fairValue.justissimo) : '---'}</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-400 tracking-widest">MÁXIMA</span>
-                      <span className="text-[#ef4444] font-bold text-2xl">{fairValue?.maxima ? formatPts(fairValue.maxima) : '---'}</span>
+                    <div className="flex justify-between items-center gap-2">
+                      <span className="text-gray-400 tracking-wider text-xs xl:text-sm">MÁXIMA</span>
+                      <span className="text-[#ef4444] font-bold text-lg xl:text-xl leading-tight">{fairValue?.maxima ? formatPts(fairValue.maxima) : '---'}</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-400 tracking-widest">MÍNIMA</span>
-                      <span className="text-[#22c55e] font-bold text-2xl">{fairValue?.minima ? formatPts(fairValue.minima) : '---'}</span>
+                    <div className="flex justify-between items-center gap-2">
+                      <span className="text-gray-400 tracking-wider text-xs xl:text-sm">MÍNIMA</span>
+                      <span className="text-[#22c55e] font-bold text-lg xl:text-xl leading-tight">{fairValue?.minima ? formatPts(fairValue.minima) : '---'}</span>
                     </div>
                   </div>
                 </div>

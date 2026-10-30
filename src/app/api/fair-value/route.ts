@@ -4,12 +4,66 @@ import fs from 'fs'
 import path from 'path'
 
 const yahooFinance = new YahooFinance()
+
+async function get0850Snapshot(yahooFinance: any) {
+  const CACHE_FILE = path.join(process.cwd(), 'snapshot_0850.json')
+  
+  // Create a date string representing today in BRT
+  const now = new Date()
+  const brtTime = new Date(now.getTime() - (3 * 60 * 60 * 1000))
+  const today = brtTime.toISOString().split('T')[0]
+  
+  try {
+    if (fs.existsSync(CACHE_FILE)) {
+      const cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'))
+      if (cache.date === today && cache['BRL=X']) {
+        return cache;
+      }
+    }
+  } catch(e) {}
+
+  try {
+    const symbols = ['BRL=X', 'DX-Y.NYB', 'MXN=X', 'ZAR=X', 'CLP=X']
+    const snapshot: any = { date: today }
+    
+    for (const sym of symbols) {
+      const res = await yahooFinance.chart(sym, { interval: '5m', range: '1d' })
+      let targetClose = null;
+      if (res.quotes && res.quotes.length > 0) {
+         const sorted = res.quotes.sort((a: any, b: any) => b.date.getTime() - a.date.getTime())
+         for (const q of sorted) {
+            const h = q.date.getUTCHours()
+            const m = q.date.getUTCMinutes()
+            // 08:50 BRT is usually 11:50 UTC
+            if (h < 11 || (h === 11 && m <= 50)) {
+               targetClose = q.close || q.open
+               break
+            }
+         }
+         if (!targetClose) targetClose = res.quotes[0].close || res.quotes[0].open
+      }
+      snapshot[sym] = targetClose
+    }
+    
+    // Only cache it if it's PAST 08:50 BRT (so we don't freeze early prices as the 08:50 snapshot)
+    if (brtTime.getHours() > 8 || (brtTime.getHours() === 8 && brtTime.getMinutes() >= 50)) {
+      fs.writeFileSync(CACHE_FILE, JSON.stringify(snapshot), 'utf8')
+    }
+    
+    return snapshot
+  } catch(e) {
+    console.error("Snapshot error:", e)
+    return null;
+  }
+}
+
 export const revalidate = 0
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const isUpdate = searchParams.get('update') === 'true'
+    const manualDxy = searchParams.get('dxy')
     
     const baselinePath = path.join(process.cwd(), 'fair_value_baseline.json')
     let dxyPct = 0
@@ -25,33 +79,46 @@ export async function GET(req: Request) {
       data[q.symbol] = {
         price: q.regularMarketPrice,
         prev: q.regularMarketPreviousClose,
-        pct: q.regularMarketChangePercent
+        pct: q.regularMarketChangePercent,
+        high: q.regularMarketDayHigh,
+        low: q.regularMarketDayLow
       }
     })
 
     const brlPrice = data['BRL=X']?.price || 5.400
 
-    // Se pediu update, salva no JSON as variações percentuais da madrugada
-    if (isUpdate) {
-      dxyPct = data['DX-Y.NYB']?.pct || 0
-      spotPct = data['BRL=X']?.pct || 0
-      
-      const mxn = data['MXN=X']?.pct || 0
-      const zar = data['ZAR=X']?.pct || 0
-      const clp = data['CLP=X']?.pct || 0
-      emAvg = (mxn + zar + clp) / 3
+    const liveDxyPct = data['DX-Y.NYB']?.pct || 0
+    const liveSpotPct = data['BRL=X']?.pct || 0
+    const mxn = data['MXN=X']?.pct || 0
+    const zar = data['ZAR=X']?.pct || 0
+    const clp = data['CLP=X']?.pct || 0
+    const liveEmAvg = (mxn + zar + clp) / 3
 
+    // Usa cotação ao vivo como padrão e atualiza o baseline caso solicitado ou se for de outro dia
+    dxyPct = liveDxyPct
+    spotPct = liveSpotPct
+    emAvg = liveEmAvg
+
+    if (isUpdate) {
       fs.writeFileSync(baselinePath, JSON.stringify({ dxyPct, spotPct, emAvg, timestamp: Date.now() }))
-    } else {
-      // Se não pediu update, lê as variações congeladas da última atualização
-      if (fs.existsSync(baselinePath)) {
-        try {
-          const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
-          dxyPct = baseline.dxyPct || 0
-          spotPct = baseline.spotPct || 0
-          emAvg = baseline.emAvg || 0
-        } catch (e) {}
-      }
+    } else if (fs.existsSync(baselinePath)) {
+      try {
+        const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
+        const baselineDate = baseline.timestamp ? new Date(baseline.timestamp).toDateString() : ''
+        const todayDate = new Date().toDateString()
+        if (baselineDate === todayDate) {
+          dxyPct = baseline.dxyPct ?? liveDxyPct
+          spotPct = baseline.spotPct ?? liveSpotPct
+          emAvg = baseline.emAvg ?? liveEmAvg
+        } else {
+          // Atualiza o baseline antigo automaticamente para o dia atual com os dados ao vivo
+          fs.writeFileSync(baselinePath, JSON.stringify({ dxyPct, spotPct, emAvg, timestamp: Date.now() }))
+        }
+      } catch (e) {}
+    }
+
+    if (manualDxy !== null && !isNaN(parseFloat(manualDxy))) {
+      dxyPct = parseFloat(manualDxy)
     }
 
     // Leitura do status da planilha local (Ajuste/Fechamento)
@@ -67,19 +134,25 @@ export async function GET(req: Request) {
       }
     } catch (e) {}
 
+    const manualBase = searchParams.get('base')
+
     // 1. Base Inicial (Fechamento e Ajuste da Planilha)
-    const fechamentoAnterior = rtdFechamento || 5400
+    let fechamentoAnterior = rtdFechamento || 5400
+    if (manualBase !== null && !isNaN(parseFloat(manualBase))) {
+      fechamentoAnterior = parseFloat(manualBase)
+    }
     const ajusteAnterior = rtdAjuste || fechamentoAnterior
 
-    // 2. Dólar Projetado (Variação percentual sobre o Fechamento)
-    // Justo = Projeção do Fechamento pela variação do Spot (BRL=X)
-    const justo = fechamentoAnterior * (1 + (spotPct / 100))
+    // 2. Dólar Projetado (Preço Justo) de acordo com o PDF do Frajola
+    // O PDF manda usar a variação do DXY para projetar a abertura do dólar local
+    const justo = fechamentoAnterior * (1 + (dxyPct / 100))
     
-    // Justíssimo = Projeção do Fechamento pela variação do DXY
-    const justissimo = fechamentoAnterior * (1 + (dxyPct / 100))
+    // Justíssimo = Variação pelo Spot (BRL=X) para servir de referência secundária
+    const justissimo = fechamentoAnterior * (1 + (spotPct / 100))
 
-    // 3. Faixa da Madrugada (Máxima e Mínima Estimadas)
-    const maxima = justo + 33.5
+    // 3. Conversão da Faixa da Madrugada (Máxima e Mínima)
+    // Conforme sua instrução, a Máxima e Mínima são +34 e -34 pontos em relação ao Justo.
+    const maxima = justo + 34.0
     const minima = justo - 34.0
 
     const atual = brlPrice * 1000

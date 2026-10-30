@@ -4,6 +4,7 @@ import { FairValueWidget } from '@/components/FairValueWidget'
 import { AggressionChartWidget } from '@/components/AggressionChartWidget'
 import { RightSidebar } from '@/components/RightSidebar'
 
+import { FluxoIAWidget } from '@/components/FluxoIAWidget'
 import { FullscreenWrapper } from '@/components/FullscreenWrapper'
 
 export default async function DashboardPage() {
@@ -18,8 +19,9 @@ export default async function DashboardPage() {
           <AggressionChartWidget />
         </div>
 
-        {/* Coluna 2 (Direita): Preço Justo em cima, Risk embaixo */}
+        {/* Coluna 2 (Direita): Fluxo IA, Preço Justo e Risco */}
         <div className="flex flex-col gap-4 w-full">
+          <FluxoIAWidget />
           <FairValueWidget />
           <RiskChartWidget />
         </div>
