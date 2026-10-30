@@ -426,11 +426,18 @@ export default function BloombergTerminal() {
                   const inCooldown = fluxoIa?.em_cooldown ?? false
                   const cooldownSec = fluxoIa?.cooldown_restante_seg ?? 0
 
-                  // Normalização da barra de força (escala até +-400 contratos de D10s)
-                  const maxLimit = 350
+                  // Normalização da barra de força (escala até +-5000 contratos)
+                  const maxLimit = 5000
                   const clampedD10 = Math.max(-maxLimit, Math.min(maxLimit, d10))
                   const pctVenda = clampedD10 < 0 ? (Math.abs(clampedD10) / maxLimit) * 100 : 0
                   const pctCompra = clampedD10 > 0 ? (clampedD10 / maxLimit) * 100 : 0
+
+                  const clampedD30 = Math.max(-maxLimit, Math.min(maxLimit, d30))
+                  const pctVenda30 = clampedD30 < 0 ? (Math.abs(clampedD30) / maxLimit) * 100 : 0
+                  const pctCompra30 = clampedD30 > 0 ? (clampedD30 / maxLimit) * 100 : 0
+
+                  const isD10Neutral = d10 >= -100 && d10 <= 100
+                  const isD30Neutral = d30 >= -500 && d30 <= 500
 
                   // Checklist 1: Afastamento VWAP (Esperado: 10 a 22 pts)
                   let vwapStatus: 'green' | 'yellow' | 'red' = 'red'
@@ -515,34 +522,87 @@ export default function BloombergTerminal() {
                           </div>
                         </div>
 
-                        {/* Barra com divisor central neutro */}
-                        <div className="h-4 bg-[#1f1f1f] rounded relative flex overflow-hidden border border-[#333]">
-                          {/* Lado Vendedor (da metade para a esquerda) */}
-                          <div className="w-1/2 h-full flex justify-end bg-[#161616] relative border-r border-[#444]">
-                            <div
-                              className="h-full bg-gradient-to-l from-rose-600 to-rose-400 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(244,63,94,0.5)]"
-                              style={{ width: `${pctVenda}%` }}
-                            />
-                            {/* Marca de gatilho 100 contratos */}
-                            <div
-                              className="absolute top-0 bottom-0 border-l border-dashed border-rose-300/40"
-                              style={{ right: `${(100 / maxLimit) * 100}%` }}
-                              title="Gatilho 100 contratos"
-                            />
-                          </div>
+                        {/* Barra D10s com divisor central neutro */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono font-bold text-gray-500 w-7 shrink-0">D10S</span>
+                          <div className="h-3.5 flex-1 bg-[#1f1f1f] rounded relative flex overflow-hidden border border-[#333]">
+                            {/* Lado Vendedor (da metade para a esquerda) */}
+                            <div className="w-1/2 h-full flex justify-end bg-[#161616] relative border-r border-[#444]">
+                              <div
+                                className={`h-full transition-all duration-300 ease-out ${
+                                  isD10Neutral
+                                    ? 'bg-gradient-to-l from-amber-500 to-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]'
+                                    : 'bg-gradient-to-l from-rose-600 to-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.5)]'
+                                }`}
+                                style={{ width: `${pctVenda}%` }}
+                              />
+                              {/* Marca de gatilho 100 contratos */}
+                              <div
+                                className="absolute top-0 bottom-0 border-l border-dashed border-rose-300/40"
+                                style={{ right: `${(100 / maxLimit) * 100}%` }}
+                                title="Gatilho 100 contratos"
+                              />
+                            </div>
 
-                          {/* Lado Comprador (da metade para a direita) */}
-                          <div className="w-1/2 h-full flex justify-start bg-[#161616] relative">
-                            {/* Marca de gatilho 100 contratos */}
-                            <div
-                              className="absolute top-0 bottom-0 border-r border-dashed border-emerald-300/40"
-                              style={{ left: `${(100 / maxLimit) * 100}%` }}
-                              title="Gatilho 100 contratos"
-                            />
-                            <div
-                              className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(16,185,129,0.5)]"
-                              style={{ width: `${pctCompra}%` }}
-                            />
+                            {/* Lado Comprador (da metade para a direita) */}
+                            <div className="w-1/2 h-full flex justify-start bg-[#161616] relative">
+                              {/* Marca de gatilho 100 contratos */}
+                              <div
+                                className="absolute top-0 bottom-0 border-r border-dashed border-emerald-300/40"
+                                style={{ left: `${(100 / maxLimit) * 100}%` }}
+                                title="Gatilho 100 contratos"
+                              />
+                              <div
+                                className={`h-full transition-all duration-300 ease-out ${
+                                  isD10Neutral
+                                    ? 'bg-gradient-to-r from-amber-500 to-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]'
+                                    : 'bg-gradient-to-r from-emerald-600 to-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                                }`}
+                                style={{ width: `${pctCompra}%` }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Barra D30s com divisor central neutro */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono font-bold text-gray-500 w-7 shrink-0">D30S</span>
+                          <div className="h-3.5 flex-1 bg-[#1f1f1f] rounded relative flex overflow-hidden border border-[#333]">
+                            {/* Lado Vendedor (da metade para a esquerda) */}
+                            <div className="w-1/2 h-full flex justify-end bg-[#161616] relative border-r border-[#444]">
+                              <div
+                                className={`h-full transition-all duration-300 ease-out ${
+                                  isD30Neutral
+                                    ? 'bg-gradient-to-l from-amber-500 to-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]'
+                                    : 'bg-gradient-to-l from-rose-700 to-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]'
+                                }`}
+                                style={{ width: `${pctVenda30}%` }}
+                              />
+                              {/* Marca de filtro 500 contratos */}
+                              <div
+                                className="absolute top-0 bottom-0 border-l border-dashed border-rose-300/40"
+                                style={{ right: `${(500 / maxLimit) * 100}%` }}
+                                title="Filtro 500 contratos"
+                              />
+                            </div>
+
+                            {/* Lado Comprador (da metade para a direita) */}
+                            <div className="w-1/2 h-full flex justify-start bg-[#161616] relative">
+                              {/* Marca de filtro 500 contratos */}
+                              <div
+                                className="absolute top-0 bottom-0 border-r border-dashed border-emerald-300/40"
+                                style={{ left: `${(500 / maxLimit) * 100}%` }}
+                                title="Filtro 500 contratos"
+                              />
+                              <div
+                                className={`h-full transition-all duration-300 ease-out ${
+                                  isD30Neutral
+                                    ? 'bg-gradient-to-r from-amber-500 to-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]'
+                                    : 'bg-gradient-to-r from-emerald-700 to-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                }`}
+                                style={{ width: `${pctCompra30}%` }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
